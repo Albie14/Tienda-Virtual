@@ -6,91 +6,108 @@ const botonTotal = document.getElementById('totalCarrito');
 
 cargarEventListener();
 
-function cargarEventListener(){
+let productosCarrito = [];
+
+function cargarEventListener() {
     elementos1.addEventListener('click', comprarElemento);
     carrito.addEventListener('click', eliminarElemento);
     vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
-
 }
 
-
-function comprarElemento(e){
+function comprarElemento(e) {
     e.preventDefault();
-    if(e.target.classList.contains('agregar-carrito')){
+    if (e.target.classList.contains('agregar-carrito')) {
         const elemento = e.target.parentElement.parentElement;
         leerDatosElemento(elemento);
     }
 }
 
-function leerDatosElemento(elemento){
+function leerDatosElemento(elemento) {
     const infoElemento = {
         imagen: elemento.querySelector('img').src,
         titulo: elemento.querySelector('h3').textContent,
-        precio: elemento.querySelector('.precio').textContent,
+        precio: parseFloat(elemento.querySelector('.precio').textContent.replace('$', '')),
         id: parseInt(elemento.querySelector('a').getAttribute('data-id')),
     }
-    insertarCarrito(infoElemento);
-}   
+    actulizarCarrito(infoElemento);
+}
 
+function actulizarCarrito(elemento) {
+    // Agregar producto al array del carrito
+    productosCarrito.push(elemento);
 
-function insertarCarrito(elemento){
-    const row = document.createElement('tr');
-    row.innerHTML = `
-        <td>
-            <img src="${elemento.imagen}" width=100>
-        </td>
-        <td>
-            ${elemento.titulo}
-        </td>
-        <td>
-            ${elemento.precio}
-        </td>
-        <td>
-            <a href='#' class="borrar" data-id="${elemento.id}">X</a>
-        </td>
-    `;
-    
-    lista.appendChild(row);
-}       
+    // Actulizar el carrito
+    insertarElemento();
 
+    // Actualizar el total
+    actualizarTotal();
+}
 
-function eliminarElemento(e){
+function eliminarElemento(e) {
     e.preventDefault();
-    let elemento,
-        elementoId;
-    if(e.target.classList.contains('borrar')){
-        e.target.parentElement.parentElement.remove();
-        elemento = e.target.parentElement.parentElement;
-        elementoId = elemento.querySelector('a').getAttribute('data-id');
+    if (e.target.classList.contains('borrar')) {
+        const elementoId = parseInt(e.target.getAttribute('data-id'));
+        // Eliminar del array por id
+        productosCarrito = productosCarrito.filter(producto => producto.id !== elementoId);
+
+        // actulizar el carrito
+        insertarElemento();
+
+        // Actualizar el total
+        actualizarTotal();
     }
 }
 
-function vaciarCarrito(){
-    while(lista.firstChild){
-        lista.removeChild(lista.firstChild);
-    }
+function vaciarCarrito() {
+    productosCarrito = [];
+    insertarElemento();
+    actualizarTotal();
     return false;
 }
 
-//Movimiento de las imagenes del header
+function insertarElemento() {
+    // Limpiar el tbody
+    lista.innerHTML = '';
+    // Volver a agregar los productos
+    productosCarrito.forEach(producto => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>
+                <img src="${producto.imagen}" width=100>
+            </td>
+            <td>
+                ${producto.titulo}
+            </td>
+            <td>
+                $${producto.precio.toFixed(2)}
+            </td>
+            <td>
+                <a href='#' class="borrar" data-id="${producto.id}">X</a>
+            </td>
+        `;
+        lista.appendChild(row);
+    });
+}
+    //monto carrito desde inicio en cero
+botonTotal.innerHTML = `<span>$ 0.00</span>` 
+
+function actualizarTotal() {
+    const totalCompra = productosCarrito.reduce((total, producto) => total + producto.precio, 0);
+    botonTotal.innerHTML = `<span>$ ${totalCompra.toFixed(2)}</span>`;
+}
+
+// Movimiento de las imagenes del header
 let img1 = document.getElementById('img1');
 let img2 = document.getElementById('img2');
 
-function modificarClase1(){
+function modificarClase1() {
     img1.classList.toggle('noVisible');
 }
-function modificarClase2(){
+function modificarClase2() {
     img2.classList.toggle('noVisible');
-
 }
 
 const iniciarImagen = setInterval(modificarClase1, 5000);
 const iniciarImagen2 = setInterval(modificarClase2, 5000);
-
-
-
-
-
-
 
 
