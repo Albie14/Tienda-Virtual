@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="../tiendaStyle.css">
 </head>
 <body>
-    <header class="header">
+    <header class="header header-paginaciones">
     
-        <div class="menu container">
-            <a href="#" class="logo"><img src="../imagenes/logo.jpg" alt="logo"></a>
+        <div class="menu container menu-paginacion">
+            <a href="/html/tiendaIndex.html" class="logo logo-paginacion"><img src="../imagenes/logo.jpg" alt="logo"></a>
             <label for="menu">
                 <img src="../imagenes/menu.png" class="menu-icono" alt="menu">
             </label>
             <nav class="navbar">
                 <ul>
-                    <li><a href="#">Inicio</a></li>
+                    <li><a href="/html/tiendaIndex.html">Inicio</a></li>
                     <li><a href="#">Servicios</a></li>
                     <li><a href="#">Productos</a></li>
                     <li><a href="#">Contacto</a></li>
@@ -49,65 +49,15 @@
 
         </div>
 
-        <div class="header-content container">
-            <div class="header-carrusel">
-                <div class="header-img">
-                    <img src="../imagenes/left.png" alt="" id="img1">
-                </div>  
-                <div class="header-img">
-                    <img src="../imagenes/right.png" alt="" id="img2">
-                </div>     
-            </div>
-    
-            <div class="header-txt">
-                <h1>Ofertas especiales</h1>
-                <p>siempre los mejores precios</p>
-                <a href="/html/ofertas.html" class="btn-1">todas las Ofertas aqui</a>
-            </div>
-        </div>
-
     </header>
 
 
-    <section class="ofert container">
-        <div class="ofert-1">   
-            <div class="ofert-img">
-                <img src="../imagenes/f1.png" alt="">
-            </div>
-            <div class="ofert-txt">
-                <h3>Seccion Caballeros</h3>
-                <a href="#" class="btn-2">click aqui</a>
-            </div>
-        </div>
-        <div class="ofert-1">   
-            <div class="ofert-img">
-                <img src="../imagenes/f2.png" alt="">
-            </div>
-            <div class="ofert-txt">
-                <h3>Calzado</h3>
-                <a href="#" class="btn-2">click aqui</a>
-            </div>
-        </div>
-        <div class="ofert-1">   
-            <div class="ofert-img">
-                <img src="../imagenes/f3.png" alt="">
-            </div>
-            <div class="ofert-txt">
-                <h3>Seccion Damas</h3>
-                <a href="#" class="btn-2">click aqui</a>
-            </div>
-        </div>
+    <main class="products container seccion-ppal-paginacion" id="lista-1">
 
-
-        
-    </section>
-
-    <main class="products container" id="lista-1">
-
-        <h2>Temporada invierno 2025</h2>
+        <h2>Ofertas Especiales</h2>
 
         <div class="product-content">
-
+<!-- 
             <div class="product">
                 <img src="../imagenes/1.png" alt="">
                 <div class="product-txt">
@@ -166,7 +116,7 @@
                     <p class="precio"  data-precio="600">$600.00</p>
                     <a href="#" class="agregar-carrito btn-2" data-id="600">Agregar a carrito</a>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </main>
@@ -274,5 +224,7 @@
 
     </footer>
     <script src="/js/tiendaindex.js"></script>
+    <script src="/js/info-prod.js"></script>
+    <script src="/js/ofertas.js"></script>
 </body>
 </html>

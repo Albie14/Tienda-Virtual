@@ -95,19 +95,3 @@ function actualizarTotal() {
     const totalCompra = productosCarrito.reduce((total, producto) => total + producto.precio, 0);
     botonTotal.innerHTML = `<span>$ ${totalCompra.toFixed(2)}</span>`;
 }
-
-// Movimiento de las imagenes del header
-let img1 = document.getElementById('img1');
-let img2 = document.getElementById('img2');
-
-function modificarClase1() {
-    img1.classList.toggle('noVisible');
-}
-function modificarClase2() {
-    img2.classList.toggle('noVisible');
-}
-
-const iniciarImagen = setInterval(modificarClase1, 5000);
-const iniciarImagen2 = setInterval(modificarClase2, 5000);
-
-

@@ -75,7 +75,7 @@ img{
 .menu .navbar ul li{
     position: relative;
     float: left;
-  
+
 }
 
 .navbar ul li a{
@@ -116,6 +116,7 @@ img{
 
 .submenu{
     position: relative;
+    
 }
 
 .submenu #carrito{
@@ -132,14 +133,20 @@ img{
     background-color: #4e4b5076;
     padding: 20px;
     min-width: 400px;
+    border-radius: 10px;
 }
-
+#carrito{
+    transition: all 0.9s ease;
+}
 table{
     width: 100%;
 }
 
 th, td{
     color: #ffffff;
+}
+#img-carrito{
+    cursor: pointer;
 }
 
 .borrar{
@@ -160,44 +167,61 @@ th, td{
     padding: 0 200px;
     width: 200px;
     height: 500px;
-
-
 }
 
 .header-carrusel{
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width:100%;
-    height: 100%;
-    position: relative;
+    width: 50%;
+    height: 500px;
     margin-top: 120px;
+    overflow: hidden;
 }
+
 .header-img{
-    width: 60%;
-    height: 80%;
     position: absolute;
-    z-index: 10;
-    top: 0px;
-    right: 50px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
 }
 .header-img img{
     width: 100%;
     height: 100%;
-    transition: all ease 0.5s;
+    object-fit: contain;
+}
+  #img1{
+    animation: ocultarImagen 5s infinite;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    animation-fill-mode: backwards;
+    animation-delay: 2.25s;
     mask-image: linear-gradient(black 80%, transparent);
 
+}@keyframes ocultarImagen {
+    0%{opacity: 1}
+    40%{opacity: 1}
+    41%{opacity: 0}
+    100%{opacity: 0;}
 }
-.noVisible{
-    display: none;
-    width: 100%;
-    height: 100%;
-    margin-left: -200%;
-    position: absolute;
-    z-index: -1;
-    top: 0px;
-    right: 50px;
+
+#img2{
+    animation: mostrarImagen 5s infinite;
+    animation-timing-function: linear;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+    animation-delay: -2.5s;
 }
+@keyframes mostrarImagen {
+    0%{opacity: 1}
+    49%{opacity: 1}
+    50%{opacity: 0}
+    100%{opacity: 0}
+}
+
 
 .header-txt{
     display: block;
@@ -237,7 +261,7 @@ th, td{
     border: 1px solid #111111;
     color: #111111;
     transition: all ease 0.2s;
-
+    
 }
 
 .ofert{
@@ -560,4 +584,21 @@ th, td{
         align-items: center;
     }
 
+}
+
+/* pagina oferta */
+
+.header-paginaciones{
+    min-height: 25vh;
+    position: fixed;
+    width: 100%;
+    z-index: 10000;
+    box-shadow: ;
+}
+
+.logo-paginacion{
+    width: 100px;
+}
+.seccion-ppal-paginacion{
+    padding-top: 200px;
 }
