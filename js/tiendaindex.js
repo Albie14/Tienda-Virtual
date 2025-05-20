@@ -4,9 +4,16 @@ const lista = document.querySelector('#lista-carrito tbody');
 const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
 const botonTotal = document.getElementById('totalCarrito');
 
-cargarEventListener();
-
 let productosCarrito = [];
+
+function cargarCarritoStorage(){
+    productosCarrito = JSON.parse(sessionStorage.getItem("carrito")) || [];
+    insertarElemento();
+    actualizarTotal();
+}
+cargarCarritoStorage();
+
+cargarEventListener();
 
 function cargarEventListener() {
     elementos1.addEventListener('click', comprarElemento);
@@ -29,32 +36,36 @@ function leerDatosElemento(elemento) {
         precio: parseFloat(elemento.querySelector('.precio').textContent.replace('$', '')),
         id: parseInt(elemento.querySelector('a').getAttribute('data-id')),
     }
-    actulizarCarrito(infoElemento);
+    actualizarCarrito(infoElemento);
 }
 
-function actulizarCarrito(elemento) {
+function actualizarCarrito(elemento) {
     // Agregar producto al array del carrito
     productosCarrito.push(elemento);
-
-    // Actulizar el carrito
+    // Actualizar el carrito
     insertarElemento();
-
     // Actualizar el total
     actualizarTotal();
+    //guarda los cambios en sessionStorage
+    guardarCarrito()
+
 }
 
 function eliminarElemento(e) {
     e.preventDefault();
+
     if (e.target.classList.contains('borrar')) {
         const elementoId = parseInt(e.target.getAttribute('data-id'));
+
         // Eliminar del array por id
         productosCarrito = productosCarrito.filter(producto => producto.id !== elementoId);
-
         // actulizar el carrito
         insertarElemento();
-
         // Actualizar el total
         actualizarTotal();
+        //guarda el estado actualizado del carrito
+        guardarCarrito()
+
     }
 }
 
@@ -62,12 +73,16 @@ function vaciarCarrito() {
     productosCarrito = [];
     insertarElemento();
     actualizarTotal();
+    sessionStorage.removeItem("carrito");
+    guardarCarrito();
     return false;
 }
 
 function insertarElemento() {
     // Limpiar el tbody
     lista.innerHTML = '';
+    
+
     // Volver a agregar los productos
     productosCarrito.forEach(producto => {
         const row = document.createElement('tr');
@@ -88,10 +103,85 @@ function insertarElemento() {
         lista.appendChild(row);
     });
 }
-    //monto carrito desde inicio en cero
-botonTotal.innerHTML = `<span>$ 0.00</span>` 
 
 function actualizarTotal() {
     const totalCompra = productosCarrito.reduce((total, producto) => total + producto.precio, 0);
     botonTotal.innerHTML = `<span>$ ${totalCompra.toFixed(2)}</span>`;
 }
+
+function guardarCarrito (){
+    sessionStorage.setItem("carrito", JSON.stringify(productosCarrito));
+};
+
+
+//carga informacion desde info-prod.js para cada seccion, ofertas
+
+window.addEventListener('DOMContentLoaded', function(){
+    let rutaPaginaSeccionada  = window.location.pathname.split("/").pop(); //ruta del archivo html a redirigir
+    const contenedorProductos = document.querySelector('.product-content'); //contenedor padre donde se cargara todos los cambios de acuerdo a cada pagona visitada
+
+    if(rutaPaginaSeccionada === "ofertas.html"){
+        const tituloPaginaSeccion = document.querySelector("h2");
+        tituloPaginaSeccion.innerText= `Ofertas Especiales`;
+
+        const productosOfertas = infoProductos.ofertas;
+        productosOfertas.forEach(producto=>{
+            const divProducto = document.createElement('div');
+            divProducto.className = 'product';
+        
+            divProducto.innerHTML = `
+                    <img src=${producto.img} alt="${producto.nombre}">
+                    <div class="product-txt">
+                        <h3>${producto.nombre}</h3>
+                        <p>Estilo Unico</p>
+                        <p class="precio"  data-precio="${producto.precio}">$${producto.precio}</p>
+                        <a href="#" class="agregar-carrito btn-2" data-id="${producto.id}">Agregar a carrito</a>
+                    </div>
+            `;
+            contenedorProductos.appendChild(divProducto);
+    });
+    }else if(rutaPaginaSeccionada === "caballeros.html"){
+        const tituloPaginaSeccion = document.querySelector("h2");
+        tituloPaginaSeccion.innerText= `Caballeros`;
+
+        const productosCaballeros = infoProductos.Caballeros;
+        productosCaballeros.forEach(producto=>{
+            const divProducto = document.createElement('div');
+            divProducto.className = 'product';
+        
+            divProducto.innerHTML = `
+                    <img src=${producto.img} alt="${producto.nombre}">
+                    <div class="product-txt">
+                        <h3>${producto.nombre}</h3>
+                        <p>para todos los dias</p>
+                        <p class="precio"  data-precio="${producto.precio}">$${producto.precio}</p>
+                        <a href="#" class="agregar-carrito btn-2" data-id="${producto.id}">Agregar a carrito</a>
+                    </div>
+            `;
+            contenedorProductos.appendChild(divProducto);
+        });
+    }else if(rutaPaginaSeccionada === "damas.html"){
+        const tituloPaginaSeccion = document.querySelector("h2");
+        tituloPaginaSeccion.innerText= `Damas`;
+
+        const productosCaballeros = infoProductos.Damas;
+        productosCaballeros.forEach(producto=>{
+            const divProducto = document.createElement('div');
+            divProducto.className = 'product';
+        
+            divProducto.innerHTML = `
+                    <img src=${producto.img} alt="${producto.nombre}">
+                    <div class="product-txt">
+                        <h3>${producto.nombre}</h3>
+                        <p>para todos los dias</p>
+                        <p class="precio"  data-precio="${producto.precio}">$${producto.precio}</p>
+                        <a href="#" class="agregar-carrito btn-2" data-id="${producto.id}">Agregar a carrito</a>
+                    </div>
+            `;
+            contenedorProductos.appendChild(divProducto);
+        });
+    }else{
+        console.log("pagina no creada");
+    }
+})
+

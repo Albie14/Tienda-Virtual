@@ -1,13 +1,11 @@
 const infoProductos = {
-    "Caballeros":{
-        "abrigos":[
+    "Caballeros":[
             {"id": 1,
             "seccion": "abrigos",
-            "nombre": "Abrigo con recubrimiento",
+            "nombre": "Chaqueta de invierno",
             "precio": 110.00,
             "img": "/imagenes/img-sec/caballeros/abrigos/01.jpg"
             },
-
             {"id": 2,
             "seccion": "abrigos",
             "nombre": "Chaqueta casual",
@@ -31,9 +29,7 @@ const infoProductos = {
             "nombre": "Sueter deportivo",
             "precio": 150.00,
             "img": "/imagenes/img-sec/caballeros/abrigos/05.jpg"
-            }
-        ],
-        "franelas":[
+            },
             {"id": 6,
             "seccion": "franelas",
             "nombre": "Franela azul",
@@ -81,9 +77,7 @@ const infoProductos = {
             "nombre": "Franela celeste",
             "precio": 18.00,
             "img": "/imagenes/img-sec/caballeros/franelas/08.jpg"
-            }
-        ],
-        "pantalones":[
+            },
             {"id": 14,
             "seccion": "pantalones",
             "nombre": "Pantalon beige",
@@ -114,10 +108,8 @@ const infoProductos = {
             "precio": 25.00,
             "img": "/imagenes/img-sec/caballeros/pantalones/05.jpg"
             }
-        ]
-},
-    "Damas":{
-        "blusas":[
+        ],
+    "Damas":[
             {"id": 19,
             "seccion": "blusas",
             "nombre": "Camisa y franela",
@@ -159,17 +151,14 @@ const infoProductos = {
             "nombre": "Jean",
             "precio": 37.00,
             "img": "/imagenes/img-sec/damas/blusas/07.jpg"
-            }
-        ],
-        "pantalones":[
+            },
             {"id": 26,
             "seccion": "pantalones",
             "nombre": "Corto",
             "precio": 26.00,
             "img": "/imagenes/img-sec/damas/pantalones/01.jpg"
-            }
-        ]
-    },
+            },
+        ],
     "ofertas":[
         {"id": 27,
         "seccion": "ofertas",
@@ -219,5 +208,5 @@ const infoProductos = {
         "precio": 8.00,
         "img": "/imagenes/img-sec/ofertas/08.jpg"
         }
-    ]
+    ],
 }
