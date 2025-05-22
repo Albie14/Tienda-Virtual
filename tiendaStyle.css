@@ -75,7 +75,6 @@ img{
 .menu .navbar ul li{
     position: relative;
     float: left;
-
 }
 
 .navbar ul li a{
@@ -100,7 +99,6 @@ img{
     width: 30%;
 }
 
-
 #menu{
     display: none;
 }
@@ -114,24 +112,75 @@ img{
     display: none;
 }
 
+.personal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100px;
+    height: 50px;
+    border: 1px solid rebeccapurple;
+    position: absolute;
+    width: 120px;
+    top: 55%;
+    right: 0%;
+    transition: 0.6s ease all;
+}
+
+.fa-house-user{
+    text-align: center;
+    line-height: 150%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 150%;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    transition: 0.6s ease all;
+    position: relative;
+    margin-right: 15%;
+}
+.fa-house-user:hover{
+    border: 2px solid #111111;
+    scale: .9;
+    transition: 0.6s ease all;
+}
+.contedor-home .personal{
+    display: none;
+}
+.contedor-home:hover .personal{
+    display: flex;
+    transition: 0.6s ease all;
+}
+
+.usuario{
+    border: 1px solid red;
+    height: auto;
+    width: auto;
+}
+.fa-user-plus{
+    height: 100%;
+    font-size: 25px;
+    cursor: pointer;
+}   
 .submenu{
     position: relative;
-    
+    height: 25px;
+    border: 1px solid red;
 }
 
 .submenu #carrito{
     display: none;
 }
-
 .submenu:hover #carrito{
     display: block;
     position: absolute;
-    right: 0;
+    right: 50%;
     backdrop-filter: blur(10px);
-    top: 100%;
+    top: 110%;
     z-index: 11;
     background-color: #4e4b5076;
-    padding: 20px;
+    padding: 5px;
     min-width: 400px;
     border-radius: 10px;
 }
@@ -193,7 +242,7 @@ th, td{
     height: 100%;
     object-fit: contain;
 }
-  #img1{
+#img1{
     animation: ocultarImagen 5s infinite;
     animation-timing-function: linear;
     animation-direction: alternate;
