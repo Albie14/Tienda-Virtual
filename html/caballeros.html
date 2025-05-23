@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda Virtual</title>
+    <script src="https://kit.fontawesome.com/926e2c95da.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../tiendaStyle.css">
 </head>
 <body>
     <header class="header header-paginaciones">
-    
         <div class="menu container menu-paginacion">
             <a href="/html/tiendaIndex.html" class="logo logo-paginacion"><img src="../imagenes/logo.jpg" alt="logo"></a>
             <label for="menu">
@@ -22,8 +22,10 @@
                     <li><a href="#">Contacto</a></li>
                 </ul>
             </nav>
-            <div>
-                <ul>
+
+            <div class="contedor-home">
+                <i class="fa-solid fa-house-user"></i>
+                <ul class="personal">
                     <li class="submenu">
                         <img src="../imagenes/car.svg" id="img-carrito" alt="carrito">
                         <div id="carrito">
@@ -43,8 +45,14 @@
                             </div>
                         </div>
                     </li>
+                    <li class="contenedor-usuario">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <div class="usuario">
+                            <a href="/html/registro.html">Regitro <i class="fa-solid fa-list-check"></i></a>
+                            <a href="/html/ingresar.html">Ingreso <i class="fa-solid fa-right-to-bracket"></i></a>
+                        </div>
+                    </li>
                 </ul>
-
             </div>
 
         </div>

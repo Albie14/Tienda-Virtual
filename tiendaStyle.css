@@ -118,7 +118,6 @@ img{
     align-items: center;
     width: 100px;
     height: 50px;
-    border: 1px solid rebeccapurple;
     position: absolute;
     width: 120px;
     top: 55%;
@@ -154,7 +153,6 @@ img{
 }
 
 .contenedor-usuario{
-    border: 1px solid red;
     height: auto;
     width: auto;
 }
@@ -171,7 +169,7 @@ img{
     z-index: 11;
     background-color: #4e4b5076;
     padding: 5px;
-    min-width: 200px;
+    min-width: 280px;
     height:75px;
     border-radius: 10px;
     transition: 0.6 ease all;
@@ -194,7 +192,7 @@ img{
     font-size: 15px;
     line-height: 210%;
     background-color: #111111;
-
+    word-spacing: 10px;
 }
 .usuario a:hover{
     background-color: #4e4b5076;
@@ -672,7 +670,7 @@ th, td{
 
 }
 
-/* pagina oferta */
+/* pagina oferta/damas/caballeros */
 
 .header-paginaciones{
     min-height: 25vh;
@@ -687,5 +685,120 @@ th, td{
 }
 .seccion-ppal-paginacion{
     padding-top: 200px;
-  
+}
+
+/* formulario */
+.seccion-registro{
+    display: flex;
+    justify-content: center;    
+}
+.formulario{
+    border: 1px solid red;
+    width: 80%;
+    min-height: 350px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border:2px solid rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+    gap: 25px; 
+    border-radius: 10px;
+    padding: 2%;
+
+}
+
+.formularioGrupo{
+    width: 100%;
+    min-width: 20%;
+    height: 50px;
+    border-top: 1px solid rgba(0, 0, 0, 0.5);
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+    border-right: 1px solid rgba(0, 0, 0, 0.5);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+}
+.indicacionesFormulario{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 90%;
+    padding-top: 1%;
+}
+.formularioGrupoInput{
+    width: 60%;
+    margin: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.formularioInput{
+    width: 80%;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.formularioGrupoBtnEnviar{
+    width: 200%;
+    height: 120%;
+}
+.formularioInputError, .usuarioRegistradoError{
+    font-size: 10px;
+    color: red;
+    opacity: 0;
+}
+
+.errorEnDatoFormulario{
+    border: 1.5px solid red;
+    box-shadow: 1px 1px 5px rgba(253, 1, 1, 0.9), -1px -1px 5px rgba(253, 1, 1, 0.9);
+    transition: 0.5 ease all;
+}
+.formularioValidacionEstado{
+    opacity: 0;
+    color: red;
+}
+.terminos{
+    color: #111111;
+}
+.terminos:hover{
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+    transition: all ease 0.5s;
+}
+.formularioMensaje{
+    color: red;
+    opacity: 0;
+}
+.formularioMensaje span{
+    color: #111111;
+}
+.formularioGrupoBtnEnviar{
+    border: none;
+}
+
+.formularioBtn{
+    cursor: pointer;
+    width: 30%;
+    height: 50%;
+    background-color: #111111;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    transition: 0.5s ease all;
+}
+.formularioBtn:hover{
+    background-color: #4e4b5076;
+    color: #111111;
+    transition: 0.5s ease all;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5), -2px -2px 8px rgba(0, 0, 0, 0.5)
+}
+.formularioBtn p{
+    font-size: 20px;
+}
+
+.formularioMensajeExito{
+    margin-top: 15px;
+    opacity: 0;
+}
+
+@media(max 300px){
+
 }
