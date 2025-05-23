@@ -70,8 +70,8 @@
                     <div class="indicacionesFormulario">
                         <label for="nombre" class="formularioLabel">Nombre</label>
                         <div class="formularioGrupoInput">
-                            <input type="text" class="formularioInput" name="nombre" id="nombre" placeholder="ingresa tu nombre">
-                            <i class="formularioValidacionEstado chec fa-solid fa-circle-xmark"></i>
+                            <input type="text" autocomplete="name" class="formularioInput" name="nombre" id="nombre" placeholder="ingresa tu nombre">
+                            <i class="iconoError chec fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
                     <p class="formularioInputError">nombre debe ser de 4 a 16 digitos y solo debe contener numeros, letras y guion bajo</p>
@@ -81,8 +81,8 @@
                     <div class="indicacionesFormulario">
                         <label for="apellido" class="formularioLabel">Apellido</label>
                         <div class="formularioGrupoInput">
-                            <input type="text" class="formularioInput" name="apellido" id="apellido" placeholder="ingresa tu apellido">
-                            <i class="formularioValidacionEstado fa-solid fa-circle-xmark"></i>
+                            <input type="text" autocomplete="name" class="formularioInput" name="apellido" id="apellido" placeholder="ingresa tu apellido">
+                            <i class="iconoError fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
                     <p class="formularioInputError">apellido debe ser de 4 a 16 digitos y solo debe contener numeros, letras y guion bajo</p>
@@ -92,8 +92,8 @@
                     <div class="indicacionesFormulario">
                         <label for="password" class="formularioLabel">Contraseña</label>
                         <div class="formularioGrupoInput">
-                            <input type="password" class="formularioInput" name="password" id="password" placeholder="">
-                            <i class="formularioValidacionEstado fa-solid fa-circle-xmark"></i>
+                            <input type="password" autocomplete="new-password" class="formularioInput" name="password" id="password" placeholder="">
+                            <i class="iconoError fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
                     <p class="formularioInputError">La contraseña debe ser de 4 a 12 digitos</p>
@@ -103,8 +103,8 @@
                     <div class="indicacionesFormulario">
                         <label for="password2" class="formularioLabel">Repetir contraseña</label>
                         <div class="formularioGrupoInput">
-                            <input type="password" class="formularioInput" name="password2" id="password2" placeholder="">
-                            <i class="formularioValidacionEstado fa-solid fa-circle-xmark"></i>
+                            <input type="password" autocomplete="new-password" class="formularioInput" name="password2" id="password2" placeholder="">
+                            <i class="iconoError fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
                     <p class="formularioInputError">Ambas constraseñs deben ser iguales</p>
@@ -115,7 +115,7 @@
                         <label for="correo" class="formularioLabel">Correo Electronico</label>
                         <div class="formularioGrupoInput">
                             <input type="email" class="formularioInput" name="correo" id="correo" placeholder="correo@correo.com">
-                            <i class="formularioValidacionEstado fa-solid fa-circle-xmark"></i>
+                            <i class="iconoError fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
                     <p class="formularioInputError">correo electronico incorrecto</p>
@@ -127,7 +127,7 @@
                         <label for="telefono" class="formularioLabel">Telefono</label>
                         <div class="formularioGrupoInput">
                             <input type="text" class="formularioInput formularioGrupoCorrecto" name="telefono" id="telefono" placeholder="01234567890">
-                            <i class="formularioValidacionEstado fa-solid fa-circle-xmark"></i>
+                            <i class="iconoError fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
                     <p class="formularioInputError">solo puede contener numerso, sin espacios y maximo 11 digitos </p>

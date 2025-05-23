@@ -752,7 +752,7 @@ th, td{
     box-shadow: 1px 1px 5px rgba(253, 1, 1, 0.9), -1px -1px 5px rgba(253, 1, 1, 0.9);
     transition: 0.5 ease all;
 }
-.formularioValidacionEstado{
+.iconoError{
     opacity: 0;
     color: red;
 }

@@ -180,8 +180,47 @@ window.addEventListener('DOMContentLoaded', function(){
             `;
             contenedorProductos.appendChild(divProducto);
         });
-    }else{
-        console.log("pagina no creada");
     }
 })
 
+
+//verificacion registro formulario
+
+const expresionesPermitidadForm = {
+	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+	password: /^.{4,12}$/, // 4 a 12 digitos.
+	correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+	telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+}
+
+const formulario = document.getElementById('formulario');
+const btnEnviarFormulario = document.querySelector('.formularioBtn');
+
+
+
+function validacionFormulario(e){
+    e.preventDefault();
+
+
+    let nombre = document.getElementById('nombre');
+
+    const iconoError = document.querySelectorAll('.iconoError');
+    const textoError = document.querySelectorAll('.formularioInputError');
+
+    if(nombre.value != expresionesPermitidadForm.nombre){
+        nombre.classList.add('errorEnDatoFormulario');
+        iconoError[0].style.opacity = 1;
+        textoError[0].style.opacity = 1;
+
+        setTimeout(()=>{
+            nombre.classList.remove('errorEnDatoFormulario');
+            iconoError[0].style.opacity = 0;
+            textoError[0].style.opacity = 0;
+
+        }, 2000)
+    }
+    
+}
+
+
+btnEnviarFormulario.addEventListener('click', validacionFormulario);
