@@ -196,13 +196,17 @@ const expresionesPermitidadForm = {
 const formulario = document.getElementById('formulario');
 const btnEnviarFormulario = document.querySelector('.formularioBtn');
 
-
-
 function validacionFormulario(e){
     e.preventDefault();
 
 
     let nombre = document.getElementById('nombre');
+    let apellido = document.getElementById('apellido');
+    let clave = document.getElementById('password');
+    let claveVerificacion = document.getElementById('password2');
+    let correo = document.getElementById('correo');
+    let telefono = document.getElementById('telefono');
+    let terminosYCondiciones = document.getElementById('terminos');
 
     const iconoError = document.querySelectorAll('.iconoError');
     const textoError = document.querySelectorAll('.formularioInputError');
@@ -216,9 +220,21 @@ function validacionFormulario(e){
             nombre.classList.remove('errorEnDatoFormulario');
             iconoError[0].style.opacity = 0;
             textoError[0].style.opacity = 0;
+        }, 2000)
+    };
 
+    if(apellido.value != expresionesPermitidadForm.nombre){
+        apellido.classList.add('errorEnDatoFormulario');
+        iconoError[1].style.opacity = 1;
+        textoError[1].style.opacity = 1;
+
+        setTimeout(()=>{
+            apellido.classList.remove('errorEnDatoFormulario');
+            iconoError[1].style.opacity = 0;
+            textoError[1].style.opacity = 0;
         }, 2000)
     }
+
     
 }
 
