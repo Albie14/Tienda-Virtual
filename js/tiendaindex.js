@@ -199,98 +199,104 @@ const btnEnviarFormulario = document.querySelector('.formularioBtn');
 function validacionFormulario(e){
     e.preventDefault();
 
-
     let nombre = document.getElementById('nombre');
     let apellido = document.getElementById('apellido');
     let clave = document.getElementById('password');
     let claveVerificacion = document.getElementById('password2');
     let correo = document.getElementById('correo');
     let telefono = document.getElementById('telefono');
-    let terminosYCondiciones = document.getElementById('terminos');
     const iconoError = document.querySelectorAll('.iconoError');
     const textoError = document.querySelectorAll('.formularioInputError');
+    const mensajeErrorFormulario = document.querySelector('.formularioMensaje');
 
-
-
-    if(nombre.value != expresionesPermitidadForm.nombre){
+    if(!expresionesPermitidadForm.nombre.test(nombre.value)){
         nombre.classList.add('errorEnDatoFormulario');
         iconoError[0].style.opacity = 1;
         textoError[0].style.opacity = 1;
-
-        setTimeout(()=>{
-            nombre.classList.remove('errorEnDatoFormulario');
-            iconoError[0].style.opacity = 0;
-            textoError[0].style.opacity = 0;
-            nombre.value = '';
-        }, 2000)
+        mensajeErrorFormulario.style.opacity = 1;
+            setTimeout(()=>{
+                nombre.classList.remove('errorEnDatoFormulario');
+                iconoError[0].style.opacity = 0;
+                textoError[0].style.opacity = 0;
+                mensajeErrorFormulario.style.opacity = 0;
+                nombre.value = '';
+            }, 2000)
     }
 
-    if(apellido.value != expresionesPermitidadForm.nombre){
+    if(!expresionesPermitidadForm.nombre.test(apellido.value)){
         apellido.classList.add('errorEnDatoFormulario');
         iconoError[1].style.opacity = 1;
         textoError[1].style.opacity = 1;
-
-        setTimeout(()=>{
-            apellido.classList.remove('errorEnDatoFormulario');
-            iconoError[1].style.opacity = 0;
-            textoError[1].style.opacity = 0;
-            apellido.value = '';
-        }, 2000)
+        mensajeErrorFormulario.style.opacity = 1;
+            setTimeout(()=>{
+                apellido.classList.remove('errorEnDatoFormulario');
+                iconoError[1].style.opacity = 0;
+                textoError[1].style.opacity = 0;
+                mensajeErrorFormulario.style.opacity = 0;
+                apellido.value = '';
+            }, 2000)
     }
 
-    if(clave.value != expresionesPermitidadForm.password){
+    if(!expresionesPermitidadForm.password.test(clave.value)){
         clave.classList.add('errorEnDatoFormulario');
         iconoError[2].style.opacity = 1;
         textoError[2].style.opacity = 1;
-
-        setTimeout(()=>{
-            clave.classList.remove('errorEnDatoFormulario');
-            iconoError[2].style.opacity = 0;
-            textoError[2].style.opacity = 0;
-            clave.value = '';
-        }, 2000)
+        mensajeErrorFormulario.style.opacity = 1;
+            setTimeout(()=>{
+                clave.classList.remove('errorEnDatoFormulario');
+                iconoError[2].style.opacity = 0;
+                textoError[2].style.opacity = 0;
+                mensajeErrorFormulario.style.opacity = 0;
+                clave.value = '';
+            }, 2000)
     }
 
-    if(claveVerificacion.value != expresionesPermitidadForm.password || clave.value != claveVerificacion.value){
+    if(!expresionesPermitidadForm.password.test(claveVerificacion.value) || clave.value != claveVerificacion.value){
         claveVerificacion.classList.add('errorEnDatoFormulario');
         iconoError[3].style.opacity = 1;
         textoError[3].style.opacity = 1;
-
-        setTimeout(()=>{
-            claveVerificacion.classList.remove('errorEnDatoFormulario');
-            iconoError[3].style.opacity = 0;
-            textoError[3].style.opacity = 0;
-            claveVerificacion.value = '';
-        }, 2000)
+        mensajeErrorFormulario.style.opacity = 1;
+            setTimeout(()=>{
+                claveVerificacion.classList.remove('errorEnDatoFormulario');
+                iconoError[3].style.opacity = 0;
+                textoError[3].style.opacity = 0;
+                mensajeErrorFormulario.style.opacity = 0;
+                claveVerificacion.value = '';
+            }, 2000)
     }
     
-    if(correo.value != expresionesPermitidadForm.correo){
+    if(!expresionesPermitidadForm.correo.test(correo.value)){
         correo.classList.add('errorEnDatoFormulario');
         iconoError[4].style.opacity = 1;
         textoError[4].style.opacity = 1;
-
-        setTimeout(()=>{
-            correo.classList.remove('errorEnDatoFormulario');
-            iconoError[4].style.opacity = 0;
-            textoError[4].style.opacity = 0;
-            correo.value = '';
-        }, 2000)
+        mensajeErrorFormulario.style.opacity = 1;
+            setTimeout(()=>{
+                correo.classList.remove('errorEnDatoFormulario');
+                iconoError[4].style.opacity = 0;
+                textoError[4].style.opacity = 0;
+                mensajeErrorFormulario.style.opacity = 0;
+                correo.value = '';
+            }, 2000)
     }
     
-    if(telefono.value != expresionesPermitidadForm.telefono){
+    if(!expresionesPermitidadForm.telefono.test(telefono.value)){
         telefono.classList.add('errorEnDatoFormulario');
         iconoError[5].style.opacity = 1;
         textoError[5].style.opacity = 1;
-
-        setTimeout(()=>{
-            telefono.classList.remove('errorEnDatoFormulario');
-            iconoError[5].style.opacity = 0;
-            textoError[5].style.opacity = 0;
-            telefono.value = '';
-        },2000)
+        mensajeErrorFormulario.style.opacity = 1;
+            setTimeout(()=>{
+                telefono.classList.remove('errorEnDatoFormulario');
+                iconoError[5].style.opacity = 0;
+                textoError[5].style.opacity = 0;
+                mensajeErrorFormulario.style.opacity = 0;
+                telefono.value = '';
+            },2000)
     }
+
 }
 
 
-btnEnviarFormulario.addEventListener('click', validacionFormulario);
+btnEnviarFormulario.addEventListener('click', (e)=>{
+    validacionFormulario(e);
+});
 
