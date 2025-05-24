@@ -802,6 +802,9 @@ th, td{
     margin-top: 15px;
     opacity: 0;
 }
+#checkTerminos:checked{
+    border: 1px solid red;
+}
 
 @media(max 300px){
 

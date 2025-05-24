@@ -196,6 +196,7 @@ const expresionesPermitidadForm = {
 const formulario = document.getElementById('formulario');
 const btnEnviarFormulario = document.querySelector('.formularioBtn');
 
+
 function validacionFormulario(e){
     e.preventDefault();
 
@@ -205,95 +206,123 @@ function validacionFormulario(e){
     let claveVerificacion = document.getElementById('password2');
     let correo = document.getElementById('correo');
     let telefono = document.getElementById('telefono');
+    const checkTerminos  = document.getElementById('checkTerminos');
     const iconoError = document.querySelectorAll('.iconoError');
     const textoError = document.querySelectorAll('.formularioInputError');
     const mensajeErrorFormulario = document.querySelector('.formularioMensaje');
 
     if(!expresionesPermitidadForm.nombre.test(nombre.value)){
-        nombre.classList.add('errorEnDatoFormulario');
-        iconoError[0].style.opacity = 1;
-        textoError[0].style.opacity = 1;
-        mensajeErrorFormulario.style.opacity = 1;
-            setTimeout(()=>{
-                nombre.classList.remove('errorEnDatoFormulario');
-                iconoError[0].style.opacity = 0;
-                textoError[0].style.opacity = 0;
-                mensajeErrorFormulario.style.opacity = 0;
-                nombre.value = '';
-            }, 2000)
+        mostrarMensajesError(nombre, iconoError[0], textoError[0], mensajeErrorFormulario)
+
+        // nombre.classList.add('errorEnDatoFormulario');
+        // iconoError[0].style.opacity = 1;
+        // textoError[0].style.opacity = 1;
+        // mensajeErrorFormulario.style.opacity = 1;
+        //     setTimeout(()=>{
+        //         nombre.classList.remove('errorEnDatoFormulario');
+        //         iconoError[0].style.opacity = 0;
+        //         textoError[0].style.opacity = 0;
+        //         mensajeErrorFormulario.style.opacity = 0;
+        //         nombre.value = '';
+        //     }, 2000)
     }
 
-    if(!expresionesPermitidadForm.nombre.test(apellido.value)){
-        apellido.classList.add('errorEnDatoFormulario');
-        iconoError[1].style.opacity = 1;
-        textoError[1].style.opacity = 1;
-        mensajeErrorFormulario.style.opacity = 1;
-            setTimeout(()=>{
-                apellido.classList.remove('errorEnDatoFormulario');
-                iconoError[1].style.opacity = 0;
-                textoError[1].style.opacity = 0;
-                mensajeErrorFormulario.style.opacity = 0;
-                apellido.value = '';
-            }, 2000)
-    }
+    // if(!expresionesPermitidadForm.nombre.test(apellido.value)){
+    //     apellido.classList.add('errorEnDatoFormulario');
+    //     iconoError[1].style.opacity = 1;
+    //     textoError[1].style.opacity = 1;
+    //     mensajeErrorFormulario.style.opacity = 1;
+    //         setTimeout(()=>{
+    //             apellido.classList.remove('errorEnDatoFormulario');
+    //             iconoError[1].style.opacity = 0;
+    //             textoError[1].style.opacity = 0;
+    //             mensajeErrorFormulario.style.opacity = 0;
+    //             apellido.value = '';
+    //         }, 2000)
+    // }
 
-    if(!expresionesPermitidadForm.password.test(clave.value)){
-        clave.classList.add('errorEnDatoFormulario');
-        iconoError[2].style.opacity = 1;
-        textoError[2].style.opacity = 1;
-        mensajeErrorFormulario.style.opacity = 1;
-            setTimeout(()=>{
-                clave.classList.remove('errorEnDatoFormulario');
-                iconoError[2].style.opacity = 0;
-                textoError[2].style.opacity = 0;
-                mensajeErrorFormulario.style.opacity = 0;
-                clave.value = '';
-            }, 2000)
-    }
+    // if(!expresionesPermitidadForm.password.test(clave.value)){
+    //     clave.classList.add('errorEnDatoFormulario');
+    //     iconoError[2].style.opacity = 1;
+    //     textoError[2].style.opacity = 1;
+    //     mensajeErrorFormulario.style.opacity = 1;
+    //         setTimeout(()=>{
+    //             clave.classList.remove('errorEnDatoFormulario');
+    //             iconoError[2].style.opacity = 0;
+    //             textoError[2].style.opacity = 0;
+    //             mensajeErrorFormulario.style.opacity = 0;
+    //             clave.value = '';
+    //         }, 2000)
+    // }
 
-    if(!expresionesPermitidadForm.password.test(claveVerificacion.value) || clave.value != claveVerificacion.value){
-        claveVerificacion.classList.add('errorEnDatoFormulario');
-        iconoError[3].style.opacity = 1;
-        textoError[3].style.opacity = 1;
-        mensajeErrorFormulario.style.opacity = 1;
-            setTimeout(()=>{
-                claveVerificacion.classList.remove('errorEnDatoFormulario');
-                iconoError[3].style.opacity = 0;
-                textoError[3].style.opacity = 0;
-                mensajeErrorFormulario.style.opacity = 0;
-                claveVerificacion.value = '';
-            }, 2000)
-    }
+    // if(!expresionesPermitidadForm.password.test(claveVerificacion.value) || clave.value != claveVerificacion.value){
+    //     claveVerificacion.classList.add('errorEnDatoFormulario');
+    //     iconoError[3].style.opacity = 1;
+    //     textoError[3].style.opacity = 1;
+    //     mensajeErrorFormulario.style.opacity = 1;
+    //         setTimeout(()=>{
+    //             claveVerificacion.classList.remove('errorEnDatoFormulario');
+    //             iconoError[3].style.opacity = 0;
+    //             textoError[3].style.opacity = 0;
+    //             mensajeErrorFormulario.style.opacity = 0;
+    //             claveVerificacion.value = '';
+    //         }, 2000)
+    // }
     
-    if(!expresionesPermitidadForm.correo.test(correo.value)){
-        correo.classList.add('errorEnDatoFormulario');
-        iconoError[4].style.opacity = 1;
-        textoError[4].style.opacity = 1;
-        mensajeErrorFormulario.style.opacity = 1;
-            setTimeout(()=>{
-                correo.classList.remove('errorEnDatoFormulario');
-                iconoError[4].style.opacity = 0;
-                textoError[4].style.opacity = 0;
-                mensajeErrorFormulario.style.opacity = 0;
-                correo.value = '';
-            }, 2000)
-    }
+    // if(!expresionesPermitidadForm.correo.test(correo.value)){
+    //     correo.classList.add('errorEnDatoFormulario');
+    //     iconoError[4].style.opacity = 1;
+    //     textoError[4].style.opacity = 1;
+    //     mensajeErrorFormulario.style.opacity = 1;
+    //         setTimeout(()=>{
+    //             correo.classList.remove('errorEnDatoFormulario');
+    //             iconoError[4].style.opacity = 0;
+    //             textoError[4].style.opacity = 0;
+    //             mensajeErrorFormulario.style.opacity = 0;
+    //             correo.value = '';
+    //         }, 2000)
+    // }
     
-    if(!expresionesPermitidadForm.telefono.test(telefono.value)){
-        telefono.classList.add('errorEnDatoFormulario');
-        iconoError[5].style.opacity = 1;
-        textoError[5].style.opacity = 1;
-        mensajeErrorFormulario.style.opacity = 1;
-            setTimeout(()=>{
-                telefono.classList.remove('errorEnDatoFormulario');
-                iconoError[5].style.opacity = 0;
-                textoError[5].style.opacity = 0;
-                mensajeErrorFormulario.style.opacity = 0;
-                telefono.value = '';
-            },2000)
-    }
+    // if(!expresionesPermitidadForm.telefono.test(telefono.value)){
+    //     telefono.classList.add('errorEnDatoFormulario');
+    //     iconoError[5].style.opacity = 1;
+    //     textoError[5].style.opacity = 1;
+    //     mensajeErrorFormulario.style.opacity = 1;
+    //         setTimeout(()=>{
+    //             telefono.classList.remove('errorEnDatoFormulario');
+    //             iconoError[5].style.opacity = 0;
+    //             textoError[5].style.opacity = 0;
+    //             mensajeErrorFormulario.style.opacity = 0;
+    //             telefono.value = '';
+    //         },2000)
+    // }
+
+    // if(checkTerminos.checked){
+    //     mensajeErrorFormulario.style.opacity = 1;
+    //         setTimeout(()=>{
+    //             mensajeErrorFormulario.style.opacity = 0;
+    //         }, 2000)
+
+    //     return false
+    // }
 
 }
+
+function mostrarMensajesError(input, icono, texto, mensaje){
+    input.classList.add('errorEnDatoFormulario');
+    icono.style.opacity = 1;
+    texto.style.opacity = 1;
+    mensaje.style.opacity = 1;
+        setTimeout(()=>{
+            input.classList.remove('errorEnDatoFormulario');
+            icono.style.opacity = 0;
+            texto.style.opacity = 0;
+            mensaje.style.opacity = 0;
+        }, 2000)
+    
+
+
+}   
 
 
 btnEnviarFormulario.addEventListener('click', (e)=>{
