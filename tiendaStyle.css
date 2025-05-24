@@ -735,6 +735,7 @@ th, td{
     width: 80%;
     height: 100%;
     border-radius: 4px;
+
 }
 
 .formularioGrupoBtnEnviar{
@@ -745,16 +746,19 @@ th, td{
     font-size: 10px;
     color: red;
     opacity: 0;
+    transition: 0.4s ease all;
+
 }
 
 .errorEnDatoFormulario{
     border: 1.5px solid red;
     box-shadow: 1px 1px 5px rgba(253, 1, 1, 0.9), -1px -1px 5px rgba(253, 1, 1, 0.9);
-    transition: 0.5 ease all;
+    transition: 0.4s ease all;
 }
 .iconoError{
     opacity: 0;
     color: red;
+    transition: 0.4s ease all;
 }
 .terminos{
     color: #111111;

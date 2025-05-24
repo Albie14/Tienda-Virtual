@@ -207,9 +207,10 @@ function validacionFormulario(e){
     let correo = document.getElementById('correo');
     let telefono = document.getElementById('telefono');
     let terminosYCondiciones = document.getElementById('terminos');
-
     const iconoError = document.querySelectorAll('.iconoError');
     const textoError = document.querySelectorAll('.formularioInputError');
+
+
 
     if(nombre.value != expresionesPermitidadForm.nombre){
         nombre.classList.add('errorEnDatoFormulario');
@@ -220,8 +221,9 @@ function validacionFormulario(e){
             nombre.classList.remove('errorEnDatoFormulario');
             iconoError[0].style.opacity = 0;
             textoError[0].style.opacity = 0;
+            nombre.value = '';
         }, 2000)
-    };
+    }
 
     if(apellido.value != expresionesPermitidadForm.nombre){
         apellido.classList.add('errorEnDatoFormulario');
@@ -232,11 +234,63 @@ function validacionFormulario(e){
             apellido.classList.remove('errorEnDatoFormulario');
             iconoError[1].style.opacity = 0;
             textoError[1].style.opacity = 0;
+            apellido.value = '';
         }, 2000)
     }
 
+    if(clave.value != expresionesPermitidadForm.password){
+        clave.classList.add('errorEnDatoFormulario');
+        iconoError[2].style.opacity = 1;
+        textoError[2].style.opacity = 1;
+
+        setTimeout(()=>{
+            clave.classList.remove('errorEnDatoFormulario');
+            iconoError[2].style.opacity = 0;
+            textoError[2].style.opacity = 0;
+            clave.value = '';
+        }, 2000)
+    }
+
+    if(claveVerificacion.value != expresionesPermitidadForm.password || clave.value != claveVerificacion.value){
+        claveVerificacion.classList.add('errorEnDatoFormulario');
+        iconoError[3].style.opacity = 1;
+        textoError[3].style.opacity = 1;
+
+        setTimeout(()=>{
+            claveVerificacion.classList.remove('errorEnDatoFormulario');
+            iconoError[3].style.opacity = 0;
+            textoError[3].style.opacity = 0;
+            claveVerificacion.value = '';
+        }, 2000)
+    }
     
+    if(correo.value != expresionesPermitidadForm.correo){
+        correo.classList.add('errorEnDatoFormulario');
+        iconoError[4].style.opacity = 1;
+        textoError[4].style.opacity = 1;
+
+        setTimeout(()=>{
+            correo.classList.remove('errorEnDatoFormulario');
+            iconoError[4].style.opacity = 0;
+            textoError[4].style.opacity = 0;
+            correo.value = '';
+        }, 2000)
+    }
+    
+    if(telefono.value != expresionesPermitidadForm.telefono){
+        telefono.classList.add('errorEnDatoFormulario');
+        iconoError[5].style.opacity = 1;
+        textoError[5].style.opacity = 1;
+
+        setTimeout(()=>{
+            telefono.classList.remove('errorEnDatoFormulario');
+            iconoError[5].style.opacity = 0;
+            textoError[5].style.opacity = 0;
+            telefono.value = '';
+        },2000)
+    }
 }
 
 
 btnEnviarFormulario.addEventListener('click', validacionFormulario);
+
