@@ -689,22 +689,24 @@ th, td{
 
 /* formulario */
 .seccion-registro{
+    padding-top: 200px;
     display: flex;
     justify-content: center;    
 }
 .formulario{
-    border: 1px solid red;
     width: 80%;
-    min-height: 350px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    border:2px solid rgba(0, 0, 0, 0.1);
+    min-height: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     display: grid;
-    grid-template-columns: repeat(2, minmax(300px, 1fr));
-    gap: 25px; 
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr) 0.8fr 1.2fr;
+    row-gap: 10px;
+    column-gap: 10px;
     border-radius: 10px;
-    padding: 2%;
-
+    padding: 2% 1%;
+    margin-bottom: 15px;
 }
+
 
 .formularioGrupo{
     width: 100%;
@@ -715,7 +717,7 @@ th, td{
     border-right: 1px solid rgba(0, 0, 0, 0.5);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-
+    transition: all 0.5s ease;
 }
 .indicacionesFormulario{
     display: flex;
@@ -730,24 +732,23 @@ th, td{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
 }
 .formularioInput{
     width: 80%;
-    height: 100%;
+    height: 80%;
     border-radius: 4px;
-
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(0, 0, 0, 0.8);
+    border: none;
+    outline: none;
 }
 
-.formularioGrupoBtnEnviar{
-    width: 200%;
-    height: 120%;
-}
+
 .formularioInputError, .usuarioRegistradoError{
     font-size: 10px;
     color: red;
     opacity: 0;
     transition: 0.4s ease all;
-
 }
 
 .errorEnDatoFormulario{
@@ -760,33 +761,38 @@ th, td{
     color: red;
     transition: 0.4s ease all;
 }
-.terminos{
-    color: #111111;
-}
-.terminos:hover{
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
-    transition: all ease 0.5s;
-}
+
 .formularioMensaje{
     color: red;
     opacity: 0;
-}
+    grid-column: 1/3;
+    grid-row: 4;
+}   
 .formularioMensaje span{
     color: #111111;
 }
 .formularioGrupoBtnEnviar{
     border: none;
+    grid-column: 1/3;
+    grid-row: 5/6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
 }
+
 
 .formularioBtn{
     cursor: pointer;
     width: 30%;
-    height: 50%;
+    height: 70%;
     background-color: #111111;
     color: #ffffff;
     border: none;
     border-radius: 5px;
     transition: 0.5s ease all;
+    
 }
 .formularioBtn:hover{
     background-color: #4e4b5076;
@@ -799,12 +805,11 @@ th, td{
 }
 
 .formularioMensajeExito{
-    margin-top: 15px;
+    margin-top: 5px;
     opacity: 0;
 }
-#checkTerminos:checked{
-    border: 1px solid red;
-}
+
+
 
 @media(max 300px){
 
