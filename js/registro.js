@@ -56,7 +56,32 @@ function validacionFormulario(e){
     }
     if(formularioValido){
         console.log('form valido');
-        formulario.submit();
+        //cambio de envio formulario, cambio submit(), por fetch()
+        // formulario.submit();
+
+        const data = {
+            nombre: nombre.value,
+            correo: correo.value,
+            contraseña: clave.value
+        };
+
+        fetch('http://localhost:3000/api//auth/register', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data=>{
+                console.log('usuario registrado', data);
+                alert('Usuario registrado exitosamente');
+                formulario.reset(); 
+            })
+            .catch(error=>{
+                console.error('Error al registrar usuario:', error);
+                alert('Error al registrar usuario')
+            })
     }
 }
 

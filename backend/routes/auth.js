@@ -1,32 +1,19 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('./user');
 const sqlite3 = require('sqlite3').verbose();
 const router = express.Router();
-
-const dataBase = new sqlite3.Database('./database.sqlite', (err)=>{
-    if(err){
-        console.log('Error conectando a base de datos', err.message)
-    }else{
-        console.log('Base de datos conectada')
-        dataBase.run(`CREATE TABLE IF NOT EXISTS user(
-            id INTEGER PRIMARY KEI AUTOINCREMENT,
-            nombre TEXT NOT NULL,
-            correo TEXT NOT NULL UNIQUE,
-            contraseña TEXT NOT NULL
-            )`);
-    };
-});
-    
+const dataBase = require('./database');
 
 
 //Registro usuario en SQLite
 router.post('/register', async(req, res)=>{
-    const {nombre, correo, contraseña} =  req.body;
+    const {nombre, apellido, correo, telefono, contraseña} =  req.body;
     const clave = await bcrypt.hash(contraseña, 10);
 
-    dataBase.run(`INSERT INTO users(nombre, correo, contraseña) VALUES (?, ?, ?)`, [nombre, correo, clave], function(err){
+    dataBase.run(`INSERT INTO users(nombre, apellido, correo, telefono, contraseña) VALUES (?, ?, ?)`,
+        [nombre, apellido, correo, telefono, contraseña],
+        function(err){
         if(err){
             return res.status(500).json({error: 'Error en registro de usuario'});
         }
@@ -37,7 +24,6 @@ router.post('/register', async(req, res)=>{
 //Inicio de sesion
 router.post('/login', async(req, res)=>{
     const {correo, contraseña} = req.body;
-
     dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], async (err, usuario)=>{
         if(err || !usuario){
             return res.status(400).json({error: 'Usuario no encontrado'});
@@ -52,10 +38,13 @@ router.post('/login', async(req, res)=>{
 
 //Actaulizar  usuario en SQLite
 router.put('/update/:id', async(req, res)=>{
-    const {nombre, correo}= req.body;
+    const {nombre, apellido, correo, telefono}= req.body;
 
-    dataBase.run(`UPDATE users SET nombre = ?, correo = ? WHERE id = ?`, [nombre, correo, req.params.id], function(err){
-        if(err){
+    dataBase.run(
+        `UPDATE users SET nombre = ?, apellido = ?, correo = ?, telefono = ? WHERE id = ?`,
+            [nombre, apellido, correo, telefono, req.params.id],
+            function(err){
+            if(err){
             return res.status(500).json({error: 'Error al actualizar usuario'})
         }
         res.json({message: 'Usuario actualizado'});
