@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const authRoutes = require('./auth');//importa la ruta desde donde viene las autorizaciones
+const authRoutes = require('./routes/auth');//importa la ruta desde donde viene las autorizaciones
 const sqlite3 = require('sqlite3').verbose();
 
 dotenv.config();
