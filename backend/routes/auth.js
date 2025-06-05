@@ -7,28 +7,59 @@ const dataBase = require('./database');
 
 //Registro usuario en SQLite
 router.post('/register', async(req, res)=>{
-
     try {
         const { nombre, apellido, correo, telefono, contrasena } = req.body;
-
+        
         if (!nombre || !apellido || !correo || !telefono || !contrasena) {
             return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
         }
 
         const clave = await bcrypt.hash(contrasena, 10);
 
-    dataBase.run
-    (`INSERT INTO users(nombre, apellido, correo, telefono, contrasena) VALUES (?, ?, ?, ?, ?)`,
-        [nombre, apellido, correo, telefono, clave],
-        function(err){
-        if(err){
-            return res.status(500).json({error: 'Error en registro de usuario'});
-        }
-        res.json({message: 'Usuario registrado exitosamente', id: this.lastID})
-    });
+        dataBase.run
+        (`INSERT INTO users(nombre, apellido, correo, telefono, contrasena) VALUES (?, ?, ?, ?, ?)`,
+            [nombre, apellido, correo, telefono, clave],
+            function(err){
+                if(err){
+                    if(err.message.includes('UNIQUE constraint failed: users.correo')){
+                        console.log('⚠️ Correo ya registrado:', correo)
+                        return res.status(409).json({error: 'El correo ya está registrado.'})
+                    }
+                    console.error('❌ Error al insertar en base de datos:', err.message)
+                    return res.status(500).json({error: 'Error en registro de usuario'});
+                }
+
+                return res.json({
+                    message: 'usuario registrado exitosamente',
+                    id: this.lastID,
+                });
+        });
     }catch(error){
+        console.error('❌ Error inesperado:', error.message);
         res.status(500).json({ error: 'Error en el servidor' });
     }
+})
+
+//Verificacion de correo que no este registrado
+
+router.get('/check-email', (req, res)=>{
+    const {correo} =  req.query;
+
+    if(!correo){
+        return res.status(400).json({error: 'Correo es requerido'});
+    }
+
+    dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], (err, row)=>{
+        if(err){
+            console.log('Error consultando correo:', err.message);
+            return res.status(500).json({error: 'Error en el servidor'})
+        }
+        if(row){
+            return res.status(200).json({exists: true});
+        }else{
+            return res.status(200).json({exists: false});
+        }
+    })
 })
 
 //Inicio de sesion

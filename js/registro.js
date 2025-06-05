@@ -5,11 +5,10 @@ const expresionesPermitidadForm = {
 	telefono: /^\d{7,14}$/ // 7 a 14 numeros.
 };
 
-
 const formulario = document.getElementById('formulario');
 const btnEnviarFormulario = document.querySelector('.formularioBtn');
 
-function validacionFormulario(e){
+async function validacionFormulario(e){
     e.preventDefault();
     
 
@@ -45,11 +44,26 @@ function validacionFormulario(e){
         formularioValido = false
     }
     
-    if(!expresionesPermitidadForm.correo.test(correo.value)){
+
+    let correoValido = expresionesPermitidadForm.correo.test(correo.value);//se cambia la forma de validacion de correo, para que se haga tanto por expresiones permitinidas y el correo duplicado
+
+    if(!correoValido){
         mostrarMensajesError(correo, iconoError[4], textoError[4], mensajeErrorFormulario)
-        formularioValido = false
+        formularioValido = false;
+    }else{
+        const verificacionCorreo = await correoConRegistro(correo.value)
+
+        if(verificacionCorreo){
+            const msjErrorCorreoRegistrado = document.querySelector('.usuarioRegistradoError');
+
+            msjErrorCorreoRegistrado.style.opacity = 1;
+                setTimeout(()=>{
+                    msjErrorCorreoRegistrado.style.opacity = 0;
+                }, 2000)
+            return
+        }
     }
-    
+
     if(!expresionesPermitidadForm.telefono.test(telefono.value)){
         mostrarMensajesError(telefono, iconoError[5], textoError[5], mensajeErrorFormulario)
         formularioValido = false
@@ -78,7 +92,7 @@ function validacionFormulario(e){
             .then(result =>{
                 console.log("respuesta del backend:", result)
                 if(result.error){
-                    alert("error dede backend: " + result.error)
+                    alert("error desde backend: " + result.error)
                 }else{
                     alert("usuario regisrado " + result.message)
                     formulario.reset();
@@ -108,7 +122,18 @@ function mostrarMensajesError(input, icono, texto, mensaje){
 }   
 
 
+//verificacion de correo registrado
+async function correoConRegistro(correo) {
+    try{
+        const response =  await fetch(`http://localhost:3001/api/auth/check-email?correo=${encodeURIComponent(correo)}`);
+        return result.exists;
+    }catch(error){
+        console.log("Error verificando correo", error);
+        return false;
+    }
+}
+
 formulario.addEventListener('submit', (e)=>{
     e.preventDefault()
     validacionFormulario(e);
-});``
+});
