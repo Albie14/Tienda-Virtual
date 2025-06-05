@@ -5,31 +5,41 @@ const sqlite3 = require('sqlite3').verbose();
 const router = express.Router();
 const dataBase = require('./database');
 
-
 //Registro usuario en SQLite
 router.post('/register', async(req, res)=>{
-    const {nombre, apellido, correo, telefono, contraseña} =  req.body;
-    const clave = await bcrypt.hash(contraseña, 10);
 
-    dataBase.run(`INSERT INTO users(nombre, apellido, correo, telefono, contraseña) VALUES (?, ?, ?)`,
-        [nombre, apellido, correo, telefono, contraseña],
+    try {
+        const { nombre, apellido, correo, telefono, contrasena } = req.body;
+
+        if (!nombre || !apellido || !correo || !telefono || !contrasena) {
+            return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
+        }
+
+        const clave = await bcrypt.hash(contrasena, 10);
+
+    dataBase.run
+    (`INSERT INTO users(nombre, apellido, correo, telefono, contrasena) VALUES (?, ?, ?, ?, ?)`,
+        [nombre, apellido, correo, telefono, clave],
         function(err){
         if(err){
             return res.status(500).json({error: 'Error en registro de usuario'});
         }
         res.json({message: 'Usuario registrado exitosamente', id: this.lastID})
     });
+    }catch(error){
+        res.status(500).json({ error: 'Error en el servidor' });
+    }
 })
 
 //Inicio de sesion
 router.post('/login', async(req, res)=>{
-    const {correo, contraseña} = req.body;
+    const {correo, contrasena} = req.body;
     dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], async (err, usuario)=>{
         if(err || !usuario){
             return res.status(400).json({error: 'Usuario no encontrado'});
         }
-        if(!await bcrypt.compare(contraseña, usuario.contraseña)){
-            return res.status(400).json({error: 'contraseña incorrecta'})
+        if(!await bcrypt.compare(contrasena, usuario.contrasena)){
+            return res.status(400).json({error: 'contrasena incorrecta'})
         }
         const token = jwt.sign({id: usuario.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
             res.json({token});

@@ -14,7 +14,7 @@ const dataBase = new sqlite3.Database('./database.sqlite', (err)=>{
                 apellido TEXT NOT NULL,
                 correo TEXT NOT NULL UNIQUE,
                 telefono TEXT NOT NULL,
-                contraseña TEXT NOT NULL
+                contrasena TEXT NOT NULL
 
             )`,(err)=>{
                 if(err){

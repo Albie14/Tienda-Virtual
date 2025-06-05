@@ -61,26 +61,33 @@ function validacionFormulario(e){
 
         const data = {
             nombre: nombre.value,
+            apellido: apellido.value,
             correo: correo.value,
-            contraseña: clave.value
+            telefono: telefono.value,
+            contrasena: clave.value
         };
 
-        fetch('http://localhost:3000/api//auth/register', {
+        fetch('http://localhost:3001/api/auth/register', {
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         })
-            .then(res => res.json())
-            .then(data=>{
-                console.log('usuario registrado', data);
-                alert('Usuario registrado exitosamente');
-                formulario.reset(); 
+            .then(response => response.json())
+            .then(result =>{
+                console.log("respuesta del backend:", result)
+                if(result.error){
+                    alert("error dede backend: " + result.error)
+                }else{
+                    alert("usuario regisrado " + result.message)
+                    formulario.reset();
+                }
             })
+
             .catch(error=>{
-                console.error('Error al registrar usuario:', error);
-                alert('Error al registrar usuario')
+                alert('Error en la solicitud: ' + error.message)
+        
             })
     }
 }
@@ -102,7 +109,6 @@ function mostrarMensajesError(input, icono, texto, mensaje){
 
 
 formulario.addEventListener('submit', (e)=>{
-    console.log('prueba');
     e.preventDefault()
     validacionFormulario(e);
-});
+});``
