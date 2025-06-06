@@ -17,7 +17,7 @@ body{
     font-family: "Poppins", sans-serif;
     /* para trabajar el div de ingresar */
     position: relative; 
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 img{
@@ -185,7 +185,7 @@ img{
     justify-content: space-evenly;
     align-items: center;
 }
-.usuario a{
+.botones-usuario{
     color: #f5f5f5;
     width: 40%;
     height: 55%;
@@ -196,8 +196,10 @@ img{
     line-height: 210%;
     background-color: #111111;
     word-spacing: 10px;
+    cursor: pointer;
+    border: none;
 }
-.usuario a:hover{
+.botones-usuario:hover{
     background-color: #4e4b5076;
     color: #111111;;
 }
@@ -816,7 +818,7 @@ th, td{
     position: absolute;
     height: 100vh;
     width: 100%;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     background-color: #00000063;
