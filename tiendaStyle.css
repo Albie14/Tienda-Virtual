@@ -15,6 +15,8 @@ font-family: "Poppins", sans-serif;
 
 body{
     font-family: "Poppins", sans-serif;
+    /* para trabajar el div de ingresar */
+    position: relative; 
 }
 
 img{
@@ -809,7 +811,26 @@ th, td{
     opacity: 0;
 }
 
+.seccion-ingreso{
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
+    background-color: #00000063;
+    backdrop-filter: blur(9px);
+    z-index: 10000000;
 
+}
+.datos-ingresar{
+    width: 40%;
+    height: 40%;
+    border: 1px solid yellowgreen;
+    background: #ffffff;
+    border-radius: 10px;
+}
 
 @media(max 300px){
 

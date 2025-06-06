@@ -8,6 +8,32 @@
     <link rel="stylesheet" href="../tiendaStyle.css">
 </head>
 <body>
+    <div class="seccion-ingreso">
+        <form action="submit" class="datos-ingresar">
+            <div class="grupo-datos-ingresar">
+                <laber for="correo-ingresar">Correo/Usuario</laber>
+                <div class="input-correo-ingresar">
+                    <input type="email" name="correo-ingresar" id="correo-ingresar">
+                    <i class="iconoError fa-solid fa-circle-xmark"></i>
+                </div>
+                <p>Usuario no encontrado</p>
+            </div>
+            <div class="grupo-datos-ingresar">
+                <laber for="correo-clave">Clave Secreta</laber>
+                <div class="input-clave-ingresar">
+                    <input type="password" name="correo-clave" id="clave-ingresar">
+                    <i class="iconoError fa-solid fa-circle-xmark"></i>
+                </div>
+                <p>Clave Errada. Recuerde, que al ingresar mas tres (3) veces la clave errada, su usuario sera bloqueado</p>
+            </div>
+            <div class="grupo-datos-ingresar">
+                <a href="recuperarUsuario.html">Recuperar Usuario y/o Clave</a>
+            </div>
+            <div class="grupo-datos-ingresar">
+                <button type="submit" class="ingresarBtn"><p>Ingresar</p></button>
+            </div>
+        </form>
+    </div>
     <header class="header">
         <div class="menu container">
             <a href="#" class="logo"><img src="../imagenes/logo.jpg" alt="logo"></a>

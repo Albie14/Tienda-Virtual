@@ -126,6 +126,7 @@ function mostrarMensajesError(input, icono, texto, mensaje){
 async function correoConRegistro(correo) {
     try{
         const response =  await fetch(`http://localhost:3001/api/auth/check-email?correo=${encodeURIComponent(correo)}`);
+        const result = await response.json()
         return result.exists;
     }catch(error){
         console.log("Error verificando correo", error);
