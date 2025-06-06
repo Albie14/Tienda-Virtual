@@ -17,6 +17,7 @@ body{
     font-family: "Poppins", sans-serif;
     /* para trabajar el div de ingresar */
     position: relative; 
+    overflow: hidden;
 }
 
 img{
@@ -826,12 +827,60 @@ th, td{
 }
 .datos-ingresar{
     width: 40%;
-    height: 40%;
+    height: 60%;
     border: 1px solid yellowgreen;
     background: #ffffff;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 5px 20px;
+}
+.grupo-datos-ingresar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.grupo-datos-ingresar:nth-child(1), .grupo-datos-ingresar:nth-child(2) {
+    height:25%;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+
+    p{
+        font-size: 10px;
+        font-family: sans-serif;
+        font-weight: 500;
+        color: red;
+        opacity: 0;
+    }
+}
+
+
+.input-correo-ingresar, .input-clave-ingresar{
+    display: flex;
+    width: 80%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 40%;
+}  
+
+.input-ingresar{
+    width: 70%;
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.9);
+    border: 1px solid black;
+    outline: none;
+    border: none;
+}
+.dato-errado-ingresar{
+    border: 1px solid red;
+    box-shadow: 0px 0px 5px rgba(253, 1, 1, 0.9);
+    transition: 0.4s ease all;
+}
 @media(max 300px){
 
 }
