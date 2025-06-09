@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda Virtual</title>
     <script src="https://kit.fontawesome.com/926e2c95da.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../tiendaStyle.css">
+    <link rel="stylesheet" href="/css/tiendaStyle.css">
 </head>
 <body>
     <div class="seccion-ingreso">
@@ -13,15 +13,15 @@
             <div class="grupo-datos-ingresar">
                 <laber for="correo-ingresar">Correo/Usuario</laber>
                 <div class="input-correo-ingresar">
-                    <input type="email" name="correo-ingresar" id="correo-ingresar" class="input-ingresar" placeholder="Correo">
+                    <input type="email" autocomplete="username" name="correo-ingresar" id="correo-ingresar" class="input-ingresar" placeholder="Correo">
                     <i class="iconoErrorIngresar fa-solid fa-circle-xmark"></i>
                 </div>
                 <p>Usuario no encontrado</p>
             </div>
             <div class="grupo-datos-ingresar">
-                <laber for="correo-clave">Clave Secreta</laber>
+                <laber for="clave-ingresar">Clave Secreta</laber>
                 <div class="input-clave-ingresar">
-                    <input type="password" name="correo-clave" id="clave-ingresar" class="input-ingresar" placeholder="Clave">
+                    <input type="password" autocomplete="current-password" name="clave-ingresar" id="clave-ingresar" class="input-ingresar" placeholder="Clave">
                     <i class="iconoErrorIngresar fa-solid fa-circle-xmark"></i>
                 </div>
                 <p>Clave Errada. Recuerde, que al ingresar mas tres (3) veces la clave errada, su usuario sera bloqueado</p>

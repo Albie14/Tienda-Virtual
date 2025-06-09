@@ -5,35 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienda Virtual</title>
     <script src="https://kit.fontawesome.com/926e2c95da.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../tiendaStyle.css">
+    <link rel="stylesheet" href="/css/tiendaStyle.css">
 </head>
 <body>
-    <div class="seccion-ingreso">
-        <form action="submit" class="datos-ingresar">
-            <div class="grupo-datos-ingresar">
-                <laber for="correo-ingresar">Correo/Usuario</laber>
-                <div class="input-correo-ingresar">
-                    <input type="email" name="correo-ingresar" id="correo-ingresar" class="input-ingresar" placeholder="Correo">
-                    <i class="iconoErrorIngresar fa-solid fa-circle-xmark"></i>
-                </div>
-                <p>Usuario no encontrado</p>
-            </div>
-            <div class="grupo-datos-ingresar">
-                <laber for="correo-clave">Clave Secreta</laber>
-                <div class="input-clave-ingresar">
-                    <input type="password" name="correo-clave" id="clave-ingresar" class="input-ingresar" placeholder="Clave">
-                    <i class="iconoErrorIngresar fa-solid fa-circle-xmark"></i>
-                </div>
-                <p>Clave Errada. Recuerde, que al ingresar mas tres (3) veces la clave errada, su usuario sera bloqueado</p>
-            </div>
-            <div class="grupo-datos-ingresar">
-                <a href="recuperarUsuario.html" class="recuperarUsuario">Recuperar Usuario y/o Clave</a>
-            </div>
-            <div class="grupo-datos-ingresar">
-                <button type="submit" class="btn-ingresar-usuario"><p>Ingresar</p></button>
-            </div>
-        </form>
-    </div>
     <header class="header header-paginaciones">
         <div class="menu container menu-paginacion">
             <a href="/html/tiendaIndex.html" class="logo logo-paginacion"><img src="../imagenes/logo.jpg" alt="logo"></a>
@@ -138,7 +112,7 @@
                     <div class="indicacionesFormulario">
                         <label for="correo" class="formularioLabel">Correo Electronico</label>
                         <div class="formularioGrupoInput">
-                            <input type="email" class="formularioInput" name="correo" id="correo" placeholder="correo@correo.com">
+                            <input type="email" autocomplete="email" class="formularioInput" name="correo" id="correo" placeholder="correo@correo.com">
                             <i class="iconoError fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
@@ -270,7 +244,6 @@
         </div>
 
     </footer>  
-
     <script src="/js/registro.js"></script>
 </body>
 </html>

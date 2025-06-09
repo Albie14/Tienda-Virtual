@@ -17,7 +17,6 @@ body{
     font-family: "Poppins", sans-serif;
     /* para trabajar el div de ingresar */
     position: relative; 
-    /* overflow: hidden; */
 }
 
 img{
@@ -143,22 +142,27 @@ img{
     margin-right: 15%;
 }
 .fa-house-user:hover{
-    border: 2px solid #111111;
-    scale: .9;
+    scale: .8;
     transition: 0.6s ease all;
 }
 .contedor-home .personal{
     display: none;
+    transition: 0.6s ease all;
+
 }
 .contedor-home:hover .personal{
     display: flex;
+    justify-content: space-around;
     transition: 0.6s ease all;
+    width: 15%;
+    transition: 0.6s ease all; */
 }
 
 .contenedor-usuario{
     height: auto;
     width: auto;
 }
+
 .fa-user-plus{
     height: 100%;
     font-size: 25px;
@@ -166,13 +170,13 @@ img{
 }   
 .usuario{
     position: absolute;
-    right: 10%;
+    right: 0;
     backdrop-filter: blur(10px);
     top: 80%;
     z-index: 11;
     background-color: #4e4b5076;
     padding: 5px;
-    min-width: 280px;
+    min-width: 380px;
     height:75px;
     border-radius: 10px;
     transition: 0.6 ease all;
@@ -215,7 +219,7 @@ img{
 .submenu:hover #carrito{
     display: block;
     position: absolute;
-    right: 50%;
+    right: 0%;
     backdrop-filter: blur(10px);
     top: 100%;
     z-index: 11;
@@ -815,7 +819,7 @@ th, td{
 }
 
 .seccion-ingreso{
-    position: absolute;
+    position: fixed;
     height: 100vh;
     width: 100%;
     display: none;
@@ -924,4 +928,8 @@ th, td{
     background-color: #4e4b5076;
     color: #111111;
     transition: 0.4s ease all;
+}
+
+.seccion-ingreso-visible{
+    display: flex;
 }

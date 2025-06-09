@@ -96,6 +96,8 @@ async function validacionFormulario(e){
                 }else{
                     alert("usuario regisrado " + result.message)
                     formulario.reset();
+
+                    window.location.href = 'http://localhost:3001/html/registro.html';
                 }
             })
 

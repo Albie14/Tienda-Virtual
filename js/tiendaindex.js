@@ -182,3 +182,42 @@ window.addEventListener('DOMContentLoaded', function(){
         });
     }
 })
+
+
+//ingresar usuario
+const btnIngresar = document.getElementById('btn-ingresar');
+const body = document.body;
+const contenedorIngresarUsuario = document.querySelector('.seccion-ingreso');
+const contenedorFormularioIngresarUsuario = document.querySelector('.datos-ingresar');
+
+btnIngresar.addEventListener('click', ()=>{
+    contenedorIngresarUsuario.classList.add('seccion-ingreso-visible')
+    body.style.overflow = 'hidden';
+})
+    //funciona para cerrar seccion
+function cerrarContenedor(){
+    contenedorIngresarUsuario.classList.remove('seccion-ingreso-visible');
+    body.style.overflow = '';
+    //para evitar que estos eventos obstuyan la ejecucion
+    window.removeEventListener('click', clickFuera);
+    window.removeEventListener('click', teclaEscape);
+}
+
+    //Detectar click fuera de seccion
+function clickFuera(event){
+    if(!contenedorFormularioIngresarUsuario.contains(event.target)&& event.target !==btnIngresar){
+        cerrarContenedor();
+    }
+}
+document.addEventListener('click', clickFuera)
+
+    //Detectar pulsar tecla escape
+function teclaEscape(event){
+    if(event.key === 'Escape'){
+        cerrarContenedor()
+    }
+}
+
+    //Aadir evento al click a la tecla
+    window.addEventListener('click', clickFuera);
+    window.addEventListener('keydown', teclaEscape);
