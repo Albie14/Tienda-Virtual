@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const sqlite3 = require('sqlite3').verbose();
 const router = express.Router();
 const dataBase = require('./database');
+const rateLimit = require("express-rate-limit");//para poner limites de intentos a ingresar la clave
 
 //Registro usuario en SQLite
 router.post('/register', async(req, res)=>{
@@ -63,21 +64,35 @@ router.get('/check-email', (req, res)=>{
 })
 
 //Inicio de sesion
-router.post('/login', async(req, res)=>{
+const limiteIntentosClave = rateLimit({
+    windowMs: 2*60*100, //2minutos para ingresar clave correcta
+    max:3,
+    message: "intento fallido, maximo de intento tres (3), el usuario sera bloqueado",
+    standardHeaders: true,
+    
+    legacyHeaders: false
+})
+
+router.post('/login', limiteIntentosClave, async(req, res)=>{
     const {correo, contrasena} = req.body;
     dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], async (err, usuario)=>{
-        if(err || !usuario){
-            return res.status(400).json({error: 'Usuario no encontrado'});
+        if(err){
+            return res.status(500).json({error: 'Error interno del servidor'});
+        }
+        if(!usuario){
+            return res.status(404).json({error: 'Usuario no encontrado'})
         }
         if(!await bcrypt.compare(contrasena, usuario.contrasena)){
-            return res.status(400).json({error: 'contrasena incorrecta'})
+            return res.status(401).json({error: 'contraseña incorrecta'})
         }
         const token = jwt.sign({id: usuario.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
-            res.json({token});
+        res.json({
+            success: true, //se incluye esta clave para que el frontend reconozca la verificacion y que estan los datos en la base de datos
+            token});
     });
 });
 
-//Actaulizar  usuario en SQLite
+//Actualizar  usuario en SQLite
 router.put('/update/:id', async(req, res)=>{
     const {nombre, apellido, correo, telefono}= req.body;
 

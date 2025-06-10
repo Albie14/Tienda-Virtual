@@ -97,7 +97,9 @@ async function validacionFormulario(e){
                     alert("usuario regisrado " + result.message)
                     formulario.reset();
 
-                    window.location.href = 'http://localhost:3001/html/registro.html';
+                    // aqui redirecciona a tiendaIndex.html pero tengo problema
+                    window.location.href = "/html/tiendaIndex.html"; 
+
                 }
             })
 
@@ -129,7 +131,9 @@ async function correoConRegistro(correo) {
     try{
         const response =  await fetch(`http://localhost:3001/api/auth/check-email?correo=${encodeURIComponent(correo)}`);
         const result = await response.json()
+        
         return result.exists;
+
     }catch(error){
         console.log("Error verificando correo", error);
         return false;
@@ -139,4 +143,6 @@ async function correoConRegistro(correo) {
 formulario.addEventListener('submit', (e)=>{
     e.preventDefault()
     validacionFormulario(e);
+   
+
 });

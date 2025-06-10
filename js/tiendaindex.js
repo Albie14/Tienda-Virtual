@@ -218,6 +218,45 @@ function teclaEscape(event){
     }
 }
 
-    //Aadir evento al click a la tecla
-    window.addEventListener('click', clickFuera);
-    window.addEventListener('keydown', teclaEscape);
+//Aadir evento al click a la tecla
+window.addEventListener('click', clickFuera);
+window.addEventListener('keydown', teclaEscape);
+
+//funcion para ingresar usurario
+const formularioIngresar = document.querySelector('.datos-ingresar');
+
+formularioIngresar.addEventListener('submit', async(e)=>{
+    e.preventDefault();
+    
+    const correo = document.getElementById('correo-ingresar').value;
+    const clave = document.getElementById('clave-ingresar').value;
+
+    try{
+        const response = await fetch("/login",{
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({correo, clave})
+        })
+
+        const data = await response.json();
+        if(data.success){
+        alert("Inicio de sesion");
+        window.location.href = "/html/tiendaIndex.html"
+    }else{
+        alert("correo o clave incorrecta")
+    }}catch(error){
+        console.log('Error en la peticion: ', error);
+        alert('hubo problemas al conectar el servidor')
+    }
+})
+
+// async function correoConRegistro(correo) {
+//     try{
+//         const response =  await fetch(`http://localhost:3001/api/auth/check-email?correo=${encodeURIComponent(correo)}`);
+//         const result = await response.json()
+//         return result.exists;
+//     }catch(error){
+//         console.log("Error verificando correo", error);
+//         return false;
+//     }
+// }
