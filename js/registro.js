@@ -97,8 +97,10 @@ async function validacionFormulario(e){
                     alert("usuario regisrado " + result.message)
                     formulario.reset();
 
-                    // aqui redirecciona a tiendaIndex.html pero tengo problema
-                    window.location.href = "/html/tiendaIndex.html"; 
+                    setTimeout(()=>{
+                        window.location.href = "/html/tiendaIndex.html"; 
+
+                    },2000);
 
                 }
             })
