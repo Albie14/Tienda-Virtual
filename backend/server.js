@@ -10,7 +10,6 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 
-
 // esta especificacion hace que se pueda reconocer los estilos, el window estaba bloqueando la hoja de estilo
 app.use((req, res, next) => {
     res.setHeader("Content-Security-Policy", "default-src 'self'; style-src 'self' https://www.gstatic.com https://fonts.googleapis.com;");
@@ -28,6 +27,9 @@ app.use('/api/auth', authRoutes);
 
 app.listen(PORT, ()=> { console.log(`Servidor en localhost:${PORT}`)});
 
+const {mostrarUsuariosGuardados} = require('./routes/database');//para mostrar los usuarios almacenados en la base de datos
+ //aqui se llama la funcion que muestra los datos, se comenta a conveniencia
+// mostrarUsuariosGuardados();
 
 //agregar una GET ruta  para cargar los archivo del json que carga los productos, hacer el codigo reusable, usar como base el index, y la misma extructura sirva para oferta, damas, caballeros, basicamente crar modulos de secciones para importar en la paginas
 //investigar principios de programacon KISS SOLID

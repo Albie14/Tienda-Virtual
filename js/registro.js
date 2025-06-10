@@ -145,6 +145,4 @@ async function correoConRegistro(correo) {
 formulario.addEventListener('submit', (e)=>{
     e.preventDefault()
     validacionFormulario(e);
-   
-
 });
