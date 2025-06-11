@@ -107,6 +107,7 @@ img{
 }
 
 .menu-icono{
+    display: none;
     width: 25px;
 }
 
@@ -159,6 +160,9 @@ img{
     width: auto;
 }
 
+.oculto{
+    display: none !important;
+}
 .fa-user-plus{
     height: 100%;
     font-size: 25px;
