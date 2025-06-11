@@ -69,7 +69,6 @@ async function validacionFormulario(e){
         formularioValido = false
     }
     if(formularioValido){
-        console.log('form valido');
         //cambio de envio formulario, cambio submit(), por fetch()
         // formulario.submit();
 

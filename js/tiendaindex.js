@@ -239,10 +239,15 @@ formularioIngresar.addEventListener('submit', async(e)=>{
         })
 
         const data = await response.json();
+        console.log(data)
+
         if(data.success){
+
         alert("Inicio de sesion");
-        window.location.href = "/html/tiendaIndex.html"
-    }else{
+        window.location.href = "/html/tiendaIndex.html";
+        
+        // mostrarMensajeBienvenidaUsuario(); //Aqui se inserta un mensaje es los html indicando que el usuario esta con sus datos
+        }else{
         alert("correo o clave incorrecta")
     }}catch(error){
         console.log('Error en la peticion: ', error);
@@ -250,13 +255,13 @@ formularioIngresar.addEventListener('submit', async(e)=>{
     }
 })
 
-// async function correoConRegistro(correo) {
-//     try{
-//         const response =  await fetch(`http://localhost:3001/api/auth/check-email?correo=${encodeURIComponent(correo)}`);
-//         const result = await response.json()
-//         return result.exists;
-//     }catch(error){
-//         console.log("Error verificando correo", error);
-//         return false;
-//     }
+// mensaje de bienvenida de usuario
+
+// function mostrarMensajeBienvenidaUsuario(){
+//     const headerMsj = document.querySelector('header');
+//     const msjBienvenidaUsuario = document.createElement('div');
+//     msjBienvenidaUsuario.classList.add('msjBienvenidaUsuario');
+//     msjBienvenidaUsuario.innerHTML =  `<p id="mensajeBienvenida">Bienvenido XXXXXXXXXXXXDDDXX, estamos listos para atender tu compra  <i class="fa-solid fa-handshake"></i></p>`;
+
+//     headerMsj.appendChild(msjBienvenidaUsuario);
 // }
