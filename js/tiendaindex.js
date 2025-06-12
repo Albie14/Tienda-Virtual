@@ -228,25 +228,35 @@ const formularioIngresar = document.querySelector('.datos-ingresar');
 formularioIngresar.addEventListener('submit', async(e)=>{
     e.preventDefault();
     
-    const correo = document.getElementById('correo-ingresar').value;
-    const clave = document.getElementById('clave-ingresar').value;
-
+    const correo = document.getElementById('correo-ingresar').value.trim();
+    const clave = document.getElementById('clave-ingresar').value.trim();
+    if(correo === '' || clave === ''){
+        alert('faltan datos')//aqui entra frontend codear vosualizacion de erros
+        return;
+    }
+    console.log(correo, clave)
     try{
-        const response = await fetch("/login",{
+        //realiza la peticion al servidor
+        const response = await fetch('/api/auth/login',{
             method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({correo, clave})
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({correo, contrasena: clave})
         })
+        console.log(response);
+        if(!response.ok){
+            throw new Error(`Error en el servidor ${response.status}`)
+        }
 
         const data = await response.json();
-        console.log(data)
+        console.log('Respuesta del servidor: ', data);
 
         if(data.success){
-
-        alert("Inicio de sesion");
-        window.location.href = "/html/tiendaIndex.html";
+            console.log('Inicio de sesión exitoso');
+            alert("Inicio de sesion");
         
-        // mostrarMensajeBienvenidaUsuario(); //Aqui se inserta un mensaje es los html indicando que el usuario esta con sus datos
+            window.location.href = "/html/tiendaIndex.html";
+        
+    //     // mostrarMensajeBienvenidaUsuario(); //Aqui se inserta un mensaje es los html indicando que el usuario esta con sus datos
         }else{
         alert("correo o clave incorrecta")
     }}catch(error){
@@ -255,6 +265,10 @@ formularioIngresar.addEventListener('submit', async(e)=>{
     }
 })
 
+
+formularioIngresar.addEventListener('submit', ()=>{
+
+})
 // mensaje de bienvenida de usuario
 
 // function mostrarMensajeBienvenidaUsuario(){

@@ -74,12 +74,17 @@ const limiteIntentosClave = rateLimit({
 })
 
 router.post('/login', limiteIntentosClave, async(req, res)=>{
+   try{
+     console.log('Body recibido: ', req.body);
+
     const {correo, contrasena} = req.body;
     dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], async (err, usuario)=>{
         if(err){
+            console.error('Error en la consulta:', err.message);
             return res.status(500).json({error: 'Error interno del servidor'});
         }
         if(!usuario){
+            console.warn('Usuario no encontrado:', correo);
             return res.status(404).json({error: 'Usuario no encontrado'})
         }
         if(!await bcrypt.compare(contrasena, usuario.contrasena)){
@@ -90,6 +95,10 @@ router.post('/login', limiteIntentosClave, async(req, res)=>{
             success: true, //se incluye esta clave para que el frontend reconozca la verificacion y que estan los datos en la base de datos
             token});
     });
+   }catch (error){
+    console.log("Error inesperado: ", error.message);
+    res.status(500).json({error: 'Error en servidor'})
+   }
 });
 
 //Actualizar  usuario en SQLite

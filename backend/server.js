@@ -10,24 +10,24 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 
-// esta especificacion hace que se pueda reconocer los estilos, el window estaba bloqueando la hoja de estilo, las fuentes y los iconos
-app.use((req, res, next) => {
-    res.setHeader("Content-Security-Policy",
-        "default-src 'self'; " +
-        "style-src 'self' https://fonts.googleapis.com; " +
-        "font-src 'self' https://fonts.gstatic.com; " +
-        "script-src 'self' 'unsafe-inline'; " +
-        "script-src-elem 'self' https://kit.fontawesome.com;"
-    );
-    next();
-});
+// // esta especificacion hace que se pueda reconocer los estilos, el window estaba bloqueando la hoja de estilo, las fuentes y los iconos
+// app.use((req, res, next) => {
+//     res.setHeader("Content-Security-Policy",
+//         "default-src 'self'; " +
+//         "style-src 'self' https://fonts.googleapis.com; " +
+//         "font-src 'self' https://fonts.gstatic.com; " +
+//         "script-src 'self' 'unsafe-inline'; " +
+//         "script-src-elem 'self' https://kit.fontawesome.com;"
+//     );
+//     next();
+// });
 
 app.use('/css', express.static(path.resolve(__dirname, '../css')));
 app.use('/html', express.static(path.resolve(__dirname, '../html')));
 app.use('/js', express.static(path.resolve(__dirname, '../js')));
 app.use('/imagenes', express.static(path.resolve(__dirname, '../imagenes')));
 
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);  //rutas de los endpoints generados en auth.js
 
 
 app.listen(PORT, ()=> { console.log(`Servidor en localhost:${PORT}`)});
