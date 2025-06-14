@@ -234,7 +234,6 @@ formularioIngresar.addEventListener('submit', async(e)=>{
         alert('faltan datos')//aqui entra frontend codear vosualizacion de erros
         return;
     }
-    console.log(correo, clave)
     try{
         //realiza la peticion al servidor
         const response = await fetch('/api/auth/login',{
@@ -242,21 +241,17 @@ formularioIngresar.addEventListener('submit', async(e)=>{
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({correo, contrasena: clave})
         })
-        console.log(response);
         if(!response.ok){
             throw new Error(`Error en el servidor ${response.status}`)
         }
 
         const data = await response.json();
-        console.log('Respuesta del servidor: ', data);
 
         if(data.success){
-            console.log('Inicio de sesión exitoso');
             alert("Inicio de sesion");
-        
             window.location.href = "/html/tiendaIndex.html";
         
-    //     // mostrarMensajeBienvenidaUsuario(); //Aqui se inserta un mensaje es los html indicando que el usuario esta con sus datos
+        mostrarMensajeBienvenidaUsuario(); //Aqui se inserta un mensaje es los html indicando que el usuario esta con sus datos
         }else{
         alert("correo o clave incorrecta")
     }}catch(error){
@@ -271,11 +266,11 @@ formularioIngresar.addEventListener('submit', ()=>{
 })
 // mensaje de bienvenida de usuario
 
-// function mostrarMensajeBienvenidaUsuario(){
-//     const headerMsj = document.querySelector('header');
-//     const msjBienvenidaUsuario = document.createElement('div');
-//     msjBienvenidaUsuario.classList.add('msjBienvenidaUsuario');
-//     msjBienvenidaUsuario.innerHTML =  `<p id="mensajeBienvenida">Bienvenido XXXXXXXXXXXXDDDXX, estamos listos para atender tu compra  <i class="fa-solid fa-handshake"></i></p>`;
+function mostrarMensajeBienvenidaUsuario(){
+    const headerMsj = document.querySelector('header');
+    const msjBienvenidaUsuario = document.createElement('div');
+    msjBienvenidaUsuario.classList.add('msjBienvenidaUsuario');
+    msjBienvenidaUsuario.innerHTML =  `<p id="mensajeBienvenida">Bienvenido XXXXXXXXXXXXDDDXX, estamos listos para atender tu compra  <i class="fa-solid fa-handshake"></i></p>`;
 
-//     headerMsj.appendChild(msjBienvenidaUsuario);
-// }
+    headerMsj.appendChild(msjBienvenidaUsuario);
+}

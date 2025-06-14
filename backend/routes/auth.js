@@ -23,13 +23,13 @@ router.post('/register', async(req, res)=>{
             function(err){
                 if(err){
                     if(err.message.includes('UNIQUE constraint failed: users.correo')){
-                        console.log('⚠️ Correo ya registrado:', correo)
+                        console.warn('⚠️ Correo ya registrado:', correo)
                         return res.status(409).json({error: 'El correo ya está registrado.'})
                     }
                     console.error('❌ Error al insertar en base de datos:', err.message)
                     return res.status(500).json({error: 'Error en registro de usuario'});
                 }
-
+                console.log('usuario registrado ID: ', this.lastID);
                 return res.json({
                     message: 'usuario registrado exitosamente',
                     id: this.lastID,
@@ -44,23 +44,31 @@ router.post('/register', async(req, res)=>{
 //Verificacion de correo que no este registrado
 
 router.get('/check-email', (req, res)=>{
-    const {correo} =  req.query;
+    try{
+        const {correo} =  req.query;
 
-    if(!correo){
-        return res.status(400).json({error: 'Correo es requerido'});
-    }
+        if(!correo){
+            console.warn('no se envio correo en consulta');
+            return res.status(400).json({error: 'Correo es requerido'});
+        }
 
-    dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], (err, row)=>{
-        if(err){
-            console.log('Error consultando correo:', err.message);
-            return res.status(500).json({error: 'Error en el servidor'})
+        dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], (err, row)=>{
+            if(err){
+                console.log('Error consultando correo:', err.message);
+                return res.status(500).json({error: 'Error en el servidor'})
+            }
+            if(row){
+                console.log('Correo ya registrado:', correo);
+            }else{
+                console.log('Correo sin usar por otro usuario:', correo);
+            }
+            return res.status(200).json({exists: !!row})
+        })
+
+    }catch{
+            console.error('Error inesperado en /check-email:', error.message);
+            return res.status(500).json({ error: 'Error inesperado', detalle: error.message });
         }
-        if(row){
-            return res.status(200).json({exists: true});
-        }else{
-            return res.status(200).json({exists: false});
-        }
-    })
 })
 
 //Inicio de sesion
@@ -69,36 +77,35 @@ const limiteIntentosClave = rateLimit({
     max:3,
     message: "intento fallido, maximo de intento tres (3), el usuario sera bloqueado",
     standardHeaders: true,
-    
     legacyHeaders: false
 })
 
 router.post('/login', limiteIntentosClave, async(req, res)=>{
-   try{
-     console.log('Body recibido: ', req.body);
+    try{
+        const {correo, contrasena} = req.body;
+        dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], async (err, usuario)=>{
+            if(err){
+                console.error('Error en la consulta:', err.message);
+                return res.status(500).json({error: 'Error interno del servidor'});
+            }
+            if(!usuario){
+                console.warn('Usuario no encontrado:', correo);
+                return res.status(404).json({error: 'Usuario no encontrado'})
+            }
+            if(!await bcrypt.compare(contrasena, usuario.contrasena)){
+                console.warn(`⚠️ Contraseña incorrecta para el correo: ${correo}`);
+                return res.status(401).json({error: 'contraseña incorrecta'})
+            }
+            const token = jwt.sign({id: usuario.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
 
-    const {correo, contrasena} = req.body;
-    dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], async (err, usuario)=>{
-        if(err){
-            console.error('Error en la consulta:', err.message);
-            return res.status(500).json({error: 'Error interno del servidor'});
-        }
-        if(!usuario){
-            console.warn('Usuario no encontrado:', correo);
-            return res.status(404).json({error: 'Usuario no encontrado'})
-        }
-        if(!await bcrypt.compare(contrasena, usuario.contrasena)){
-            return res.status(401).json({error: 'contraseña incorrecta'})
-        }
-        const token = jwt.sign({id: usuario.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
-        res.json({
-            success: true, //se incluye esta clave para que el frontend reconozca la verificacion y que estan los datos en la base de datos
-            token});
-    });
-   }catch (error){
-    console.log("Error inesperado: ", error.message);
-    res.status(500).json({error: 'Error en servidor'})
-   }
+            res.json({
+                success: true, //se incluye esta clave para que el frontend reconozca la verificacion y que estan los datos en la base de datos
+                token});
+        });
+    }catch (error){
+            console.log("Error inesperado: ", error.message);
+            res.status(500).json({error: 'Error en servidor'})
+    }
 });
 
 //Actualizar  usuario en SQLite
@@ -110,6 +117,7 @@ router.put('/update/:id', async(req, res)=>{
             [nombre, apellido, correo, telefono, req.params.id],
             function(err){
             if(err){
+            console.error(`❌ Error al actualizar usuario: ${err.message}`);
             return res.status(500).json({error: 'Error al actualizar usuario'})
         }
         res.json({message: 'Usuario actualizado'});

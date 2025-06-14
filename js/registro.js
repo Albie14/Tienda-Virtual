@@ -72,6 +72,7 @@ async function validacionFormulario(e){
         //cambio de envio formulario, cambio submit(), por fetch()
         // formulario.submit();
 
+        // data que se envia al servidor para almacenar
         const data = {
             nombre: nombre.value,
             apellido: apellido.value,
