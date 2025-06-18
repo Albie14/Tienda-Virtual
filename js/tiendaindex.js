@@ -230,47 +230,62 @@ formularioIngresar.addEventListener('submit', async(e)=>{
     
     const correo = document.getElementById('correo-ingresar').value.trim();
     const clave = document.getElementById('clave-ingresar').value.trim();
+
     if(correo === '' || clave === ''){
-        alert('faltan datos')//aqui entra frontend codear vosualizacion de erros
+        alert('faltan datos')//aqui entra frontend codear visualizacion de error
         return;
     }
     try{
-        //realiza la peticion al servidor
+        //realiza la peticion al servidor para ingresar usuario, con el correo y la clave
         const response = await fetch('/api/auth/login',{
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({correo, contrasena: clave})
         })
+
         if(!response.ok){
             throw new Error(`Error en el servidor ${response.status}`)
         }
 
         const data = await response.json();
-
+    
         if(data.success){
-            alert("Inicio de sesion");
-            window.location.href = "/html/tiendaIndex.html";
-        
-        mostrarMensajeBienvenidaUsuario(); //Aqui se inserta un mensaje es los html indicando que el usuario esta con sus datos
+            sessionStorage.setItem('usuario', JSON.stringify({
+                correo: data.correo,
+                nombre: data.nombre,
+                apellido: data.apellido,
+                token: data.token                      
+            }));
+                window.location.href = "/html/tiendaIndex.html";
         }else{
         alert("correo o clave incorrecta")
     }}catch(error){
-        console.log('Error en la peticion: ', error);
         alert('hubo problemas al conectar el servidor')
     }
 })
 
 
-formularioIngresar.addEventListener('submit', ()=>{
-
-})
 // mensaje de bienvenida de usuario
+const usuarioGuardado= JSON.parse(sessionStorage.getItem('usuario'));
+const grupoBotonesAbrir = document.getElementById('grupo-botones-ingresar');
+const grupoBotonesCerrar = document.getElementById('grupo-botones-cerrar');
+const headerMsj = document.querySelector('header');
+const msjBienvenidaUsuario = document.createElement('div');
 
-function mostrarMensajeBienvenidaUsuario(){
-    const headerMsj = document.querySelector('header');
-    const msjBienvenidaUsuario = document.createElement('div');
+if(usuarioGuardado){
     msjBienvenidaUsuario.classList.add('msjBienvenidaUsuario');
-    msjBienvenidaUsuario.innerHTML =  `<p id="mensajeBienvenida">Bienvenido XXXXXXXXXXXXDDDXX, estamos listos para atender tu compra  <i class="fa-solid fa-handshake"></i></p>`;
-
+    msjBienvenidaUsuario.innerHTML =  `<p id="mensajeBienvenida">Bienvenido ${usuarioGuardado.nombre} ${usuarioGuardado.apellido}, estamos listos para atender tu compra  <i class="fa-solid fa-handshake"></i></p>`;
     headerMsj.appendChild(msjBienvenidaUsuario);
+    grupoBotonesAbrir.classList.add('oculto');
+    grupoBotonesCerrar.classList.remove('oculto');
 }
+
+grupoBotonesCerrar.addEventListener('click', ()=>{
+    sessionStorage.clear('usuario'); //cerrar la sesion
+    sessionStorage.clear("carrito", JSON.stringify(productosCarrito));
+    window.location.href = "/html/tiendaIndex.html"; //redireccionar a index
+
+    grupoBotonesCerrar.classList.add('oculto'); //quitar boton de cerrar sesion
+    grupoBotonesAbrir.classList.remove('oculto');   //activar boton de abrir sesion
+    headerMsj.removeChild(msjBienvenidaUsuario);  //elimininar msj de bienvenida
+})

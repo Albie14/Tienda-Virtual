@@ -80,10 +80,12 @@ const limiteIntentosClave = rateLimit({
     legacyHeaders: false
 })
 
-router.post('/login', limiteIntentosClave, async(req, res)=>{
+router.post('/login', limiteIntentosClave, (req, res)=>{
     try{
+        console.log('📢 Se recibió una solicitud de login con:', req.body);
+
         const {correo, contrasena} = req.body;
-        dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], async (err, usuario)=>{
+        dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], (err, usuario)=>{
             if(err){
                 console.error('Error en la consulta:', err.message);
                 return res.status(500).json({error: 'Error interno del servidor'});
@@ -92,15 +94,37 @@ router.post('/login', limiteIntentosClave, async(req, res)=>{
                 console.warn('Usuario no encontrado:', correo);
                 return res.status(404).json({error: 'Usuario no encontrado'})
             }
-            if(!await bcrypt.compare(contrasena, usuario.contrasena)){
-                console.warn(`⚠️ Contraseña incorrecta para el correo: ${correo}`);
-                return res.status(401).json({error: 'contraseña incorrecta'})
-            }
-            const token = jwt.sign({id: usuario.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
+            console.log('🔎 Usuario recuperado de la base de datos:', usuario);
 
-            res.json({
-                success: true, //se incluye esta clave para que el frontend reconozca la verificacion y que estan los datos en la base de datos
-                token});
+            bcrypt.compare(contrasena, usuario.contrasena)
+                .then(isMatch =>{
+                    if (!isMatch) {
+                    console.warn(`⚠️ Contraseña incorrecta para el correo: ${correo}`);
+                    return res.status(401).json({ error: 'Contraseña incorrecta' });
+                }
+
+                    console.log('Usuario completo desde la base de datos: ', usuario);
+                    console.log('Clave secreta JWT:', process.env.JWT_SECRET);
+                    const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+                    console.log('datos enviados: ', 
+                    {nombre: usuario.nombre,
+                    apellido: usuario.apellido,
+                    correo: usuario.correo,
+                    success: true,
+                    token}                    )
+                res.json({
+                    nombre: usuario.nombre,
+                    apellido: usuario.apellido,
+                    correo: usuario.correo,
+                    success: true,
+                    token
+                });
+                })
+            .catch(error => {
+                console.error('Error al comparar contraseñas:', error.message);
+                return res.status(500).json({ error: 'Error al verificar contraseña' });
+            });
         });
     }catch (error){
             console.log("Error inesperado: ", error.message);
