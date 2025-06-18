@@ -92,35 +92,24 @@ router.post('/login', limiteIntentosClave, (req, res)=>{
             }
             if(!usuario){
                 console.warn('Usuario no encontrado:', correo);
-                return res.status(404).json({error: 'Usuario no encontrado'})
+                return res.status(400).json({success: false, error: 'correo_incorrecto'})
             }
-            console.log('🔎 Usuario recuperado de la base de datos:', usuario);
-
             bcrypt.compare(contrasena, usuario.contrasena)
                 .then(isMatch =>{
                     if (!isMatch) {
-                    console.warn(`⚠️ Contraseña incorrecta para el correo: ${correo}`);
-                    return res.status(401).json({ error: 'Contraseña incorrecta' });
+                    return res.status(401).json({success: false, error: 'clave_incorrecta' });
                 }
 
-                    console.log('Usuario completo desde la base de datos: ', usuario);
-                    console.log('Clave secreta JWT:', process.env.JWT_SECRET);
-                    const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-                    console.log('datos enviados: ', 
-                    {nombre: usuario.nombre,
-                    apellido: usuario.apellido,
-                    correo: usuario.correo,
-                    success: true,
-                    token}                    )
-                res.json({
-                    nombre: usuario.nombre,
-                    apellido: usuario.apellido,
-                    correo: usuario.correo,
-                    success: true,
-                    token
-                });
-                })
+            console.log('Clave secreta JWT:', process.env.JWT_SECRET);
+            const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            res.json({
+                nombre: usuario.nombre,
+                apellido: usuario.apellido,
+                correo: usuario.correo,
+                success: true,
+                token
+            });
+            })
             .catch(error => {
                 console.error('Error al comparar contraseñas:', error.message);
                 return res.status(500).json({ error: 'Error al verificar contraseña' });

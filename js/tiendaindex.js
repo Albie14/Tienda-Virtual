@@ -242,7 +242,25 @@ formularioIngresar.addEventListener('submit', async(e)=>{
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({correo, contrasena: clave})
         })
+        //Error generado en el Front al ingresar datos en el formulario que no concuerde con lo almacenado en la base de datos
+        if (response.status === 401 || response.status === 400) {
+           
 
+            const data = await response.json(); // leer la respuesta del backend para saber el tipo de error
+             console.log('Respuesta del backend:', data);
+            if(data.error === 'correo_incorrecto'){
+                alert('CORREO incorrecto');
+        
+            }else if(data.error === 'clave_incorrecta'){
+                alert('CLAVE incorrecta');
+
+            }else{
+                alert('Correo o clave incorrecta');
+            }  
+            return;
+        }
+
+        //Error en form generado en el Back
         if(!response.ok){
             throw new Error(`Error en el servidor ${response.status}`)
         }
@@ -258,7 +276,7 @@ formularioIngresar.addEventListener('submit', async(e)=>{
             }));
                 window.location.href = "/html/tiendaIndex.html";
         }else{
-        alert("correo o clave incorrecta")
+        // alert("correo o clave incorrecta")
     }}catch(error){
         alert('hubo problemas al conectar el servidor')
     }
