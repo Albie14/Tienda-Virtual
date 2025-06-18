@@ -228,8 +228,11 @@ const formularioIngresar = document.querySelector('.datos-ingresar');
 formularioIngresar.addEventListener('submit', async(e)=>{
     e.preventDefault();
     
-    const correo = document.getElementById('correo-ingresar').value.trim();
-    const clave = document.getElementById('clave-ingresar').value.trim();
+    const correoInput = document.getElementById('correo-ingresar');
+    const claveInput = document.getElementById('clave-ingresar');
+
+    const correo = correoInput.value.trim();
+    const clave = claveInput.value.trim()
 
     if(correo === '' || clave === ''){
         alert('faltan datos')//aqui entra frontend codear visualizacion de error
@@ -244,15 +247,37 @@ formularioIngresar.addEventListener('submit', async(e)=>{
         })
         //Error generado en el Front al ingresar datos en el formulario que no concuerde con lo almacenado en la base de datos
         if (response.status === 401 || response.status === 400) {
-           
-
             const data = await response.json(); // leer la respuesta del backend para saber el tipo de error
-             console.log('Respuesta del backend:', data);
+
             if(data.error === 'correo_incorrecto'){
-                alert('CORREO incorrecto');
+                const iconError = document.getElementById('icon-err-correo');
+                const msjError = document.getElementById('msj-err-correo');
+    
+                correoInput.classList.add('dato-errado-ingresar');
+                iconError.style.opacity = 1;
+                msjError.style.opacity = 1;
+                
+                setTimeout(()=>{
+                    correoInput.classList.remove('dato-errado-ingresar');
+                    iconError.style.opacity = 0;
+                    msjError.style.opacity = 0;
+                    correoInput.value = '';
+                }, 2000);
         
             }else if(data.error === 'clave_incorrecta'){
-                alert('CLAVE incorrecta');
+                const iconError = document.getElementById('icon-err-clave');
+                const msjError = document.getElementById('msj-err-clave');
+    
+                claveInput.classList.add('dato-errado-ingresar');
+                iconError.style.opacity = 1;
+                msjError.style.opacity = 1;
+                
+                setTimeout(()=>{
+                    claveInput.classList.remove('dato-errado-ingresar');
+                    iconError.style.opacity = 0;
+                    msjError.style.opacity = 0;
+                    claveInput.value = '';
+                }, 2000);
 
             }else{
                 alert('Correo o clave incorrecta');

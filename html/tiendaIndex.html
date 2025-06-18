@@ -15,17 +15,17 @@
                 <label for="correo-ingresar">Correo/Usuario</label>
                 <div class="input-correo-ingresar">
                     <input type="email" autocomplete="username" name="correo-ingresar" id="correo-ingresar" class="input-ingresar" placeholder="Correo">
-                    <i class="iconoErrorIngresar fa-solid fa-circle-xmark"></i>
+                    <i id="icon-err-correo" class="iconoErrorIngresar fa-solid fa-circle-xmark"></i>
                 </div>
-                <p>Usuario no encontrado</p>
+                <p id="msj-err-correo">Usuario no encontrado</p>
             </div>
             <div class="grupo-datos-ingresar">
                 <label for="clave-ingresar">Clave Secreta</label>
                 <div class="input-clave-ingresar">
                     <input type="password" autocomplete="current-password" name="clave-ingresar" id="clave-ingresar" class="input-ingresar" placeholder="Clave">
-                    <i class="iconoErrorIngresar fa-solid fa-circle-xmark"></i>
+                    <i id="icon-err-clave" class="iconoErrorIngresar fa-solid fa-circle-xmark"></i>
                 </div>
-                <p>Clave Errada. Recuerde, que al ingresar mas tres (3) veces la clave errada, su usuario sera bloqueado</p>
+                <p id="msj-err-clave">Clave Errada. Recuerde, que al ingresar mas tres (3) veces la clave errada, su usuario sera bloqueado</p>
             </div>
             <div class="grupo-datos-ingresar">
                 <a href="recuperarUsuario.html" class="recuperarUsuario">Recuperar Usuario y/o Clave</a>
