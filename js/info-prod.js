@@ -209,4 +209,54 @@ const infoProductos = {
         "img": "/imagenes/img-sec/ofertas/08.jpg"
         }
     ],
+    "home":[
+        {"id": 35,
+        "seccion": "home",
+        "nombre": "Camisa clasica",
+        "precio": 35.00,
+        "img": "/imagenes/1.png"
+        },
+        {"id": 36,
+        "seccion": "home",
+        "nombre": "Chaqueta tactica",
+        "precio": 36.00,
+        "img": "/imagenes/2.png"
+        },
+        {"id": 37,
+        "seccion": "home",
+        "nombre": "Chaqueta dama",
+        "precio": 37.00,
+        "img": "/imagenes/3.png"
+        },
+        {"id": 38,
+        "seccion": "home",
+        "nombre": "Camisa azul",
+        "precio": 38.00,
+        "img": "/imagenes/4.png"
+        },
+        {"id": 39,
+        "seccion": "home",
+        "nombre": "Camisa negra",
+        "precio": 39.00,
+        "img": "/imagenes/5.png"
+        },
+        {"id": 40,
+        "seccion": "home",
+        "nombre": "Abrigo dama",
+        "precio": 40.00,
+        "img": "/imagenes/6.png"
+        },
+        {"id": 41,
+        "seccion": "home",
+        "nombre": "Blusa",
+        "precio": 41.00,
+        "img": "/imagenes/7.png"
+        },
+        {"id": 42,
+        "seccion": "home",
+        "nombre": "Chaqueta piel",
+        "precio": 42.00,
+        "img": "/imagenes/8.png"
+        }
+    ]
 }
