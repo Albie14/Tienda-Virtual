@@ -1,4 +1,4 @@
-const infoProductos = {
+export const infoProductos = {
     "Caballeros":[
             {"id": 1,
             "seccion": "abrigos",

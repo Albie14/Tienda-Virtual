@@ -113,13 +113,13 @@ function guardarCarrito (){
     sessionStorage.setItem("carrito", JSON.stringify(productosCarrito));
 };
 
-
 //carga informacion desde info-prod.js para cada seccion, ofertas
 
 window.addEventListener('DOMContentLoaded', function(){
     let rutaPaginaSeccionada  = window.location.pathname.split("/").pop(); //ruta del archivo html a redirigir
     const contenedorProductos = document.querySelector('.product-content'); //contenedor padre donde se cargara todos los cambios de acuerdo a cada pagona visitada
 
+    
     if(rutaPaginaSeccionada === "ofertas.html"){
         const tituloPaginaSeccion = document.querySelector("h2");
         tituloPaginaSeccion.innerText= `Ofertas Especiales`;
