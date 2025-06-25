@@ -7,6 +7,7 @@ class TituloPagina extends HTMLElement{
         titulo.textContent = this.getAttribute('texto') || 'Urban'; /*encaso que la pagina no tenga titulo toma por defecto el nombre de la tienda */
         
         shadow.appendChild(titulo);
+
     }
     static get observedAttributes(){
         return['texto'];
