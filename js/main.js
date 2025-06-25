@@ -14,8 +14,8 @@ window.addEventListener('DOMContentLoaded', function(){
     const productosDamas = infoProductos.Damas;
     const productosCaballeros = infoProductos.Caballeros;
     
+    const titulo = document.querySelector('titulo-pagina'); //seccion que modifica el titulo de las paginas
     if(rutaPaginaSeccionada === "ofertas.html"){
-        const titulo = document.querySelector('titulo-pagina');
         titulo.setAttribute('texto', 'Ofertas');
 
         productosOfertas.forEach(producto=>{
@@ -24,7 +24,6 @@ window.addEventListener('DOMContentLoaded', function(){
             contenedorProductos.appendChild(item)
         });
     }else if(rutaPaginaSeccionada === "caballeros.html"){
-        const titulo = document.querySelector('titulo-pagina');
         titulo.setAttribute('texto', 'Caballeros');
 
         productosCaballeros.forEach(producto=>{
@@ -34,7 +33,6 @@ window.addEventListener('DOMContentLoaded', function(){
         });
 
     }else if(rutaPaginaSeccionada === "damas.html"){
-        const titulo = document.querySelector('titulo-pagina');
         titulo.setAttribute('texto', 'Damas');
 
         productosDamas.forEach(producto=>{
@@ -43,7 +41,6 @@ window.addEventListener('DOMContentLoaded', function(){
             contenedorProductos.appendChild(item)
         });
     }else{
-        const titulo = document.querySelector('titulo-pagina');
         titulo.setAttribute('texto', 'Temporada Invierno 2025');
         productosHome.forEach(producto=>{
             const item = document.createElement('producto-item');   
