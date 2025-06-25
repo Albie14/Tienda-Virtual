@@ -1,6 +1,5 @@
     class ProductosItem extends HTMLElement{
         set data(producto){
-            console.log(producto);
             this.innerHTML =`
                 <div class="product">
                     <img src="${producto.img}" alt="${producto.nombre}">
@@ -15,3 +14,4 @@
         }
     }
     customElements.define('producto-item', ProductosItem);
+

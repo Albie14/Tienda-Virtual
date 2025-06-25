@@ -115,73 +115,73 @@ function guardarCarrito (){
 
 //carga informacion desde info-prod.js para cada seccion, ofertas
 
-window.addEventListener('DOMContentLoaded', function(){
-    let rutaPaginaSeccionada  = window.location.pathname.split("/").pop(); //ruta del archivo html a redirigir
-    const contenedorProductos = document.querySelector('.product-content'); //contenedor padre donde se cargara todos los cambios de acuerdo a cada pagona visitada
+// window.addEventListener('DOMContentLoaded', function(){
+//     let rutaPaginaSeccionada  = window.location.pathname.split("/").pop(); //ruta del archivo html a redirigir
+//     const contenedorProductos = document.querySelector('.product-content'); //contenedor padre donde se cargara todos los cambios de acuerdo a cada pagona visitada
 
     
-    if(rutaPaginaSeccionada === "ofertas.html"){
-        const tituloPaginaSeccion = document.querySelector("h2");
-        tituloPaginaSeccion.innerText= `Ofertas Especiales`;
+//     if(rutaPaginaSeccionada === "ofertas.html"){
+//         const tituloPaginaSeccion = document.querySelector("h2");
+//         tituloPaginaSeccion.innerText= `Ofertas Especiales`;
 
-        const productosOfertas = infoProductos.ofertas;
-        productosOfertas.forEach(producto=>{
-            const divProducto = document.createElement('div');
-            divProducto.className = 'product';
+//         const productosOfertas = infoProductos.ofertas;
+//         productosOfertas.forEach(producto=>{
+//             const divProducto = document.createElement('div');
+//             divProducto.className = 'product';
         
-            divProducto.innerHTML = `
-                    <img src=${producto.img} alt="${producto.nombre}">
-                    <div class="product-txt">
-                        <h3>${producto.nombre}</h3>
-                        <p>Estilo Unico</p>
-                        <p class="precio"  data-precio="${producto.precio}">$${producto.precio}</p>
-                        <a href="#" class="agregar-carrito btn-2" data-id="${producto.id}">Agregar a carrito</a>
-                    </div>
-            `;
-            contenedorProductos.appendChild(divProducto);
-    });
-    }else if(rutaPaginaSeccionada === "caballeros.html"){
-        const tituloPaginaSeccion = document.querySelector("h2");
-        tituloPaginaSeccion.innerText= `Caballeros`;
+//             divProducto.innerHTML = `
+//                     <img src=${producto.img} alt="${producto.nombre}">
+//                     <div class="product-txt">
+//                         <h3>${producto.nombre}</h3>
+//                         <p>Estilo Unico</p>
+//                         <p class="precio"  data-precio="${producto.precio}">$${producto.precio}</p>
+//                         <a href="#" class="agregar-carrito btn-2" data-id="${producto.id}">Agregar a carrito</a>
+//                     </div>
+//             `;
+//             contenedorProductos.appendChild(divProducto);
+//     });
+//     }else if(rutaPaginaSeccionada === "caballeros.html"){
+//         const tituloPaginaSeccion = document.querySelector("h2");
+//         tituloPaginaSeccion.innerText= `Caballeros`;
 
-        const productosCaballeros = infoProductos.Caballeros;
-        productosCaballeros.forEach(producto=>{
-            const divProducto = document.createElement('div');
-            divProducto.className = 'product';
+//         const productosCaballeros = infoProductos.Caballeros;
+//         productosCaballeros.forEach(producto=>{
+//             const divProducto = document.createElement('div');
+//             divProducto.className = 'product';
         
-            divProducto.innerHTML = `
-                    <img src=${producto.img} alt="${producto.nombre}">
-                    <div class="product-txt">
-                        <h3>${producto.nombre}</h3>
-                        <p>para todos los dias</p>
-                        <p class="precio"  data-precio="${producto.precio}">$${producto.precio}</p>
-                        <a href="#" class="agregar-carrito btn-2" data-id="${producto.id}">Agregar a carrito</a>
-                    </div>
-            `;
-            contenedorProductos.appendChild(divProducto);
-        });
-    }else if(rutaPaginaSeccionada === "damas.html"){
-        const tituloPaginaSeccion = document.querySelector("h2");
-        tituloPaginaSeccion.innerText= `Damas`;
+//             divProducto.innerHTML = `
+//                     <img src=${producto.img} alt="${producto.nombre}">
+//                     <div class="product-txt">
+//                         <h3>${producto.nombre}</h3>
+//                         <p>para todos los dias</p>
+//                         <p class="precio"  data-precio="${producto.precio}">$${producto.precio}</p>
+//                         <a href="#" class="agregar-carrito btn-2" data-id="${producto.id}">Agregar a carrito</a>
+//                     </div>
+//             `;
+//             contenedorProductos.appendChild(divProducto);
+//         });
+//     }else if(rutaPaginaSeccionada === "damas.html"){
+//         const tituloPaginaSeccion = document.querySelector("h2");
+//         tituloPaginaSeccion.innerText= `Damas`;
 
-        const productosCaballeros = infoProductos.Damas;
-        productosCaballeros.forEach(producto=>{
-            const divProducto = document.createElement('div');
-            divProducto.className = 'product';
+//         const productosCaballeros = infoProductos.Damas;
+//         productosCaballeros.forEach(producto=>{
+//             const divProducto = document.createElement('div');
+//             divProducto.className = 'product';
         
-            divProducto.innerHTML = `
-                    <img src=${producto.img} alt="${producto.nombre}">
-                    <div class="product-txt">
-                        <h3>${producto.nombre}</h3>
-                        <p>para todos los dias</p>
-                        <p class="precio"  data-precio="${producto.precio}">$${producto.precio}</p>
-                        <a href="#" class="agregar-carrito btn-2" data-id="${producto.id}">Agregar a carrito</a>
-                    </div>
-            `;
-            contenedorProductos.appendChild(divProducto);
-        });
-    }
-})
+//             divProducto.innerHTML = `
+//                     <img src=${producto.img} alt="${producto.nombre}">
+//                     <div class="product-txt">
+//                         <h3>${producto.nombre}</h3>
+//                         <p>para todos los dias</p>
+//                         <p class="precio"  data-precio="${producto.precio}">$${producto.precio}</p>
+//                         <a href="#" class="agregar-carrito btn-2" data-id="${producto.id}">Agregar a carrito</a>
+//                     </div>
+//             `;
+//             contenedorProductos.appendChild(divProducto);
+//         });
+//     }
+// })
 
 
 //ingresar usuario
