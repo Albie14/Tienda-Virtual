@@ -15,58 +15,35 @@ window.addEventListener('DOMContentLoaded', function(){
     const productosCaballeros = infoProductos.Caballeros;
     
     if(rutaPaginaSeccionada === "ofertas.html"){
-        const tituloPaginaSeccion = document.querySelector("h2");
-        tituloPaginaSeccion.innerText= `Ofertas Especiales`;
+        const titulo = document.querySelector('titulo-pagina');
+        titulo.setAttribute('texto', 'Ofertas');
 
         productosOfertas.forEach(producto=>{
-        const item = document.createElement('producto-item');   
-        item.data = producto;
-        contenedorProductos.appendChild(item)
-});
-    }else if(rutaPaginaSeccionada === "caballeros.html"){
-        const tituloPaginaSeccion = document.querySelector("h2");
-        tituloPaginaSeccion.innerText= `Caballeros`;
-
-        const productosCaballeros = infoProductos.Caballeros;
-        productosCaballeros.forEach(producto=>{
-            const divProducto = document.createElement('div');
-            divProducto.className = 'product';
-        
-            divProducto.innerHTML = `
-                    <img src=${producto.img} alt="${producto.nombre}">
-                    <div class="product-txt">
-                        <h3>${producto.nombre}</h3>
-                        <p>para todos los dias</p>
-                        <p class="precio"  data-precio="${producto.precio}">$${producto.precio}</p>
-                        <a href="#" class="agregar-carrito btn-2" data-id="${producto.id}">Agregar a carrito</a>
-                    </div>
-            `;
-            contenedorProductos.appendChild(divProducto);
+            const item = document.createElement('producto-item');   
+            item.data = producto;
+            contenedorProductos.appendChild(item)
         });
-    }else if(rutaPaginaSeccionada === "damas.html"){
-        const tituloPaginaSeccion = document.querySelector("h2");
-        tituloPaginaSeccion.innerText= `Damas`;
+    }else if(rutaPaginaSeccionada === "caballeros.html"){
+        const titulo = document.querySelector('titulo-pagina');
+        titulo.setAttribute('texto', 'Caballeros');
 
-        const productosCaballeros = infoProductos.Damas;
         productosCaballeros.forEach(producto=>{
-            const divProducto = document.createElement('div');
-            divProducto.className = 'product';
-        
-            divProducto.innerHTML = `
-                    <img src=${producto.img} alt="${producto.nombre}">
-                    <div class="product-txt">
-                        <h3>${producto.nombre}</h3>
-                        <p>para todos los dias</p>
-                        <p class="precio"  data-precio="${producto.precio}">$${producto.precio}</p>
-                        <a href="#" class="agregar-carrito btn-2" data-id="${producto.id}">Agregar a carrito</a>
-                    </div>
-            `;
-            contenedorProductos.appendChild(divProducto);
+            const item = document.createElement('producto-item');   
+            item.data = producto;
+            contenedorProductos.appendChild(item)
+        });
+
+    }else if(rutaPaginaSeccionada === "damas.html"){
+        const titulo = document.querySelector('titulo-pagina');
+        titulo.setAttribute('texto', 'Damas');
+
+        productosDamas.forEach(producto=>{
+            const item = document.createElement('producto-item');   
+            item.data = producto;
+            contenedorProductos.appendChild(item)
         });
     }else{
-        // this.document.querySelector('titulo-pagina').setAttribute('texto', 'Temporada Invierno 2025');
         const titulo = document.querySelector('titulo-pagina');
-        
         titulo.setAttribute('texto', 'Temporada Invierno 2025');
         productosHome.forEach(producto=>{
             const item = document.createElement('producto-item');   
