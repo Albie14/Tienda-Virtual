@@ -6,7 +6,7 @@ import './componentes/titulo-pagina.js';
 import './componentes/contenedor-oferta.js';
 import './componentes/contenedor-iconos.js';
 import './componentes/contenedor-blog.js';
-
+import './componentes/contenedor-footer.js'
 //carga informacion desde info-prod.js para cada seccion, ofertas
 window.addEventListener('DOMContentLoaded', function(){
     let rutaPaginaSeccionada  = window.location.pathname.split("/").pop(); //ruta del archivo html a redirigir
