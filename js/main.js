@@ -3,7 +3,9 @@
 import { infoProductos } from "./componentes/info-prod.js";
 import './componentes/tarjeta-prod.js';
 import './componentes/titulo-pagina.js';
-import './componentes/contenedor-oferta.js'
+import './componentes/contenedor-oferta.js';
+import './componentes/contenedor-iconos.js';
+import './componentes/contenedor-blog.js';
 
 //carga informacion desde info-prod.js para cada seccion, ofertas
 window.addEventListener('DOMContentLoaded', function(){
