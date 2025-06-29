@@ -89,8 +89,9 @@
                 <div class="formularioGrupo" id="grupoPassword">
                     <div class="indicacionesFormulario">
                         <label for="password" class="formularioLabel">Contraseña</label>
-                        <div class="formularioGrupoInput">
-                            <input type="password" autocomplete="new-password" class="formularioInput" name="password" id="password" placeholder="">
+                        <div class="formularioGrupoInput input-password">
+                            <input type="password" autocomplete="new-password" class="formularioInput" name="password" id="password" placeholder="clave" >
+                            <i class="fa fa-eye icono-toogle-clave"></i>
                             <i class="iconoError fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
@@ -100,8 +101,9 @@
                 <div class="formularioGrupo" id="grupoPassword2">
                     <div class="indicacionesFormulario">
                         <label for="password2" class="formularioLabel">Repetir contraseña</label>
-                        <div class="formularioGrupoInput">
-                            <input type="password" autocomplete="new-password" class="formularioInput" name="password2" id="password2" placeholder="">
+                        <div class="formularioGrupoInput input-password">
+                            <input type="password" autocomplete="new-password" class="formularioInput" name="password2" id="password2" placeholder="repetir clave">
+                            <i class="fa fa-eye icono-toogle-clave"></i>
                             <i class="iconoError fa-solid fa-circle-xmark"></i>
                         </div>
                     </div>
@@ -130,7 +132,12 @@
                     </div>
                     <p class="formularioInputError">solo puede contener numeros, sin espacios y maximo 11 digitos </p>
                 </div>
-
+                <div class="formularioGrupo" id="grupoTerminos">
+                    <label for="terminos-condiciones">
+                        <input type="checkbox" name="terminos-condiciones" id="terminos-condiciones">
+                        <span>Acepto todos los <button id="descripcion-terminos">Terminos y Condiciones</button></span>
+                    </label>
+                </div>
                 <div class="formularioMensaje" id="formularioMensaje">
                     <p><i class="fa-solid fa-triangle-exclamation"></i><b> Error: </b><span>por favor rellene el formulario correctamente </span></p>
                 </div>

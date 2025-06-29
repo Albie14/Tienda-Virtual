@@ -761,14 +761,13 @@ th, td{
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr) 0.8fr 1.2fr;
+    grid-template-rows: repeat(4, 1fr) 0.8fr 1.2fr;
     row-gap: 10px;
     column-gap: 10px;
     border-radius: 10px;
     padding: 2% 1%;
     margin-bottom: 15px;
 }
-
 
 .formularioGrupo{
     width: 100%;
@@ -780,6 +779,7 @@ th, td{
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     transition: all 0.5s ease;
+    /* border: 1px solid red; */
 }
 .indicacionesFormulario{
     display: flex;
@@ -794,7 +794,6 @@ th, td{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
 }
 .formularioInput{
     width: 80%;
@@ -804,13 +803,60 @@ th, td{
     border: none;
     outline: none;
 }
-
+.input-password{
+    position: relative;
+}
+.icono-toogle-clave{
+    position: absolute;
+    right: 18%;
+    cursor: pointer;
+    transition: all ease 0.2s;
+}
+.icono-toogle-clave:hover{
+    scale: 0.8;
+    transition: all ease 0.2s;
+}
+#grupoTerminos{
+    margin-top: 30px;
+    grid-column: 1/3;
+    grid-row: 4;
+    display: flex;
+    height: fit-content;
+    border: 1px solid black;
+    border: none;
+}
+#grupoTerminos button{
+    background: none;
+    border: none;
+    color: rgb(71, 93, 237);
+    text-decoration: none;
+    cursor: pointer;
+}
+#grupoTerminos span{
+    font-size: 15px;
+}
+input[type="checkbox"]{
+    cursor: pointer;
+}
+input[type="checkbox"]:hover{
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: inset  0 0 10px rgba(0, 0, 0, 0.1);;
+}
+input[type="checkbox"]:checked{
+    accent-color: #111111;
+    cursor: pointer;
+}
+#grupoTerminos button:hover{
+    text-shadow: 0 0 5px;
+    transition: all ease 0.2s;
+}
 
 .formularioInputError, .usuarioRegistradoError{
     font-size: 10px;
     color: red;
     opacity: 0;
     transition: 0.4s ease all;
+    border: 1px solid rgb(32, 218, 60);
 }
 
 .errorEnDatoFormulario{
@@ -828,15 +874,16 @@ th, td{
     color: red;
     opacity: 0;
     grid-column: 1/3;
-    grid-row: 4;
+    grid-row: 5;
 }   
 .formularioMensaje span{
     color: #111111;
 }
+
 .formularioGrupoBtnEnviar{
     border: none;
     grid-column: 1/3;
-    grid-row: 5/6;
+    grid-row: 6/7;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -844,11 +891,10 @@ th, td{
     height: auto;
 }
 
-
 .formularioBtn{
     cursor: pointer;
     width: 30%;
-    height: 70%;
+    height: 100%;
     background-color: #111111;
     color: #ffffff;
     border: none;
