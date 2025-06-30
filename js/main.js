@@ -5,7 +5,7 @@ import './componentes/titulo-pagina.js';
 import './componentes/contenedor-oferta.js';
 import './componentes/contenedor-iconos.js';
 import './componentes/contenedor-blog.js';
-import './componentes/contenedor-footer.js'
+import './componentes/contenedor-footer.js';
 
 //carga informacion desde info-prod.js para cada seccion, ofertas
 window.addEventListener('DOMContentLoaded', function(){
@@ -196,7 +196,7 @@ function clickFuera(event){
 }
 document.addEventListener('click', clickFuera)
 
-    //Detectar pulsar tecla escape
+    //Detectar pulsar tecla escape para que cierrj
 function teclaEscape(event){
     if(event.key === 'Escape'){
         cerrarContenedor()
@@ -317,3 +317,4 @@ grupoBotonesCerrar.addEventListener('click', ()=>{
     grupoBotonesAbrir.classList.remove('oculto');   //activar boton de abrir sesion
     headerMsj.removeChild(msjBienvenidaUsuario);  //elimininar msj de bienvenida
 })
+

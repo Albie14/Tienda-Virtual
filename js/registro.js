@@ -1,3 +1,5 @@
+import './componentes/formulario-registro.js';
+
 const expresionesPermitidadForm = {
 	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
 	password: /^.{4,12}$/, // 4 a 12 digitos.
@@ -11,7 +13,6 @@ const btnEnviarFormulario = document.querySelector('.formularioBtn');
 async function validacionFormulario(e){
     e.preventDefault();
     
-
     let nombre = document.getElementById('nombre');
     let apellido = document.getElementById('apellido');
     let clave = document.getElementById('password');
@@ -146,3 +147,18 @@ formulario.addEventListener('submit', (e)=>{
     e.preventDefault()
     validacionFormulario(e);
 });
+
+//mostrar y ocultar clave
+const botonesOjoClave = document.querySelectorAll('.icono-toogle-clave');
+botonesOjoClave.forEach(ojo=>{
+    ojo.addEventListener('click', ()=>{
+        const inputID = ojo.dataset.input; /*toma el ID de cada input enlazados con "data-input=" provenient del id de input*/
+        const input = document.getElementById(inputID) /*asigna el id al input seleccionado a traves del data input*/
+        const typeInput = input.getAttribute('type') /*reconoce el type (password o text) del input seleccionado*/
+        
+        input.setAttribute('type', typeInput === 'password' ? 'text' : 'password');
+        ojo.classList.toggle('fa-eye');
+        ojo.classList.toggle('fa-eye-slash');
+        ojo.classList.toggle('mostrar-clave');
+    });
+})
