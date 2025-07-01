@@ -81,10 +81,12 @@ const limiteIntentosClave = rateLimit({
 })
 
 router.post('/login', limiteIntentosClave, (req, res)=>{
+    const {correo, contrasena} = req.body;
+    // if(!correo || !contrasena){
+    //     console.warn('solicitud datos incmpleto');
+    //     return res.status(400).json({success: false, error: 'faltan_datos'})
+    // }
     try{
-        console.log('📢 Se recibió una solicitud de login con:', req.body);
-
-        const {correo, contrasena} = req.body;
         dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], (err, usuario)=>{
             if(err){
                 console.error('Error en la consulta:', err.message);
@@ -92,15 +94,16 @@ router.post('/login', limiteIntentosClave, (req, res)=>{
             }
             if(!usuario){
                 console.warn('Usuario no encontrado:', correo);
-                return res.status(400).json({success: false, error: 'correo_incorrecto'})
+                return res.status(401).json({success: false, error: 'correo_incorrecto'})
             }
+            console.log('usuario encontrado: ', usuario);
             bcrypt.compare(contrasena, usuario.contrasena)
                 .then(isMatch =>{
                     if (!isMatch) {
+                        console.warn('clave incorrecta');
                     return res.status(401).json({success: false, error: 'clave_incorrecta' });
                 }
 
-            console.log('Clave secreta JWT:', process.env.JWT_SECRET);
             const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.json({
                 nombre: usuario.nombre,

@@ -232,11 +232,12 @@ formularioIngresar.addEventListener('submit', async(e)=>{
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({correo, contrasena: clave})
         })
-        //Error generado en el Front al ingresar datos en el formulario que no concuerde con lo almacenado en la base de datos
-        if (response.status === 401 || response.status === 400) {
-            const data = await response.json(); // leer la respuesta del backend para saber el tipo de error
-
-            if(data.error === 'correo_incorrecto'){
+        const data = await response.json(); // leer la respuesta del backend para saber el tipo de error
+        
+        if(!response.ok){
+            if (response.status === 401 || response.status === 400) {
+                
+                if(data.error === 'correo_incorrecto'){
                 const iconError = document.getElementById('icon-err-correo');
                 const msjError = document.getElementById('msj-err-correo');
     
@@ -251,7 +252,7 @@ formularioIngresar.addEventListener('submit', async(e)=>{
                     correoInput.value = '';
                 }, 2000);
         
-            }else if(data.error === 'clave_incorrecta'){
+                }else if(data.error === 'clave_incorrecta'){
                 const iconError = document.getElementById('icon-err-clave');
                 const msjError = document.getElementById('msj-err-clave');
     
@@ -266,18 +267,10 @@ formularioIngresar.addEventListener('submit', async(e)=>{
                     claveInput.value = '';
                 }, 2000);
 
-            }else{
-                alert('Correo o clave incorrecta');
-            }  
+            }
+            }
             return;
         }
-
-        //Error en form generado en el Back
-        if(!response.ok){
-            throw new Error(`Error en el servidor ${response.status}`)
-        }
-
-        const data = await response.json();
     
         if(data.success){
             sessionStorage.setItem('usuario', JSON.stringify({
@@ -287,9 +280,8 @@ formularioIngresar.addEventListener('submit', async(e)=>{
                 token: data.token                      
             }));
                 window.location.href = "/html/tiendaIndex.html";
-        }else{
-        // alert("correo o clave incorrecta")
-    }}catch(error){
+        }
+    }catch(error){
         alert('hubo problemas al conectar el servidor')
     }
 })
