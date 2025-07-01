@@ -73,6 +73,7 @@ class FormularioRegistro extends HTMLElement{
                     </div>
                     <p class="formularioInputError">solo puede contener numeros, sin espacios y maximo 11 digitos </p>
                 </div>
+                
                 <div class="formularioGrupo" id="grupoTerminos">
                     <div class="indicacionesFormulario">
                         <label for="terminos-condiciones">

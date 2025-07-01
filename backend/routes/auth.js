@@ -9,16 +9,16 @@ const rateLimit = require("express-rate-limit");//para poner limites de intentos
 //Registro usuario en SQLite
 router.post('/register', async(req, res)=>{
     try {
-        const { nombre, apellido, correo, telefono, contrasena } = req.body;
+        const { nombre, apellido, correo, telefono, contrasena, terminos } = req.body;
         
-        if (!nombre || !apellido || !correo || !telefono || !contrasena) {
+        if (!nombre || !apellido || !correo || !telefono || !contrasena || terminos) {
             return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
         }
 
         const clave = await bcrypt.hash(contrasena, 10);
 
         dataBase.run
-        (`INSERT INTO users(nombre, apellido, correo, telefono, contrasena) VALUES (?, ?, ?, ?, ?)`,
+        (`INSERT INTO users(nombre, apellido, correo, telefono, contrasena) VALUES (?, ?, ?, ?, ?, ?)`,
             [nombre, apellido, correo, telefono, clave],
             function(err){
                 if(err){

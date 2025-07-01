@@ -19,8 +19,11 @@ async function validacionFormulario(e){
     let claveVerificacion = document.getElementById('password2');
     let correo = document.getElementById('correo');
     let telefono = document.getElementById('telefono');
+    const terminos = document.getElementById('terminos-condiciones');
+
     const iconoError = document.querySelectorAll('.iconoError');
     const textoError = document.querySelectorAll('.formularioInputError');
+    console.log(textoError);
     const mensajeErrorFormulario = document.querySelector('.formularioMensaje');
 
     let formularioValido = true;
@@ -47,16 +50,13 @@ async function validacionFormulario(e){
     
 
     let correoValido = expresionesPermitidadForm.correo.test(correo.value);//se cambia la forma de validacion de correo, para que se haga tanto por expresiones permitinidas y el correo duplicado
-
     if(!correoValido){
         mostrarMensajesError(correo, iconoError[4], textoError[4], mensajeErrorFormulario)
         formularioValido = false;
     }else{
         const verificacionCorreo = await correoConRegistro(correo.value)
-
         if(verificacionCorreo){
             const msjErrorCorreoRegistrado = document.querySelector('.usuarioRegistradoError');
-
             msjErrorCorreoRegistrado.style.opacity = 1;
                 setTimeout(()=>{
                     msjErrorCorreoRegistrado.style.opacity = 0;
@@ -64,22 +64,29 @@ async function validacionFormulario(e){
             return
         }
     }
-
     if(!expresionesPermitidadForm.telefono.test(telefono.value)){
         mostrarMensajesError(telefono, iconoError[5], textoError[5], mensajeErrorFormulario)
         formularioValido = false
     }
-    if(formularioValido){
-        //cambio de envio formulario, cambio submit(), por fetch()
-        // formulario.submit();
+    if(!terminos.checked){
+        textoError[6].style.opacity = 1;
+        mensajeErrorFormulario.style.opacity= 1;
+            setTimeout(()=>{
+                textoError[6].style.opacity = 0;
+                mensajeErrorFormulario.style.opacity= 0;
+            }, 2000)
+        formularioValido = false;
+    }
 
+    if(formularioValido){
         // data que se envia al servidor para almacenar
         const data = {
             nombre: nombre.value,
             apellido: apellido.value,
             correo: correo.value,
             telefono: telefono.value,
-            contrasena: clave.value
+            contrasena: clave.value,
+            terminos: true
         };
 
         fetch('http://localhost:3001/api/auth/register', {
@@ -97,18 +104,13 @@ async function validacionFormulario(e){
                 }else{
                     alert("usuario regisrado " + result.message)
                     formulario.reset();
-
                     setTimeout(()=>{
                         window.location.href = "/html/tiendaIndex.html"; 
-
                     },2000);
-
                 }
             })
-
             .catch(error=>{
                 alert('Error en la solicitud: ' + error.message)
-        
             })
     }
 }
@@ -127,7 +129,6 @@ function mostrarMensajesError(input, icono, texto, mensaje){
             mensaje.style.opacity = 0;
         }, 2000)
 }   
-
 
 //verificacion de correo registrado
 async function correoConRegistro(correo) {
