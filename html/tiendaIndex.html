@@ -9,100 +9,8 @@
     
 </head>
 <body>
-    <div class="seccion-ingreso">
-        <form action="submit" class="datos-ingresar">
-            <div class="grupo-datos-ingresar">
-                <label for="correo-ingresar">Correo/Usuario</label>
-                <div class="input-correo-ingresar">
-                    <input type="email" autocomplete="username" name="correo-ingresar" id="correo-ingresar" class="input-ingresar" placeholder="Correo">
-                    <i id="icon-err-correo" class="iconoErrorIngresar fa-solid fa-circle-xmark"></i>
-                </div>
-                <p id="msj-err-correo">Usuario no encontrado</p>
-            </div>
-            <div class="grupo-datos-ingresar">
-                <label for="clave-ingresar">Clave Secreta</label>
-                <div class="input-clave-ingresar">
-                    <input type="password" autocomplete="current-password" name="clave-ingresar" id="clave-ingresar" class="input-ingresar" placeholder="Clave">
-                    <i id="icon-err-clave" class="iconoErrorIngresar fa-solid fa-circle-xmark"></i>
-                </div>
-                <p id="msj-err-clave">Clave Errada. Recuerde, que al ingresar mas tres (3) veces la clave errada, su usuario sera bloqueado</p>
-            </div>
-            <div class="grupo-datos-ingresar">
-                <a href="recuperarUsuario.html" class="recuperarUsuario">Recuperar Usuario y/o Clave</a>
-            </div>
-            <div class="grupo-datos-ingresar">
-                <button type="submit" class="btn-ingresar-usuario"><p>Ingresar</p></button>
-            </div>
-        </form>
-    </div>
-    <header class="header">
-        <div class="menu container">
-            <a href="#" class="logo"><img src="../imagenes/logo.jpg" alt="logo"></a>
-            <i class="fa-solid fa-bars menu-icono" id="menu-hamburguesa"></i>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Servicios</a></li>
-                    <li><a href="#">Productos</a></li>
-                    <li><a href="#">Contacto</a></li>
-                </ul>
-            </nav>
-
-            <div class="contedor-home">
-                <i class="fa-solid fa-house-user"></i>
-                <ul class="personal">
-                    <li class="submenu">
-                        <img src="../imagenes/car.svg" id="img-carrito" alt="carrito">
-                        <div id="carrito">
-                            <table id="lista-carrito">
-                                <thead>
-                                    <tr>
-                                        <th>Imagen</th>
-                                        <th>Nombre</th>
-                                        <th>Precio</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                            <div class="subtotalCarrito">
-                                <a href="#" id="vaciar-carrito" class="btn-2">Vaciar Carrito</a>
-                                <div id="totalCarrito" class="btn-2"></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="contenedor-usuario">
-                        <i class="fa-solid fa-user-plus"></i>
-                        <div class="usuario" id="grupo-botones-ingresar">
-                            <a href="/html/registro.html" class="botones-usuario">Regitro <i class="fa-solid fa-list-check"></i></a>
-                            <button id="btn-ingresar" class="botones-usuario">Ingresar</button>
-                        </div>
-                        <div class="usuario oculto"  id="grupo-botones-cerrar">
-                            <button id="btn-cerrar-sesion" class="botones-usuario">Cerrar sesion</button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="header-content container">
-            <div class="header-carrusel">
-                <div class="header-img">
-                    <img src="../imagenes/left.png" alt="" id="img1">
-                </div>  
-                <div class="header-img">
-                    <img src="../imagenes/right.png" alt="" id="img2">
-                </div>     
-            </div>
-    
-            <div class="header-txt">
-                <h1>Ofertas especiales</h1>
-                <p>siempre los mejores precios</p>
-                <a href="/html/ofertas.html" class="btn-1">todas las Ofertas aqui</a>
-            </div>
-        </div>
-
-    </header>
+    <contenedor-seccion-ingreso><!-- informacion cargada desde JS y con componentes --></contenedor-seccion-ingreso>
+    <contenedor-header><!-- informacion cargada desde JS y con componentes --></contenedor-header>
     <contenedor-oferta><!-- informacion cargada desde JS y con componentes --></contenedor-oferta>
     <main class="products container" id="lista-1">
         <titulo-pagina><!-- informacion cargada desde JS y con componentes --></titulo-pagina>
@@ -112,6 +20,6 @@
     <contenedor-blog><!-- informacion cargada desde JS y con componentes --></contenedor-blog>
     <contenedor-footer><!-- informacion cargada desde JS y con componentes --></contenedor-footer>
     <script type="module" src="/js/main.js"></script>
-    <script type="module" src="/js/tiendaindex.js"></script>
+    <!-- <script type="module" src="/js/tiendaindex.js"></script> -->
 </body>
 </html>

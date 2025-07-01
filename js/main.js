@@ -6,6 +6,8 @@ import './componentes/contenedor-oferta.js';
 import './componentes/contenedor-iconos.js';
 import './componentes/contenedor-blog.js';
 import './componentes/contenedor-footer.js';
+import './componentes/contenedor-header.js';
+import './componentes/contenedor-seccion-ingreso.js';
 
 //carga informacion desde info-prod.js para cada seccion, ofertas
 window.addEventListener('DOMContentLoaded', function(){
