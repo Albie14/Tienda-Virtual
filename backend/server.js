@@ -1,12 +1,14 @@
 const express = require('express');
 const path = require('path');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
+// dotenv.config();
 const cors = require('cors');
 const authRoutes = require('./routes/auth');//importa la ruta desde donde viene las autorizaciones
 const app = express();
 const PORT = 3001;
 
-dotenv.config({path: path.resolve(__dirname, '.env')});
+
+
 app.use(cors());
 app.use(express.json());
 
@@ -20,3 +22,4 @@ app.use('/api/auth', authRoutes);  //rutas de los endpoints generados en auth.js
 
 app.listen(PORT, ()=> { console.log(`Servidor en localhost:${PORT}`)});
 
+console.log('servidor reiniciado ')
