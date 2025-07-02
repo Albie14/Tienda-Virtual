@@ -21,7 +21,7 @@ class ContenedorSeccionIngreso extends HTMLElement{
                         <p id="msj-err-clave">Clave Errada. Recuerde, que al ingresar mas tres (3) veces la clave errada, su usuario sera bloqueado</p>
                     </div>
                     <div class="grupo-datos-ingresar">
-                        <a href="recuperarUsuario.html" class="recuperarUsuario">Recuperar Usuario y/o Clave</a>
+                        <a href="recuperarClave.html" class="recuperar-clave">Recuperar Usuario y/o Clave</a>
                     </div>
                     <div class="grupo-datos-ingresar">
                         <button type="submit" class="btn-ingresar-usuario"><p>Ingresar</p></button>

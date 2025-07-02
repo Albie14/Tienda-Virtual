@@ -940,7 +940,38 @@ input[type="checkbox"]:checked{
     margin-top: 5px;
     opacity: 0;
 }
+.seccion-recuperar-clave{
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00000063;
+    backdrop-filter: blur(9px);
+    z-index: 10000000;
+    transition: 0.4s ease all;
+}
 
+.form-recuperar-clave{
+    width: 60%;
+    height: 60%;
+    background: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 5px 20px;
+    box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.8)
+}
+.titulo-recuperar{
+    text-align: center;
+    margin-bottom: 0;
+}
+.formularioGrupo{
+    height: 20%;
+}
+/* body.style.overflow = 'hidden'; debo poner esa linea de codigo en JS para que no se mueva la parte de atras */
 .seccion-ingreso{
     position: fixed;
     height: 100vh;
@@ -1019,7 +1050,7 @@ input[type="checkbox"]:checked{
     color: red;
     transition: 0.4s ease all;
 }
-.recuperarUsuario{
+.recuperar-clave{
     color: black;
     font-size: 13px;
     align-self:flex-end;
@@ -1028,7 +1059,7 @@ input[type="checkbox"]:checked{
     font-family: 'Courier New', Courier, monospace;
     font-style: oblique;
 }
-.recuperarUsuario:hover{
+.recuperar-clave:hover{
     color: red;
     transition: 0.2s ease all;
     font-weight: 500;

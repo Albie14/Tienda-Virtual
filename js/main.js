@@ -8,6 +8,7 @@ import './componentes/contenedor-blog.js';
 import './componentes/contenedor-footer.js';
 import './componentes/contenedor-header.js';
 import './componentes/contenedor-seccion-ingreso.js';
+import './componentes/formulario-recuperar-clave.js';
 
 //carga informacion desde info-prod.js para cada seccion, ofertas
 window.addEventListener('DOMContentLoaded', function(){
