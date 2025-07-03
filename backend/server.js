@@ -17,6 +17,6 @@ app.use('/imagenes', express.static(path.resolve(__dirname, '../imagenes')));
 
 app.use('/api/auth', authRoutes);  //rutas de los endpoints generados en auth.js
 
-
+console.log('actulizando server automatico')
 app.listen(PORT, ()=> { console.log(`Servidor en localhost:${PORT}`)});
 
