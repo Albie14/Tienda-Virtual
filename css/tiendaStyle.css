@@ -940,43 +940,13 @@ input[type="checkbox"]:checked{
     margin-top: 5px;
     opacity: 0;
 }
-.seccion-recuperar-clave{
-    position: fixed;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #00000063;
-    backdrop-filter: blur(9px);
-    z-index: 10000000;
-    transition: 0.4s ease all;
-}
 
-.form-recuperar-clave{
-    width: 60%;
-    height: 60%;
-    background: #ffffff;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 5px 20px;
-    box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.8)
-}
-.titulo-recuperar{
-    text-align: center;
-    margin-bottom: 0;
-}
-.formularioGrupo{
-    height: 20%;
-}
 /* body.style.overflow = 'hidden'; debo poner esa linea de codigo en JS para que no se mueva la parte de atras */
 .seccion-ingreso{
     position: fixed;
     height: 100vh;
     width: 100%;
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     background-color: #00000063;
@@ -986,17 +956,17 @@ input[type="checkbox"]:checked{
 }
 
 .datos-ingresar{
+    display: none;
     width: 40%;
     height: 60%;
     background: #ffffff;
     border-radius: 10px;
-    display: flex;
     flex-direction: column;
     justify-content: space-around;
     padding: 5px 20px;
-    box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.8)
+    box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.8);
+    transition: all ease .2s;
 }
-
 .grupo-datos-ingresar{
     display: flex;
     flex-direction: column;
@@ -1050,7 +1020,7 @@ input[type="checkbox"]:checked{
     color: red;
     transition: 0.4s ease all;
 }
-.recuperar-clave{
+.bnt-modificar-clave{
     color: black;
     font-size: 13px;
     align-self:flex-end;
@@ -1058,8 +1028,12 @@ input[type="checkbox"]:checked{
     transition: 0.2s ease all;
     font-family: 'Courier New', Courier, monospace;
     font-style: oblique;
+    cursor: pointer;
+    border: none;
+    background: none;
+    margin: 5% 0%;
 }
-.recuperar-clave:hover{
+.bnt-modificar-clave:hover{
     color: red;
     transition: 0.2s ease all;
     font-weight: 500;
@@ -1083,7 +1057,70 @@ input[type="checkbox"]:checked{
     color: #111111;
     transition: 0.4s ease all;
 }
+/* seccion de cambio de clave, estatica, pero los formularios alternan, el titulo es fijo y cambia entre el form de envio clave
+al correo y el registro de la nueva clave
+*/
+.container-cambio-clave{
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1% 3%;
+    transition: all ease .2s;
+}
+.titulo-recuperar{
+    height: 10%;
+    text-align: center;
+}
+#datos-recuperar-clave, #verificacion-clave-defecto{
+    display: flex;
+    flex-direction: column;
+    height: 45%;
+    transition: all ease .2s;
+}
+.grupo-clave-por-defecto, .grupo-nueva-clave{
+    height: 85%;
+    display: none;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+}
 
+.grupo-datos-recuperar{
+    height: 70%;
+}
+.grupo-input-recuperacion{
+    height: 35%;
+}
+.input-correo-defecto{
+    width: 60%;
+    margin-left: 20%;
+    height: 100%;
+}
+.formularioInputError{
+    font-size: 10px;
+    font-family: sans-serif;
+    font-weight: 500;
+    color: red;
+    opacity: 0;
+}
+.btn-correo-defecto{
+    display: flex;
+    justify-content: center;
+
+    height: 25%;
+}
+.grupo-nueva-clave{
+    height: 85%;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cambio-clave-visible{
+    display: flex;
+}
 .seccion-ingreso-visible{
     display: flex;
 }

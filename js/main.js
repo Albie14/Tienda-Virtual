@@ -8,7 +8,6 @@ import './componentes/contenedor-blog.js';
 import './componentes/contenedor-footer.js';
 import './componentes/contenedor-header.js';
 import './componentes/contenedor-seccion-ingreso.js';
-import './componentes/formulario-recuperar-clave.js';
 
 //carga informacion desde info-prod.js para cada seccion, ofertas
 window.addEventListener('DOMContentLoaded', function(){
@@ -286,6 +285,12 @@ formularioIngresar.addEventListener('submit', async(e)=>{
         alert('hubo problemas al conectar el servidor')
     }
 })
+
+// funcion para recuperar y/o cambiar clave se acceso
+const btnModificarClaveAcceso = document.querySelector('bnt-modificar-clave');
+
+
+
 
 
 // mensaje de bienvenida de usuario
