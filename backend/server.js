@@ -8,7 +8,7 @@ const PORT = 3001;
 
 dotenv.config({path: path.resolve(__dirname, '.env')});
 app.use(cors());
-app.use(express.json());
+app.use(express.json());    
 
 app.use('/css', express.static(path.resolve(__dirname, '../css')));
 app.use('/html', express.static(path.resolve(__dirname, '../html')));

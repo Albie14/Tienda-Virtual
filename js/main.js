@@ -180,34 +180,28 @@ const contenedorFormularioIngresarUsuario = document.querySelector('.datos-ingre
 btnIngresar.addEventListener('click', ()=>{
     contenedorIngresarUsuario.classList.add('seccion-ingreso-visible')
     body.style.overflow = 'hidden';
+    
+    //para evitar que estos eventos obstuyan la ejecucion, se incluyen los eventos aqui para que funcione siempre que se abre la seccion
+    document.addEventListener('keydown', teclaEscape);
 })
-    //funciona para cerrar seccion
+    //funciones para cerrar seccion Ingreso
 function cerrarContenedor(){
     contenedorIngresarUsuario.classList.remove('seccion-ingreso-visible');
     body.style.overflow = '';
-    //para evitar que estos eventos obstuyan la ejecucion
-    window.removeEventListener('click', clickFuera);
-    window.removeEventListener('click', teclaEscape);
+    document.removeEventListener('keydown', teclaEscape);
 }
+    //Detectarc click en boton cerrar
+const btnCerrarSeccionIngreso = document.querySelector('.iconoCerrarSeccionIngreso');
+btnCerrarSeccionIngreso.addEventListener('click', ()=>{
+    cerrarContenedor()
+})
 
-    //Detectar click fuera de seccion
-function clickFuera(event){
-    if(!contenedorFormularioIngresarUsuario.contains(event.target)&& event.target !==btnIngresar){
-        cerrarContenedor();
-    }
-}
-document.addEventListener('click', clickFuera)
-
-    //Detectar pulsar tecla escape para que cierrj
+    //Detectar pulsar tecla escape para que cierre la seccion que constiene el formulario
 function teclaEscape(event){
     if(event.key === 'Escape'){
         cerrarContenedor()
     }
 }
-
-//Aadir evento al click a la tecla
-window.addEventListener('click', clickFuera);
-window.addEventListener('keydown', teclaEscape);
 
 //funcion para ingresar usurario
 const formularioIngresar = document.querySelector('.datos-ingresar');
@@ -287,9 +281,68 @@ formularioIngresar.addEventListener('submit', async(e)=>{
 })
 
 // funcion para recuperar y/o cambiar clave se acceso
-const btnModificarClaveAcceso = document.querySelector('bnt-modificar-clave');
+const expresionesPermitidadForm = {
+	password: /^.{4,12}$/, // 4 a 12 digitos.
+	correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+};
 
+const containerModificacionClave = document.querySelector('.container-cambio-clave');
+const seccionClaveRecuperacion = document.querySelector('.grupo-clave-por-defecto');
+const formularioDatosRecuperarClave = document.getElementById('form-datos-recuperar-clave');
+const formularioValidarClave = document.getElementById('form-verificacion-clave-defecto');
+const formularioRegistroNuevaClave = document.getElementById('form-nueva-clave');
 
+const btnModificarClaveAcceso = document.querySelector('.bnt-modificar-clave');
+// se muestra solo la parte para validar correo y enviar la clave de autenticacion
+btnModificarClaveAcceso.addEventListener('click', ()=>{
+    formularioIngresar.classList.remove('cambio-clave-visible');
+    containerModificacionClave.classList.add('cambio-clave-visible');
+    seccionClaveRecuperacion.classList.add('cambio-clave-visible');
+    formularioDatosRecuperarClave.style.opacity = 1;
+})
+
+formularioDatosRecuperarClave.addEventListener('submit', (e)=>{
+    e.preventDefault()
+    const inputCorreoRecuperacion = document.getElementById('correo-recuperacion');      
+    
+    //visuales de error asociados a los id de los inputs
+    const iconErrorId = inputCorreoRecuperacion.dataset.iconoId;
+    const mensajeErrorId = inputCorreoRecuperacion.dataset.msjId;
+    const iconError = document.getElementById(iconErrorId);
+    const msjError = document.getElementById(mensajeErrorId);
+    const correo = inputCorreoRecuperacion.value.trim();
+    
+    if(correo === ''|| !expresionesPermitidadForm.correo.test(correo)){
+        iconError.style.opacity = 1;
+        msjError.style.opacity = 1;
+        setTimeout(()=>{
+            iconError.style.opacity = 0;
+            msjError.style.opacity = 0;
+
+        }, 2000);
+        return
+    }
+    fetch('http://localhost:3001/api/auth/verificacion-email', {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({correo})
+        })
+        .then(response => {
+            console.log(response);
+            if(!response.ok){
+                throw new Error('no se pudo verificar correo');
+            }
+            return response.json()
+        })
+        .then(data =>{
+            console.log(data)
+        })
+        .catch(err=>{
+            console.error('Error en verificacion: ', err.menssage)
+        })
+})
 
 
 

@@ -23,7 +23,6 @@ async function validacionFormulario(e){
 
     const iconoError = document.querySelectorAll('.iconoError');
     const textoError = document.querySelectorAll('.formularioInputError');
-    console.log(textoError);
     const mensajeErrorFormulario = document.querySelector('.formularioMensaje');
 
     let formularioValido = true;

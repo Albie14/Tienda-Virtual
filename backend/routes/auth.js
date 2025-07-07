@@ -70,6 +70,48 @@ router.get('/check-email', (req, res)=>{
             return res.status(500).json({ error: 'Error inesperado', detalle: error.message });
         }
 })
+// comparar el registro de correo para la actualizacion de clave 
+const clavesTemporales = {}; /* simula la memoria de la clave por defecto */
+
+router.post('/verificacion-email', (req, res)=>{
+    try{
+        const {correo} = req.body;
+        dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], (err, row)=>{
+        if(err) return res.status(500).json({mensaje: 'Error-en-servidor'});
+        if(!row) return res.status(404).json({mensaje: 'Corre-no-encotrado'});
+
+        const claveTemporalUnica = Math.floor(10000 + Math.random()*90000).toString();
+        clavesTemporales[correo] = claveTemporalUnica;
+
+        // esta es la clave que muestra em consola de navegador para validar, asi accede al segundo modulo y pueda comparar y cambiar la clave
+        res.json({mensaje: claveTemporalUnica});
+        })
+    }catch{
+        console.error('Error inesperado en /verificacion-email:', error.message);
+        return res.status(500).json({ error: 'Error inesperado', detalle: error.message });
+    }
+})
+
+//verificacion clave por defecto y actualizacion de clave
+router.post('/actualizar-clave', async(req, res)=>{
+    const {correo, claveTemporalUnica, nuevaClave} = req.body;
+
+    if(clavesTemporales[correo]!== claveTemporalUnica){
+        return res.status(400).json({mensaje: 'Codigo-incorrecto-expirado'})
+    }
+    try{
+        const hash = await bcrypt.hash(nuevaClave, 10);
+        dataBase.run('UPDATE users SET contrasena = ? WHERE correo = ?', [hash, correo], (err)=>{
+            if(err) return res.status(500).json({mensaje: 'Error-al-actualizar-clave'});
+
+            delete clavesTemporales[correo];
+            res.json({mensaje: 'clave-actualizada'})
+        })
+    }catch(error){
+        console.error('Error al encriptar clave:', error.message);
+        res.status(500).json({mensaje: 'Error interno del servidor'})
+    } 
+})
 
 //Inicio de sesion
 const limiteIntentosClave = rateLimit({
@@ -82,10 +124,6 @@ const limiteIntentosClave = rateLimit({
 
 router.post('/login', limiteIntentosClave, (req, res)=>{
     const {correo, contrasena} = req.body;
-    // if(!correo || !contrasena){
-    //     console.warn('solicitud datos incmpleto');
-    //     return res.status(400).json({success: false, error: 'faltan_datos'})
-    // }
     try{
         dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], (err, usuario)=>{
             if(err){
@@ -123,6 +161,8 @@ router.post('/login', limiteIntentosClave, (req, res)=>{
             res.status(500).json({error: 'Error en servidor'})
     }
 });
+
+
 
 //Actualizar  usuario en SQLite
 router.put('/update/:id', async(req, res)=>{
