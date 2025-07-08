@@ -216,7 +216,8 @@ formularioIngresar.addEventListener('submit', async(e)=>{
     const clave = claveInput.value.trim()
 
     if(correo === '' || clave === ''){
-        alert('faltan datos')//aqui entra frontend codear visualizacion de error
+        errorEnInput('correo-ingresar');
+        errorEnInput('clave-ingresar')
         return;
     }
     try{
@@ -232,35 +233,10 @@ formularioIngresar.addEventListener('submit', async(e)=>{
             if (response.status === 401 || response.status === 400) {
                 
                 if(data.error === 'correo_incorrecto'){
-                const iconError = document.getElementById('icon-err-correo');
-                const msjError = document.getElementById('msj-err-correo');
-    
-                correoInput.classList.add('dato-errado-ingresar');
-                iconError.style.opacity = 1;
-                msjError.style.opacity = 1;
-                
-                setTimeout(()=>{
-                    correoInput.classList.remove('dato-errado-ingresar');
-                    iconError.style.opacity = 0;
-                    msjError.style.opacity = 0;
-                    correoInput.value = '';
-                }, 2000);
+                    errorEnInput('correo-ingresar')
         
                 }else if(data.error === 'clave_incorrecta'){
-                const iconError = document.getElementById('icon-err-clave');
-                const msjError = document.getElementById('msj-err-clave');
-    
-                claveInput.classList.add('dato-errado-ingresar');
-                iconError.style.opacity = 1;
-                msjError.style.opacity = 1;
-                
-                setTimeout(()=>{
-                    claveInput.classList.remove('dato-errado-ingresar');
-                    iconError.style.opacity = 0;
-                    msjError.style.opacity = 0;
-                    claveInput.value = '';
-                }, 2000);
-
+                    errorEnInput('clave-ingresar');
             }
             }
             return;
@@ -289,8 +265,6 @@ const expresionesPermitidadForm = {
 const containerModificacionClave = document.querySelector('.container-cambio-clave');
 const seccionClaveRecuperacion = document.querySelector('.grupo-clave-por-defecto');
 const formularioDatosRecuperarClave = document.getElementById('form-datos-recuperar-clave');
-const formularioValidarClave = document.getElementById('form-verificacion-clave-defecto');
-const formularioRegistroNuevaClave = document.getElementById('form-nueva-clave');
 
 const btnModificarClaveAcceso = document.querySelector('.bnt-modificar-clave');
 // se muestra solo la parte para validar correo y enviar la clave de autenticacion
@@ -301,25 +275,13 @@ btnModificarClaveAcceso.addEventListener('click', ()=>{
     formularioDatosRecuperarClave.style.opacity = 1;
 })
 
-formularioDatosRecuperarClave.addEventListener('submit', (e)=>{
-    e.preventDefault()
-    const inputCorreoRecuperacion = document.getElementById('correo-recuperacion');      
-    
-    //visuales de error asociados a los id de los inputs
-    const iconErrorId = inputCorreoRecuperacion.dataset.iconoId;
-    const mensajeErrorId = inputCorreoRecuperacion.dataset.msjId;
-    const iconError = document.getElementById(iconErrorId);
-    const msjError = document.getElementById(mensajeErrorId);
-    const correo = inputCorreoRecuperacion.value.trim();
-    
-    if(correo === ''|| !expresionesPermitidadForm.correo.test(correo)){
-        iconError.style.opacity = 1;
-        msjError.style.opacity = 1;
-        setTimeout(()=>{
-            iconError.style.opacity = 0;
-            msjError.style.opacity = 0;
 
-        }, 2000);
+formularioDatosRecuperarClave.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const inputCorreoRecuperacion = document.getElementById('correo-recuperacion');   
+    const correo = inputCorreoRecuperacion.value.trim();
+    if(correo === ''|| !expresionesPermitidadForm.correo.test(correo)){
+        errorEnInput('correo-recuperacion');
         return
     }
     fetch('http://localhost:3001/api/auth/verificacion-email', {
@@ -329,22 +291,83 @@ formularioDatosRecuperarClave.addEventListener('submit', (e)=>{
             },
             body: JSON.stringify({correo})
         })
-        .then(response => {
-            console.log(response);
+        .then(async response =>{
             if(!response.ok){
-                throw new Error('no se pudo verificar correo');
+                const errorData = await response.json();
+                if(response.status === 404){
+                    errorEnInput('correo-recuperacion')
+                    return
+                }else{
+                    console.log('error en el servidor: ', errorData.mensaje)
+                }
+                return;
             }
-            return response.json()
-        })
-        .then(data =>{
-            console.log(data)
+            const data = await response.json();
+            console.log('clave temporal: ', data.claveTemporalUnica);
+
+            const formValidarClaveDefecto = document.getElementById('form-verificacion-clave-defecto');
+            formValidarClaveDefecto.style.opacity = 1;
+
+            formValidarClaveDefecto.addEventListener('submit', (e)=>{
+                e.preventDefault();
+
+                const claveTemporal = parseInt(data.claveTemporalUnica);
+                const inputValidarClaveDefecto = document.getElementById('clave-defecto');   
+                const valueInput = parseInt(inputValidarClaveDefecto.value.trim())
+
+                if(valueInput === claveTemporal){
+                    // formularioDatosRecuperarClave.classList.remove('cambio-clave-visible');
+                    const seccionNuevaClave = document.querySelector('.grupo-nueva-clave');
+                    seccionNuevaClave.classList.add('cambio-clave-visible');
+                    seccionClaveRecuperacion.classList.remove('cambio-clave-visible');
+    
+                }else{
+                    errorEnInput('clave-defecto');                  
+                }
+            })
+
         })
         .catch(err=>{
             console.error('Error en verificacion: ', err.menssage)
         })
 })
 
+const formularioRegistroNuevaClave = document.getElementById('form-nueva-clave');
+formularioRegistroNuevaClave.addEventListener('submit', (e)=>{
+    e.preventDefault();
 
+    const inputNuevaClave = document.getElementById('nueva-clave');
+    const nuevaClave = inputNuevaClave.value.trim();
+    if(nuevaClave = '' || !expresionesPermitidadForm.password.test(nuevaClave)){
+        errorEnInput('nueva-clave')
+    }
+
+})
+
+
+//senales visuales que muestran errores en input icono y msj error
+function errorEnInput(idInput){
+    const input = document.getElementById(idInput)
+    const iconoError = document.getElementById(`icon-err-${idInput}`);
+    const mensajeError = document.getElementById(`msj-err-${idInput}`);
+    if(input){
+        setTimeout(() =>{
+            input.value = '';
+        }, 3000);
+    }
+    if(iconoError){
+        iconoError.style.opacity = 1;
+            setTimeout(()=>{
+                iconoError.style.opacity = 0;
+            }, 3000);
+    }
+    if(mensajeError){
+        mensajeError.style.opacity = 1;
+            setTimeout(()=>{
+                mensajeError.style.opacity = 0
+            }, 3000)
+    }
+}
 
 // mensaje de bienvenida de usuario
 const usuarioGuardado= JSON.parse(sessionStorage.getItem('usuario'));

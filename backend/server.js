@@ -6,7 +6,8 @@ const authRoutes = require('./routes/auth');//importa la ruta desde donde viene 
 const app = express();
 const PORT = 3001;
 
-dotenv.config({path: path.resolve(__dirname, '.env')});
+dotenv.config({path: path.resolve(__dirname, '../.env')});
+
 app.use(cors());
 app.use(express.json());    
 

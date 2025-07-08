@@ -1090,6 +1090,12 @@ al correo y el registro de la nueva clave
     transition: all ease .2s;
     opacity: 0;
 }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 
 .grupo-clave-por-defecto, .grupo-nueva-clave{
     height: 85%;

@@ -78,13 +78,13 @@ router.post('/verificacion-email', (req, res)=>{
         const {correo} = req.body;
         dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], (err, row)=>{
         if(err) return res.status(500).json({mensaje: 'Error-en-servidor'});
-        if(!row) return res.status(404).json({mensaje: 'Corre-no-encotrado'});
+        if(!row) return res.status(404).json({mensaje: 'Correo-no-encotrado'});
 
         const claveTemporalUnica = Math.floor(10000 + Math.random()*90000).toString();
         clavesTemporales[correo] = claveTemporalUnica;
 
         // esta es la clave que muestra em consola de navegador para validar, asi accede al segundo modulo y pueda comparar y cambiar la clave
-        res.json({mensaje: claveTemporalUnica});
+        res.json({claveTemporalUnica});
         })
     }catch{
         console.error('Error inesperado en /verificacion-email:', error.message);
@@ -141,7 +141,6 @@ router.post('/login', limiteIntentosClave, (req, res)=>{
                         console.warn('clave incorrecta');
                     return res.status(401).json({success: false, error: 'clave_incorrecta' });
                 }
-
             const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
             res.json({
                 nombre: usuario.nombre,
