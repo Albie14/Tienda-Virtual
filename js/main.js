@@ -275,6 +275,8 @@ btnModificarClaveAcceso.addEventListener('click', ()=>{
     formularioDatosRecuperarClave.style.opacity = 1;
 })
 
+//Variable que almacenara el correo que se valida en el back (esta en base de datos), para posteriormente cambiar la clave
+let correoVerificado = null;
 
 formularioDatosRecuperarClave.addEventListener('submit', (e)=>{
     e.preventDefault();
@@ -291,6 +293,7 @@ formularioDatosRecuperarClave.addEventListener('submit', (e)=>{
             },
             body: JSON.stringify({correo})
         })
+
         .then(async response =>{
             if(!response.ok){
                 const errorData = await response.json();
@@ -316,34 +319,81 @@ formularioDatosRecuperarClave.addEventListener('submit', (e)=>{
                 const valueInput = parseInt(inputValidarClaveDefecto.value.trim())
 
                 if(valueInput === claveTemporal){
-                    // formularioDatosRecuperarClave.classList.remove('cambio-clave-visible');
                     const seccionNuevaClave = document.querySelector('.grupo-nueva-clave');
                     seccionNuevaClave.classList.add('cambio-clave-visible');
                     seccionClaveRecuperacion.classList.remove('cambio-clave-visible');
-    
                 }else{
                     errorEnInput('clave-defecto');                  
                 }
-            })
+            });
+
+            //se almacena aqui el correo que cambiara su clave de acceso
+            correoVerificado = correo;
 
         })
         .catch(err=>{
-            console.error('Error en verificacion: ', err.menssage)
+            console.error('Error en verificacion: ', err.message)
         })
 })
 
+//Actualizar clave
 const formularioRegistroNuevaClave = document.getElementById('form-nueva-clave');
 formularioRegistroNuevaClave.addEventListener('submit', (e)=>{
     e.preventDefault();
 
     const inputNuevaClave = document.getElementById('nueva-clave');
-    const nuevaClave = inputNuevaClave.value.trim();
-    if(nuevaClave = '' || !expresionesPermitidadForm.password.test(nuevaClave)){
-        errorEnInput('nueva-clave')
+    const inputConfirmacionNuevaClave = document.getElementById('confirmacion-nueva-clave');
+    const nuevaClave = inputNuevaClave.value;
+    const confirmacionNuevaClave = inputConfirmacionNuevaClave.value;
+        
+    if(nuevaClave == '' || !expresionesPermitidadForm.password.test(nuevaClave)){
+        errorEnInput('nueva-clave');
+        return
     }
+    if(confirmacionNuevaClave == '' || confirmacionNuevaClave != nuevaClave || !expresionesPermitidadForm.password.test(confirmacionNuevaClave)){
+        errorEnInput('confirmacion-nueva-clave');
+        return
+    }
+    fetch('http://localhost:3001/api/auth/actualizar-clave', {
+            method: 'PUT',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({correo: correoVerificado, nuevaContrasena: nuevaClave})
+        })
+        .then(res=>{
+            if(!res.ok) throw new Error ('Error al actualizar clave');
+            return res.json()
+        })
+        .then(data=>{
+            console.log(data)
+            //AQUI QUE DEBE IR? PORQQUE ASI COMO ESTA PLANTEADO NO HAACE NADA
+                    inputNuevaClave.value = '';
+                    inputConfirmacionNuevaClave.value = ''
+            limpiarFormNuevaClave();
 
+        })
+
+        .catch(err =>{
+            console.error('Error al actualizar clave:', err.message);
+        })
 })
 
+
+function limpiarFormNuevaClave(){
+    containerModificacionClave.classList.remove('cambio-clave-visible');
+    seccionClaveRecuperacion.classList.remove('cambio-clave-visible');
+    formularioDatosRecuperarClave.style.opacity = 0;
+    contenedorFormularioIngresarUsuario.classList.add('cambio-clave-visible')
+    contenedorFormularioIngresarUsuario.innerHTML = `
+        <h2>Clave Actulizada</h2>
+    `
+        setTimeout(()=>{
+            // formularioIngresar.classList.add('cambio-clave-visible');
+            contenedorFormularioIngresarUsuario.remove('cambio-clave-visible')
+        }, 2000)
+   
+}
 
 //senales visuales que muestran errores en input icono y msj error
 function errorEnInput(idInput){

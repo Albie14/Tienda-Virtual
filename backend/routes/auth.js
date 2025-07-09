@@ -91,21 +91,30 @@ router.post('/verificacion-email', (req, res)=>{
         return res.status(500).json({ error: 'Error inesperado', detalle: error.message });
     }
 })
+// ruta de verificacion
+router.use((req, res, next) => {
+  console.log(`➡️ Recibida ${req.method} a ${req.originalUrl}`);
+  next();
+});
+
 
 //verificacion clave por defecto y actualizacion de clave
-router.post('/actualizar-clave', async(req, res)=>{
-    const {correo, claveTemporalUnica, nuevaClave} = req.body;
-
-    if(clavesTemporales[correo]!== claveTemporalUnica){
-        return res.status(400).json({mensaje: 'Codigo-incorrecto-expirado'})
+router.put('/actualizar-clave', async(req, res)=>{
+    const {correo, nuevaContrasena} = req.body;
+    if(!correo || !nuevaContrasena){
+        return res.status(400).json({error: 'faltan-datos-obligatorios'});
     }
     try{
-        const hash = await bcrypt.hash(nuevaClave, 10);
-        dataBase.run('UPDATE users SET contrasena = ? WHERE correo = ?', [hash, correo], (err)=>{
-            if(err) return res.status(500).json({mensaje: 'Error-al-actualizar-clave'});
-
-            delete clavesTemporales[correo];
-            res.json({mensaje: 'clave-actualizada'})
+        const hash = await bcrypt.hash(nuevaContrasena, 10);
+        dataBase.run('UPDATE users SET contrasena = ? WHERE correo = ?', [hash, correo], function(err){
+            if(err) {
+                console.error('Error al actualizar clave: ', err.message)
+                return res.status(500).json({error: 'Error-en-servidor'});
+            }
+            if(this.changes === 0){
+                return res.status(404).json({error: 'Usuario-no-encontrado'})
+            }
+            res.json({success: true, mensaje: `clave actualizada, correo: ${correo}`})
         })
     }catch(error){
         console.error('Error al encriptar clave:', error.message);
@@ -160,8 +169,6 @@ router.post('/login', limiteIntentosClave, (req, res)=>{
             res.status(500).json({error: 'Error en servidor'})
     }
 });
-
-
 
 //Actualizar  usuario en SQLite
 router.put('/update/:id', async(req, res)=>{
