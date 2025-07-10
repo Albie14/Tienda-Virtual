@@ -55,12 +55,14 @@ window.addEventListener('DOMContentLoaded', function(){
     }
 })
 
+
 //inteaccion carrito de compra, carga, eliminacion de productos
 const carrito = document.getElementById('carrito');
 const elementos1 = document.getElementById('lista-1');
 const lista = document.querySelector('#lista-carrito tbody');
 const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
 const botonTotal = document.getElementById('totalCarrito');
+const usuarioGuardado= JSON.parse(sessionStorage.getItem('usuario'));
 
 let productosCarrito = [];
 
@@ -70,7 +72,6 @@ function cargarCarritoStorage(){
     actualizarTotal();
 }
 cargarCarritoStorage();
-
 cargarEventListener();
 
 function cargarEventListener() {
@@ -81,6 +82,10 @@ function cargarEventListener() {
 
 function comprarElemento(e) {
     e.preventDefault();
+    if(!usuarioGuardado){
+        alert ('debe ingresar usuario y clave')
+        return
+    }
     if (e.target.classList.contains('agregar-carrito')) {
         const elemento = e.target.parentElement.parentElement;
         leerDatosElemento(elemento);
@@ -142,22 +147,25 @@ function insertarElemento() {
 
     // Volver a agregar los productos
     productosCarrito.forEach(producto => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>
-                <img src="${producto.imagen}" width=100>
-            </td>
-            <td>
-                ${producto.titulo}
-            </td>
-            <td>
-                $${producto.precio.toFixed(2)}
-            </td>
-            <td>
-                <a href='#' class="borrar" data-id="${producto.id}">X</a>
-            </td>
-        `;
-        lista.appendChild(row);
+
+            const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <img src="${producto.imagen}" width=100>
+                    </td>
+                    <td>
+                        ${producto.titulo}
+                    </td>
+                    <td>
+                        $${producto.precio.toFixed(2)}
+                    </td>
+                    <td>
+                        <a href='#' class="borrar" data-id="${producto.id}">X</a>
+                    </td>
+                `;
+            lista.appendChild(row);
+        
+        
     });
 }
 
@@ -170,12 +178,11 @@ function guardarCarrito (){
     sessionStorage.setItem("carrito", JSON.stringify(productosCarrito));
 };
 
-
 //ingresar usuario
 const btnIngresar = document.getElementById('btn-ingresar');
 const body = document.body;
 const contenedorIngresarUsuario = document.querySelector('.seccion-ingreso');
-const contenedorFormularioIngresarUsuario = document.querySelector('.datos-ingresar');
+const formularioIngresarUsuario = document.querySelector('#datos-ingresar');
 
 btnIngresar.addEventListener('click', ()=>{
     contenedorIngresarUsuario.classList.add('seccion-ingreso-visible')
@@ -188,12 +195,17 @@ btnIngresar.addEventListener('click', ()=>{
 function cerrarContenedor(){
     contenedorIngresarUsuario.classList.remove('seccion-ingreso-visible');
     body.style.overflow = '';
+    containerModificacionClave.classList.remove('cambio-clave-visible');
+    seccionClaveRecuperacion.classList.remove('cambio-clave-visible');
+    formularioIngresarUsuario.classList.add('cambio-clave-visible')
+
     document.removeEventListener('keydown', teclaEscape);
 }
     //Detectarc click en boton cerrar
 const btnCerrarSeccionIngreso = document.querySelector('.iconoCerrarSeccionIngreso');
 btnCerrarSeccionIngreso.addEventListener('click', ()=>{
     cerrarContenedor()
+
 })
 
     //Detectar pulsar tecla escape para que cierre la seccion que constiene el formulario
@@ -204,9 +216,7 @@ function teclaEscape(event){
 }
 
 //funcion para ingresar usurario
-const formularioIngresar = document.querySelector('.datos-ingresar');
-
-formularioIngresar.addEventListener('submit', async(e)=>{
+formularioIngresarUsuario.addEventListener('submit', async(e)=>{
     e.preventDefault();
     
     const correoInput = document.getElementById('correo-ingresar');
@@ -269,7 +279,7 @@ const formularioDatosRecuperarClave = document.getElementById('form-datos-recupe
 const btnModificarClaveAcceso = document.querySelector('.bnt-modificar-clave');
 // se muestra solo la parte para validar correo y enviar la clave de autenticacion
 btnModificarClaveAcceso.addEventListener('click', ()=>{
-    formularioIngresar.classList.remove('cambio-clave-visible');
+    formularioIngresarUsuario.classList.remove('cambio-clave-visible');
     containerModificacionClave.classList.add('cambio-clave-visible');
     seccionClaveRecuperacion.classList.add('cambio-clave-visible');
     formularioDatosRecuperarClave.style.opacity = 1;
@@ -277,7 +287,6 @@ btnModificarClaveAcceso.addEventListener('click', ()=>{
 
 //Variable que almacenara el correo que se valida en el back (esta en base de datos), para posteriormente cambiar la clave
 let correoVerificado = null;
-
 formularioDatosRecuperarClave.addEventListener('submit', (e)=>{
     e.preventDefault();
     const inputCorreoRecuperacion = document.getElementById('correo-recuperacion');   
@@ -307,7 +316,6 @@ formularioDatosRecuperarClave.addEventListener('submit', (e)=>{
             }
             const data = await response.json();
             console.log('clave temporal: ', data.claveTemporalUnica);
-
             const formValidarClaveDefecto = document.getElementById('form-verificacion-clave-defecto');
             formValidarClaveDefecto.style.opacity = 1;
 
@@ -326,10 +334,8 @@ formularioDatosRecuperarClave.addEventListener('submit', (e)=>{
                     errorEnInput('clave-defecto');                  
                 }
             });
-
             //se almacena aqui el correo que cambiara su clave de acceso
             correoVerificado = correo;
-
         })
         .catch(err=>{
             console.error('Error en verificacion: ', err.message)
@@ -366,10 +372,8 @@ formularioRegistroNuevaClave.addEventListener('submit', (e)=>{
             return res.json()
         })
         .then(data=>{
-            console.log(data)
-            //AQUI QUE DEBE IR? PORQQUE ASI COMO ESTA PLANTEADO NO HAACE NADA
-                    inputNuevaClave.value = '';
-                    inputConfirmacionNuevaClave.value = ''
+            inputNuevaClave.value = '';
+            inputConfirmacionNuevaClave.value = ''
             limpiarFormNuevaClave();
 
         })
@@ -383,17 +387,15 @@ formularioRegistroNuevaClave.addEventListener('submit', (e)=>{
 function limpiarFormNuevaClave(){
     containerModificacionClave.classList.remove('cambio-clave-visible');
     seccionClaveRecuperacion.classList.remove('cambio-clave-visible');
-    formularioDatosRecuperarClave.style.opacity = 0;
-    contenedorFormularioIngresarUsuario.classList.add('cambio-clave-visible')
-    contenedorFormularioIngresarUsuario.innerHTML = `
-        <h2>Clave Actulizada</h2>
+    formularioIngresarUsuario.classList.add('cambio-clave-visible')
+    formularioIngresarUsuario.innerHTML = `
+        <h2 id="clave-actualizada">Clave Actualizada !!!!</h2>
     `
         setTimeout(()=>{
-            // formularioIngresar.classList.add('cambio-clave-visible');
-            contenedorFormularioIngresarUsuario.remove('cambio-clave-visible')
+            window.location.reload();
         }, 2000)
-   
 }
+
 
 //senales visuales que muestran errores en input icono y msj error
 function errorEnInput(idInput){
@@ -420,27 +422,28 @@ function errorEnInput(idInput){
 }
 
 // mensaje de bienvenida de usuario
-const usuarioGuardado= JSON.parse(sessionStorage.getItem('usuario'));
+// const usuarioGuardado= JSON.parse(sessionStorage.getItem('usuario'));
 const grupoBotonesAbrir = document.getElementById('grupo-botones-ingresar');
 const grupoBotonesCerrar = document.getElementById('grupo-botones-cerrar');
 const headerMsj = document.querySelector('header');
 const msjBienvenidaUsuario = document.createElement('div');
 
+
+grupoBotonesCerrar.addEventListener('click', ()=>{
+    sessionStorage.removeItem('usuario'); //cerrar la sesion, quita el usuario
+    sessionStorage.clear("carrito", JSON.stringify(productosCarrito));
+    window.location.href = "/html/tiendaIndex.html"; //redireccionar a index
+    grupoBotonesCerrar.classList.add('oculto'); //quitar boton de cerrar sesion
+    grupoBotonesAbrir.classList.remove('oculto');   //activar boton de abrir sesion
+    headerMsj.removeChild(msjBienvenidaUsuario);  //elimininar msj de bienvenida
+
+    window.location.reload(); //recarga par evitar choques de eventos
+})
 if(usuarioGuardado){
     msjBienvenidaUsuario.classList.add('msjBienvenidaUsuario');
     msjBienvenidaUsuario.innerHTML =  `<p id="mensajeBienvenida">Bienvenido ${usuarioGuardado.nombre} ${usuarioGuardado.apellido}, estamos listos para atender tu compra  <i class="fa-solid fa-handshake"></i></p>`;
     headerMsj.appendChild(msjBienvenidaUsuario);
     grupoBotonesAbrir.classList.add('oculto');
     grupoBotonesCerrar.classList.remove('oculto');
+
 }
-
-grupoBotonesCerrar.addEventListener('click', ()=>{
-    sessionStorage.clear('usuario'); //cerrar la sesion
-    sessionStorage.clear("carrito", JSON.stringify(productosCarrito));
-    window.location.href = "/html/tiendaIndex.html"; //redireccionar a index
-
-    grupoBotonesCerrar.classList.add('oculto'); //quitar boton de cerrar sesion
-    grupoBotonesAbrir.classList.remove('oculto');   //activar boton de abrir sesion
-    headerMsj.removeChild(msjBienvenidaUsuario);  //elimininar msj de bienvenida
-})
-

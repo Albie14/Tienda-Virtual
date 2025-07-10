@@ -1147,7 +1147,9 @@ input[type=number]::-webkit-outer-spin-button {
 .seccion-ingreso-visible{
     display: flex;
 }
-
+#clave-actuliazada{
+    margin-left: 25%;
+}
 /* mensaje bienvenenida usuario */
 .msjBienvenidaUsuario{
     position: fixed;
