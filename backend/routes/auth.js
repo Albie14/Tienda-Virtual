@@ -143,7 +143,6 @@ router.post('/login', limiteIntentosClave, (req, res)=>{
                 console.warn('Usuario no encontrado:', correo);
                 return res.status(401).json({success: false, error: 'correo_incorrecto'})
             }
-            console.log('usuario encontrado: ', usuario);
             bcrypt.compare(contrasena, usuario.contrasena)
                 .then(isMatch =>{
                     if (!isMatch) {
