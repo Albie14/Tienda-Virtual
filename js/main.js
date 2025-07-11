@@ -9,15 +9,17 @@ import './componentes/contenedor-footer.js';
 import './componentes/contenedor-header.js';
 import './componentes/contenedor-seccion-ingreso.js';
 
+
 //carga informacion desde info-prod.js para cada seccion, ofertas
 window.addEventListener('DOMContentLoaded', function(){
     let rutaPaginaSeccionada  = window.location.pathname.split("/").pop(); //ruta del archivo html a redirigir
-    const contenedorProductos = document.querySelector('.product-content'); //contenedor padre donde se cargara todos los cambios de acuerdo a cada pagona visitada
+    const contenedorProductos = document.querySelector('.product-content'); //contenedor padre donde se cargara todos los cambios de acuerdo a cada pagina visitada
     // arreglos con informacion de productos por pagina
     const productosHome = infoProductos.home;
     const productosOfertas = infoProductos.ofertas;
     const productosDamas = infoProductos.Damas;
     const productosCaballeros = infoProductos.Caballeros;
+
     
     const titulo = document.querySelector('titulo-pagina'); //seccion que modifica el titulo de las paginas
     if(rutaPaginaSeccionada === "ofertas.html"){
@@ -205,7 +207,6 @@ function cerrarContenedor(){
 const btnCerrarSeccionIngreso = document.querySelector('.iconoCerrarSeccionIngreso');
 btnCerrarSeccionIngreso.addEventListener('click', ()=>{
     cerrarContenedor()
-
 })
 
     //Detectar pulsar tecla escape para que cierre la seccion que constiene el formulario
@@ -383,7 +384,6 @@ formularioRegistroNuevaClave.addEventListener('submit', (e)=>{
         })
 })
 
-
 function limpiarFormNuevaClave(){
     containerModificacionClave.classList.remove('cambio-clave-visible');
     seccionClaveRecuperacion.classList.remove('cambio-clave-visible');
@@ -395,7 +395,6 @@ function limpiarFormNuevaClave(){
             window.location.reload();
         }, 2000)
 }
-
 
 //senales visuales que muestran errores en input icono y msj error
 function errorEnInput(idInput){
@@ -422,22 +421,24 @@ function errorEnInput(idInput){
 }
 
 // mensaje de bienvenida de usuario
-// const usuarioGuardado= JSON.parse(sessionStorage.getItem('usuario'));
 const grupoBotonesAbrir = document.getElementById('grupo-botones-ingresar');
 const grupoBotonesCerrar = document.getElementById('grupo-botones-cerrar');
 const headerMsj = document.querySelector('header');
 const msjBienvenidaUsuario = document.createElement('div');
 
+const btnCerrarSesion = document.getElementById('btn-cerrar-sesion');
 
-grupoBotonesCerrar.addEventListener('click', ()=>{
+btnCerrarSesion.addEventListener('click', (e)=>{
+    if(e.target != e.currentTarget){ /* se hace pa evitar que la propagacion de eventos, que este mismo evento se active con otros elementos que tambien puede recibirlos por mal definicion */
+        e.stopPropagation()
+        return
+    }
     sessionStorage.removeItem('usuario'); //cerrar la sesion, quita el usuario
     sessionStorage.clear("carrito", JSON.stringify(productosCarrito));
     window.location.href = "/html/tiendaIndex.html"; //redireccionar a index
     grupoBotonesCerrar.classList.add('oculto'); //quitar boton de cerrar sesion
     grupoBotonesAbrir.classList.remove('oculto');   //activar boton de abrir sesion
     headerMsj.removeChild(msjBienvenidaUsuario);  //elimininar msj de bienvenida
-
-    window.location.reload(); //recarga par evitar choques de eventos
 })
 if(usuarioGuardado){
     msjBienvenidaUsuario.classList.add('msjBienvenidaUsuario');
