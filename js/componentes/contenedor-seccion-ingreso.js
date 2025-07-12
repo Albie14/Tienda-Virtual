@@ -18,6 +18,7 @@ class ContenedorSeccionIngreso extends HTMLElement{
                         <label for="clave-ingresar">Clave Secreta</label>
                         <div class="input-clave-ingresar">
                             <input type="password" autocomplete="current-password" name="clave-ingresar" id="clave-ingresar" class="input-ingresar" placeholder="Clave">
+                            <i class="fa fa-eye icono-toogle-clave secc-usuario" data-input="clave-ingresar"></i>
                             <i id="icon-err-clave-ingresar" class="iconoErrorIngresar fa-solid fa-circle-xmark"></i>
                         </div>
                         <p id="msj-err-clave-ingresar">Clave Errada. Recuerde, que al ingresar mas tres (3) veces la clave errada, su usuario sera bloqueado</p>
@@ -66,6 +67,7 @@ class ContenedorSeccionIngreso extends HTMLElement{
                                 <label for="nueva-clave">Nueva contraseña</label>
                                 <div class="input-clave-ingresar">
                                     <input type="password" autocomplete="current-password" name="nueva-clave" id="nueva-clave" class="input-ingresar" placeholder="Clave">
+                                    <i class="fa fa-eye icono-toogle-clave secc-usuario" data-input="nueva-clave"></i>
                                     <i id="icon-err-nueva-clave" class="iconoError fa-solid fa-circle-xmark"></i>
                                 </div>
                                 <p class="formularioInputError" id="msj-err-nueva-clave">La contraseña debe ser de 4 a 12 digitos</p>
@@ -74,6 +76,7 @@ class ContenedorSeccionIngreso extends HTMLElement{
                                     <label for="confirmacion-nueva-clave">Repetir contraseña</label>
                                     <div class="input-clave-ingresar">
                                         <input type="password" autocomplete="current-password" name="confirmacion-nueva-clave" id="confirmacion-nueva-clave" class="input-ingresar" placeholder="Repetir Clave">
+                                        <i class="fa fa-eye icono-toogle-clave secc-usuario" data-input="confirmacion-nueva-clave"></i>
                                         <i id="icon-err-confirmacion-nueva-clave" class="iconoError fa-solid fa-circle-xmark"></i>
                                     </div>
                                     <p class="formularioInputError" id="msj-err-confirmacion-nueva-clave">Ambas contraseñas deben ser iguales</p>

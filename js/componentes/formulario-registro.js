@@ -75,11 +75,11 @@ class FormularioRegistro extends HTMLElement{
                 </div>
                 
                 <div class="formularioGrupo" id="grupoTerminos">
-                    <div class="indicacionesFormulario">
+                    <div class="indicacionesFormulario div-terminos-condidicones">
                         <label for="terminos-condiciones">
                             <input type="checkbox" name="terminos-condiciones" id="terminos-condiciones">
-                            <span>Acepto todos los <button id="descripcion-terminos">Terminos y Condiciones</button></span>
                         </label>
+                        <span>Acepto todos los <button type="button" id="descripcion-terminos">Terminos y Condiciones</button></span>
                     </div>
                     <p class="formularioInputError">Debe aceptar los terminos y condiciones</p>
                 </div>

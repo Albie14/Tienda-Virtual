@@ -201,7 +201,14 @@ function cerrarContenedor(){
     seccionClaveRecuperacion.classList.remove('cambio-clave-visible');
     formularioIngresarUsuario.classList.add('cambio-clave-visible')
 
+    const correoInput = document.getElementById('correo-ingresar');
+    correoInput.value = '';
+    const claveInput = document.getElementById('clave-ingresar');
+    claveInput.value = '';
+
     document.removeEventListener('keydown', teclaEscape);
+    restablecerIconosOjos();
+
 }
     //Detectarc click en boton cerrar
 const btnCerrarSeccionIngreso = document.querySelector('.iconoCerrarSeccionIngreso');
@@ -219,7 +226,7 @@ function teclaEscape(event){
 //funcion para ingresar usurario
 formularioIngresarUsuario.addEventListener('submit', async(e)=>{
     e.preventDefault();
-    
+
     const correoInput = document.getElementById('correo-ingresar');
     const claveInput = document.getElementById('clave-ingresar');
 
@@ -260,6 +267,7 @@ formularioIngresarUsuario.addEventListener('submit', async(e)=>{
                 apellido: data.apellido,
                 token: data.token                      
             }));
+                restablecerIconosOjos()
                 window.location.href = "/html/tiendaIndex.html";
         }
     }catch(error){
@@ -373,8 +381,10 @@ formularioRegistroNuevaClave.addEventListener('submit', (e)=>{
             return res.json()
         })
         .then(data=>{
+
             inputNuevaClave.value = '';
-            inputConfirmacionNuevaClave.value = ''
+            inputConfirmacionNuevaClave.value = '';
+            restablecerIconosOjos()
             limpiarFormNuevaClave();
 
         })
@@ -419,6 +429,33 @@ function errorEnInput(idInput){
             }, 3000)
     }
 }
+//mostrar y ocultar clave
+const botonesOjoClave = document.querySelectorAll('.icono-toogle-clave');
+botonesOjoClave.forEach(ojo=>{
+    ojo.addEventListener('click', ()=>{
+        const inputID = ojo.dataset.input; /*toma el ID de cada input enlazados con "data-input=" provenient del id de input*/
+        const input = document.getElementById(inputID) /*asigna el id al input seleccionado a traves del data input*/
+        const typeInput = input.getAttribute('type') /*reconoce el type (password o text) del input seleccionado*/
+        
+        input.setAttribute('type', typeInput === 'password' ? 'text' : 'password');
+        ojo.classList.toggle('fa-eye');
+        ojo.classList.toggle('fa-eye-slash');
+        ojo.classList.toggle('mostrar-clave');
+    });
+})
+
+function restablecerIconosOjos (type){
+    const input = type
+    botonesOjoClave.forEach(ojo=>{
+        document.querySelectorAll('[data-input]').forEach(icono => {
+        const input = document.getElementById(icono.dataset.input);
+            if (input) input.type = 'password';
+        }); 
+        ojo.classList.remove('fa-eye-slash');
+        ojo.classList.add('fa-eye')
+        ojo.classList.remove('mostrar-clave');
+        })
+}
 
 // mensaje de bienvenida de usuario
 const grupoBotonesAbrir = document.getElementById('grupo-botones-ingresar');
@@ -448,3 +485,4 @@ if(usuarioGuardado){
     grupoBotonesCerrar.classList.remove('oculto');
 
 }
+

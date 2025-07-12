@@ -802,6 +802,14 @@ th, td{
     border: none;
     outline: none;
 }
+.div-terminos-condidicones{
+    display: flex;
+    justify-content: space-around;
+}
+.div-terminos-condidicones span{
+    width:96%;
+}
+
 .input-password{
     position: relative;
 }
@@ -835,10 +843,11 @@ input[type="password"]::-webkit-credentials-auto-fill-button {
     transition: ease all 0.2s;
 
 }
-.grupo-checkbox{
-     border: 1px solid red;
-     display: ;
+/* clase creada en toogle ojo para cambiar posicion en seccion usuario */
+.secc-usuario{
+    right: 43%;
 }
+
 #grupoTerminos{
     margin-top: 30px;
     grid-column: 1/3;
