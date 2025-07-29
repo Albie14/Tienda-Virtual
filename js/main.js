@@ -47,7 +47,10 @@ window.addEventListener('DOMContentLoaded', function(){
             item.data = producto;
             contenedorProductos.appendChild(item)
         });
-    }else{
+    }else if(rutaPaginaSeccionada === "registro.html"){
+
+    }
+    else{
         titulo.setAttribute('texto', 'Temporada Invierno 2025');
         productosHome.forEach(producto=>{
             const item = document.createElement('producto-item');   

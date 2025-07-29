@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');//importa la ruta desde donde viene las autorizaciones
 const app = express();
