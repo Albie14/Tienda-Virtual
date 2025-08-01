@@ -1,9 +1,11 @@
 class FormularioRegistro extends HTMLElement{
     constructor(){
         super();
+    }
+    connectedCallback(){
         this.innerHTML = `
             <div class="seccion-registro">
-            <form action="submit" class="formulario" id="formulario">
+            <form class="formulario" id="formulario">
                     
                 <div class="formularioGrupo" id="grupoUsuario">
                     <div class="indicacionesFormulario">
@@ -95,8 +97,6 @@ class FormularioRegistro extends HTMLElement{
 
         </div>
         `;
-    }
-    connectedCallback(){
         this.querySelector('#formulario').addEventListener('submit', (e)=>{
             e.preventDefault();
             const datosFormulario ={
@@ -108,7 +108,7 @@ class FormularioRegistro extends HTMLElement{
                 telefono: this.querySelector('input[name="telefono"]').value,
                 terminos: this.querySelector('input[name="terminos-condiciones"]').checked
             };
-            this.dispatchEvent(new CustomEvent('registro-intentado', {
+            this.dispatchEvent(new CustomEvent('validacion-formulario', {
                 detail: datosFormulario,
                 bubbles: true,
                 composed: true

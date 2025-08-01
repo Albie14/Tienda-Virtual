@@ -1,5 +1,6 @@
-import './componentes/formulario-registro.js';
-
+// import './componentes/formulario-registro.js';
+window.addEventListener('DOMContentLoaded', ()=>{
+    
 const expresionesPermitidadForm = {
 	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
 	password: /^.{4,12}$/, // 4 a 12 digitos.
@@ -7,8 +8,8 @@ const expresionesPermitidadForm = {
 	telefono: /^\d{7,14}$/ // 7 a 14 numeros.
 };
 
-const formulario = document.getElementById('formulario');
-const btnEnviarFormulario = document.querySelector('.formularioBtn');
+const formulario = document.querySelector('#formulario-registro');
+
 
 async function validacionFormulario(e){
     e.preventDefault();
@@ -68,16 +69,22 @@ async function validacionFormulario(e){
         formularioValido = false
     }
     if(!terminos.checked){
-        textoError[6].style.opacity = 1;
+        console.log('no check')
+        const msjError = document.getElementById('msjErrorTerminos');
+        msjError.style.opacity = 1;
         mensajeErrorFormulario.style.opacity= 1;
+
             setTimeout(()=>{
-                textoError[6].style.opacity = 0;
+                msjError.style.opacity = 0;
                 mensajeErrorFormulario.style.opacity= 0;
             }, 2000)
         formularioValido = false;
+
     }
 
+    console.log(formularioValido);
     if(formularioValido){
+        console.log(formularioValido);
         // data que se envia al servidor para almacenar
         const data = {
             nombre: nombre.value,
@@ -114,13 +121,14 @@ async function validacionFormulario(e){
     }
 }
 
-//funcion de verificacion de inputs de formularios
+// funcion de verificacion de inputs de formularios
 
 function mostrarMensajesError(input, icono, texto, mensaje){
     input.classList.add('errorEnDatoFormulario');
     icono.style.opacity = 1;
     texto.style.opacity = 1;
     mensaje.style.opacity = 1;
+
         setTimeout(()=>{
             input.classList.remove('errorEnDatoFormulario');
             icono.style.opacity = 0;
@@ -129,7 +137,7 @@ function mostrarMensajesError(input, icono, texto, mensaje){
         }, 2000)
 }   
 
-//verificacion de correo registrado
+// verificacion de correo registrado
 async function correoConRegistro(correo) {
     try{
         const response =  await fetch(`http://localhost:3001/api/auth/check-email?correo=${encodeURIComponent(correo)}`);
@@ -148,17 +156,18 @@ formulario.addEventListener('submit', (e)=>{
     validacionFormulario(e);
 });
 
-//mostrar y ocultar clave
-const botonesOjoClave = document.querySelectorAll('.icono-toogle-clave');
-botonesOjoClave.forEach(ojo=>{
-    ojo.addEventListener('click', ()=>{
-        const inputID = ojo.dataset.input; /*toma el ID de cada input enlazados con "data-input=" provenient del id de input*/
-        const input = document.getElementById(inputID) /*asigna el id al input seleccionado a traves del data input*/
-        const typeInput = input.getAttribute('type') /*reconoce el type (password o text) del input seleccionado*/
-        
-        input.setAttribute('type', typeInput === 'password' ? 'text' : 'password');
-        ojo.classList.toggle('fa-eye');
-        ojo.classList.toggle('fa-eye-slash');
-        ojo.classList.toggle('mostrar-clave');
-    });
+    //mostrar y ocultar clave
+    const botonesOjoClave = document.querySelectorAll('.icono-toogle-clave-registro');
+    botonesOjoClave.forEach(ojo=>{
+        ojo.addEventListener('click', ()=>{
+            const inputID = ojo.dataset.input; /*toma el ID de cada input enlazados con "data-input=" provenient del id de input*/
+            const input = document.getElementById(inputID) /*asigna el id al input seleccionado a traves del data input*/
+            const typeInput = input.getAttribute('type') /*reconoce el type (password o text) del input seleccionado*/
+            
+            input.setAttribute('type', typeInput === 'password' ? 'text' : 'password');
+            ojo.classList.toggle('fa-eye');
+            ojo.classList.toggle('fa-eye-slash');
+            ojo.classList.toggle('mostrar-clave');
+            });
+        })
 })

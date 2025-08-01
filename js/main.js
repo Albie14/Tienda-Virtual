@@ -47,7 +47,10 @@ window.addEventListener('DOMContentLoaded', function(){
             item.data = producto;
             contenedorProductos.appendChild(item)
         });
-    }else{
+    }else if(rutaPaginaSeccionada === "registro.html"){
+        
+    }
+    else{
         titulo.setAttribute('texto', 'Temporada Invierno 2025');
         productosHome.forEach(producto=>{
             const item = document.createElement('producto-item');   
@@ -84,11 +87,11 @@ function cargarEventListener() {
 
 function comprarElemento(e) {
     e.preventDefault();
-    if(!usuarioGuardado){
+    if (e.target.classList.contains('agregar-carrito')) {
+        if(!usuarioGuardado){
         alert ('debe ingresar usuario y clave')
         return
     }
-    if (e.target.classList.contains('agregar-carrito')) {
         const elemento = e.target.parentElement.parentElement;
         leerDatosElemento(elemento);
     }

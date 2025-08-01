@@ -10,6 +10,7 @@ const rateLimit = require("express-rate-limit");//para poner limites de intentos
 router.post('/register', async(req, res)=>{
     try {
         const { nombre, apellido, correo, telefono, contrasena, terminos } = req.body;
+        console.log(req.body)
         
         if (!nombre || !apellido || !correo || !telefono || !contrasena || terminos) {
             return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
