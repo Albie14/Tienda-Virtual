@@ -6,7 +6,6 @@ class FormularioRegistro extends HTMLElement{
         this.innerHTML = `
             <div class="seccion-registro">
             <form class="formulario" id="formulario">
-                    
                 <div class="formularioGrupo" id="grupoUsuario">
                     <div class="indicacionesFormulario">
                         <label for="nombre" class="formularioLabel">Nombre</label>
@@ -106,7 +105,7 @@ class FormularioRegistro extends HTMLElement{
                 clave2: this.querySelector('input[name="password2"]').value,
                 correo: this.querySelector('input[name="correo"]').value,
                 telefono: this.querySelector('input[name="telefono"]').value,
-                terminos: this.querySelector('input[name="terminos-condiciones"]').checked
+                terminos: this.querySelector('input[name="terminos-condiciones"]')
             };
             this.dispatchEvent(new CustomEvent('validacion-formulario', {
                 detail: datosFormulario,

@@ -7,20 +7,20 @@ const dataBase = require('./database');
 const rateLimit = require("express-rate-limit");//para poner limites de intentos a ingresar la clave
 
 //Registro usuario en SQLite
+
 router.post('/register', async(req, res)=>{
     try {
         const { nombre, apellido, correo, telefono, contrasena, terminos } = req.body;
-        console.log(req.body)
         
-        if (!nombre || !apellido || !correo || !telefono || !contrasena || terminos) {
+        if (!nombre || !apellido || !correo || !telefono || !contrasena || !terminos) {
             return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
         }
 
         const clave = await bcrypt.hash(contrasena, 10);
 
         dataBase.run
-        (`INSERT INTO users(nombre, apellido, correo, telefono, contrasena) VALUES (?, ?, ?, ?, ?, ?)`,
-            [nombre, apellido, correo, telefono, clave],
+        (`INSERT INTO users(nombre, apellido, correo, telefono, contrasena, terminos) VALUES (?, ?, ?, ?, ?, ?)`,
+            [nombre, apellido, correo, telefono, clave, terminos],
             function(err){
                 if(err){
                     if(err.message.includes('UNIQUE constraint failed: users.correo')){
@@ -37,7 +37,7 @@ router.post('/register', async(req, res)=>{
                 });
         });
     }catch(error){
-        console.error('❌ Error inesperado:', error.message);
+        console.error('❌ Error inesperado:', error);
         res.status(500).json({ error: 'Error en el servidor' });
     }
 })
@@ -58,11 +58,11 @@ router.get('/check-email', (req, res)=>{
                 console.log('Error consultando correo:', err.message);
                 return res.status(500).json({error: 'Error en el servidor'})
             }
-            if(row){
-                console.log('Correo ya registrado:', correo);
-            }else{
-                console.log('Correo sin usar por otro usuario:', correo);
-            }
+            // if(row){
+            //     console.log('Correo ya registrado:', correo);
+            // }else{
+            //     console.log('Correo sin usar por otro usuario:', correo);
+            // }
             return res.status(200).json({exists: !!row})
         })
 
