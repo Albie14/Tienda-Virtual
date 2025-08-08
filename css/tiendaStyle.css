@@ -751,9 +751,13 @@ th, td{
 
 /* formulario */
 .seccion-registro{
-    padding-top: 200px;
+    padding: 20px 0;
     display: flex;
-    justify-content: center;    
+    flex-direction: column;
+    align-items: center;   
+    justify-content: flex-start;
+    border: 1px solid red; 
+    position: relative;
 }
 .formulario{
     width: 80%;
@@ -767,6 +771,7 @@ th, td{
     border-radius: 10px;
     padding: 2% 1%;
     margin-bottom: 15px;
+    
 }
 
 .formularioGrupo{
@@ -810,6 +815,22 @@ th, td{
     width:96%;
 }
 
+#btnEliminarCuenta{
+    position: absolute;
+    bottom: 0%;
+    left: 10%;
+    background: none;
+    border: none;
+    color: rgb(71, 93, 237);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#btnEliminarCuenta:hover{
+    text-shadow: 0 0 5px;
+    transition: all ease 0.2s;
+
+}             
 .input-password{
     position: relative;
 }
@@ -884,7 +905,7 @@ input[type="checkbox"]:checked{
     transition: all ease 0.2s;
 }
 
-.formularioInputError, .usuarioRegistradoError{
+.formularioInputError, .usuarioRegistradoError, .formularioInputErrorIngresar{
     font-size: 10px;
     color: red;
     opacity: 0;
