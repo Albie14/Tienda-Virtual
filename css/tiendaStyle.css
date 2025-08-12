@@ -749,17 +749,17 @@ th, td{
     padding-top: 200px;
 }
 
-/* formulario */
-.seccion-registro{
+/* formularios registro y eliminar cuenta */
+.seccion-registro,.seccion-eliminar-cuenta{
     padding: 20px 0;
     display: flex;
     flex-direction: column;
     align-items: center;   
     justify-content: flex-start;
-    border: 1px solid red; 
     position: relative;
 }
-.formulario{
+
+.formulario{ /*form registro*/
     width: 80%;
     min-height: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -771,7 +771,89 @@ th, td{
     border-radius: 10px;
     padding: 2% 1%;
     margin-bottom: 15px;
-    
+}
+.datos-formularios-eliminar-cuenta{/*secciones form eliminar*/
+width: 80%;
+min-height: 400px;
+box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+   
+    #formulario-eliminar-cuenta, #confirmacion-clave-eliminar-cuenta{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    .formularioGrupo{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px 5px;
+        border-top: 1px solid rgba(0, 0, 0, 0.5);
+        border-left: 1px solid rgba(0, 0, 0, 0.5);
+        border-right: 1px solid rgba(0, 0, 0, 0.5);
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        transition: all 0.5s ease;
+        
+            #btnCodigoEliminarCuenta, #btnConfirmarEliminarCuenta{
+                height: 100%;
+            }
+            .textErrorEliminarCuenta{
+                font-size: 10px;
+                color: red;
+                opacity: 0;
+            }
+            .iconoErrorEliminarCuenta{
+                color: red;
+                opacity: 0;
+            }
+            .msjExitoEliminarCuenta{
+                color: red;
+                font-size: 12px;
+                opacity: 0;
+            }
+        }
+    }
+    .formularioGrupoInput{
+        width: 98%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        input{
+            width: 50%;
+            height: 30px;
+        } 
+    }
+    .texto-eliminar-cuenta{
+        width: 100%;
+        max-width: 100%;
+        height: 98%;
+        resize: none;
+        padding: 5px;
+        font-family: inherit;
+        font-size: 0.6 rem;
+        outline: none;
+        transition: border 0.2s ease;
+        width: 80%;
+        border-radius: 4px;
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8), -1px -1px 2px rgba(0, 0, 0, 0.8);
+        border: none;
+        &:focus{
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8), -2px -2px 2px rgba(0, 0, 0, 0.8);
+            transition: all 0.2s ease;
+        }
+    }
+    #formulario-eliminar-cuenta > .formularioGrupo:nth-of-type(3), 
+    #confirmacion-clave-eliminar-cuenta > .formularioGrupo:nth-of-type(2) {
+        border: none;    
+    }
+  
 }
 
 .formularioGrupo{
@@ -1111,7 +1193,7 @@ al correo y el registro de la nueva clave
     transition: all ease .2s;
 }
 
-.titulo-recuperar{
+.titulo-recuperar, .titulo-eliminar-cuenta{
     height: 10%;
     text-align: center;
 }

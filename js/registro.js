@@ -1,4 +1,3 @@
-// import './componentes/formulario-registro.js';
 window.addEventListener('DOMContentLoaded', ()=>{
 
     const expresionesPermitidadForm = {
@@ -7,9 +6,9 @@ window.addEventListener('DOMContentLoaded', ()=>{
         correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
         telefono: /^\d{7,14}$/ // 7 a 14 numeros.
     };
-       
 
     const formulario = document.querySelector('#formulario-registro');
+
     async function validacionFormulario(e){
         e.preventDefault();
         
