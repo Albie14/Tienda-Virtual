@@ -22,12 +22,6 @@ const dataBase = new sqlite3.Database('./database.sqlite', (err) => {
                 console.error('❌ Error al crear la tabla users:', err.message);
             } else {
                 console.log('✔️ Tabla users creada correctamente');
-
-                // Mostrar estructura (opcional)
-                // dataBase.all("PRAGMA table_info(users)", (err, rows) => {
-                //     if (err) console.error(err);
-                //     else console.table(rows);
-                // });
             }
         });
     }

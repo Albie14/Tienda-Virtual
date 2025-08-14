@@ -196,6 +196,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
     
     const formularioVerificarCorreoEliminarCuenta = document.getElementById('formulario-eliminar-cuenta');
     let claveParaConfirmacionEliminarCuenta = 0;
+    let correASerEliminado = '';
+
     formularioVerificarCorreoEliminarCuenta.addEventListener('submit', async (e)=>{
         e.preventDefault();
 
@@ -241,15 +243,21 @@ window.addEventListener('DOMContentLoaded', ()=>{
                 claveParaConfirmacionEliminarCuenta = data.claveTemporalUnica;
                 console.log('clave temporal para eliminar cuenta: ', data.claveTemporalUnica);
 
-                muestraDeClave(claveParaConfirmacionEliminarCuenta)
+                datosAExteriorizar(claveParaConfirmacionEliminarCuenta, correo);
+                const msjClaveEnviada = document.getElementById('msjClaveEnviadaACorreo');
+                msjClaveEnviada.style.opacity = 1;
+                    setTimeout(()=>{
+                        msjClaveEnviada.style.opacity = 0;
+                    }, 5000)
             }catch(error){
                 console.log('Error en red o servidor: ', error)
             }
         }
     })
 
-    function muestraDeClave(clave){
+    function datosAExteriorizar(clave, correo){
         claveParaConfirmacionEliminarCuenta = clave;
+        correASerEliminado = correo;
     }
 
     const formularioVerifiacionClaveEliminarCuenta = document.getElementById('confirmacion-clave-eliminar-cuenta');
@@ -274,7 +282,31 @@ window.addEventListener('DOMContentLoaded', ()=>{
             return
         }
         if(formularioValido){
-            console.log('AL FIN')
+            console.log('correo a eliminar: ', correASerEliminado)
+            const correo = correASerEliminado;
+            try{
+                const response = await fetch ('http://localhost:3001/api/auth/delete-user', {
+                    method: 'POST',
+                    headers:{
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({correo})
+                })
+                if(!response.ok){
+                    const error = await response.json();
+                    console.log('error en servidor: ', error);
+                    return
+                }else{
+                    alert('usuario eliminado')
+                }
+
+            const msjCuentaEliminada = document.getElementById('msjCuentaEliminada');
+
+            }catch{
+                console.error('Error de red o fetch:', err);
+                alert('No se pudo conectar con el servidor.');
+            }
+
         }
     })
 

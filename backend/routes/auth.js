@@ -1,11 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const sqlite3 = require('sqlite3').verbose();
 const router = express.Router();
 const dataBase = require('./database');
 const rateLimit = require("express-rate-limit");//para poner limites de intentos a ingresar la clave
-
+console.log('router delete-user cargado')
 //Registro usuario en SQLite
 
 router.post('/register', async(req, res)=>{
@@ -75,6 +74,7 @@ router.get('/check-email', (req, res)=>{
 const clavesTemporales = {}; /* simula la memoria de la clave por defecto */
 
 router.post('/verificacion-email', (req, res)=>{
+    console.log('ENDPOINT alcanzado')
     try{
         const {correo} = req.body;
         dataBase.get(`SELECT * FROM users WHERE correo = ?`, [correo], (err, row)=>{
@@ -186,14 +186,26 @@ router.put('/update/:id', async(req, res)=>{
     });
 });
 
-// Eliminar usuario en SQLite
-router.delete('/delete/:id', async (req, res)=>{
-    dataBase.run(`DELETE FROM users WHERE id = ?`, [req.params.id], function(err){
-        if(err){
-            return res.status(500).json({error: 'Error al eliminar usuario' });
-        }
-        res.json({message: 'Usuario Eliminado'});
-    });
-});
+// Eliminar usuario en base de datos
+router.post('/delete-user', async(req, res)=>{
+    const {correo} = req.body;
 
+        if(!correo){
+            console.warn('correo invalido')
+            return res.status(400).json({error: 'el correo es obligatorio para eliminar usuario'})
+        }        
+        dataBase.run('DELETE FROM users WHERE correo = ?', [correo], function(err){
+            console.log('Ejecutando DELTE para correo: ', correo)
+            if(err){
+                console.error('Error al eliminar usuario: ', err.message);
+                return res.status(500).json({error: 'Error al eliminar el usuario'})
+            }
+            if(this.changes == 0){
+                console.warn('no se encontro usuario con ese correo: ', correo);
+                return res.status(404).json({error: 'usuario no encontrado'})
+            }
+            console.log('usuario eliminado con correo: ', correo);
+            return res.json({message: 'usuario eliminado exitosamente'})
+        })
+})
 module.exports = router;
