@@ -297,16 +297,19 @@ window.addEventListener('DOMContentLoaded', ()=>{
                     console.log('error en servidor: ', error);
                     return
                 }else{
-                    alert('usuario eliminado')
+                    const msjCuentaEliminada = document.getElementById('msjCuentaEliminada');
+                    msjCuentaEliminada.style.opacity = 1;
+                        setTimeout(()=>{
+                            msjCuentaEliminada.style.opacity = 0;
+                            formularioVerifiacionClaveEliminarCuenta.reset();
+                            formularioVerificarCorreoEliminarCuenta.reset();
+                            window.location.href = "/html/tiendaIndex.html";
+                        }, 3000); 
                 }
-
-            const msjCuentaEliminada = document.getElementById('msjCuentaEliminada');
-
             }catch{
                 console.error('Error de red o fetch:', err);
                 alert('No se pudo conectar con el servidor.');
             }
-
         }
     })
 
