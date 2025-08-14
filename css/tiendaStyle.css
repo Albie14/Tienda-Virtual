@@ -780,7 +780,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: space-between;
-   
+
     #formulario-eliminar-cuenta, #confirmacion-clave-eliminar-cuenta{
     width: 80%;
     display: flex;

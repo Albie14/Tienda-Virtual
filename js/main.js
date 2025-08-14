@@ -48,7 +48,13 @@ window.addEventListener('DOMContentLoaded', function(){
             contenedorProductos.appendChild(item)
         });
     }else if(rutaPaginaSeccionada === "registro.html"){
-        
+        //esto permite que al cargarse la pagina lo primeramente visible sea la seccion de form, un scroll por defecto a esa altura de la pantalla
+        //el primer valor (0), para desplazamiento horizontal, el segundo despl vertical, el smooth es para que sea animado el scroll
+        window.scrollTo({
+            left: 0,
+            top: window.innerHeight * 1.1, 
+            behavior: 'smooth'
+        });
     }
     else{
         titulo.setAttribute('texto', 'Temporada Invierno 2025');
