@@ -20,7 +20,7 @@ class FormularioEliminarCuenta extends HTMLElement{
                                 <input type="email" autocomplete="email" class="formularioInput" name="correo-eliminar-cuenta" id="correo-eliminar-cuenta" placeholder="correo@correo.com">
                                 <i class="iconoErrorEliminarCuenta fa-solid fa-circle-xmark"></i>
                             </div>
-                            <p class="textErrorEliminarCuenta">correo electronico no encontrado</p>
+                            <p class="textErrorEliminarCuenta">correo electronico no encontrado / Campo requerido</p>
                         </div>
                         <div class="formularioGrupo">
                             <button type="submit" class="formularioBtn" id="btnCodigoEliminarCuenta">Enviar codigo</button>
@@ -34,7 +34,7 @@ class FormularioEliminarCuenta extends HTMLElement{
                                 <input type="number" autocomplete="one-time-code" class="formularioInput" name="clave-eliminar-cuenta" id="clave-eliminar-cuenta" placeholder="12345">
                                 <i class="iconoErrorEliminarCuenta fa-solid fa-circle-xmark"></i>
                             </div>
-                            <p class="textErrorEliminarCuenta">correo electronico no encontrado</p>
+                            <p class="textErrorEliminarCuenta">Dato errado y/o vacio</p>
                         </div>
                         <div class="formularioGrupo">
                             <button type="submit" class="formularioBtn" id="btnConfirmarEliminarCuenta">Eliminar Cuenta</button>
@@ -46,4 +46,3 @@ class FormularioEliminarCuenta extends HTMLElement{
     }
 }
 customElements.define('formulario-eliminar-cuenta', FormularioEliminarCuenta);
-iconoError

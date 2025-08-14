@@ -55,7 +55,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
             const verificacionCorreo = await correoConRegistro(correo.value);
 
             if(verificacionCorreo){
-                console.log('correo repetido')
                 const msjErrorCorreoRegistrado = document.querySelector('.usuarioRegistradoError');
                 msjErrorCorreoRegistrado.style.opacity = 1;
                     setTimeout(()=>{
@@ -184,4 +183,111 @@ window.addEventListener('DOMContentLoaded', ()=>{
             });
         })
 
+    const btnAbrirSeccionEliminarCuenta = document.getElementById('btnEliminarCuenta');
+    const seccionRegistroCuenta = document.querySelector('.seccion-registro')
+    const componenteSeccionEliminarCuenta = document.querySelector('formulario-eliminar-cuenta');
+
+    //cambiar los formularios disponibles, se oculta registrar y se muestran los necesarios para eliminar cuenta
+    btnAbrirSeccionEliminarCuenta.addEventListener('click', ()=>{
+        seccionRegistroCuenta.classList.add('oculto');
+        componenteSeccionEliminarCuenta.classList.remove('oculto')
+    })
+    // formulario para validar correo, que este se encuentre en la base de datos y eliminar la cuenta
+    
+    const formularioVerificarCorreoEliminarCuenta = document.getElementById('formulario-eliminar-cuenta');
+    let claveParaConfirmacionEliminarCuenta = 0;
+    formularioVerificarCorreoEliminarCuenta.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+
+        const detalleEliminarcuenta = document.querySelector('.texto-eliminar-cuenta')
+        const correoEliminarCuenta = document.querySelector('#correo-eliminar-cuenta');
+
+        const iconosErrorEliminarCuenta = document.querySelectorAll('.iconoErrorEliminarCuenta');
+        const textosErrorEliminarCuenta = document.querySelectorAll('.textErrorEliminarCuenta')
+    
+        let formularioValido = true;
+
+        if(detalleEliminarcuenta.value == ''){
+            errorDatoEliminarCuenta(detalleEliminarcuenta, iconosErrorEliminarCuenta[0], textosErrorEliminarCuenta[0])
+            formularioValido = false;
+        }
+        if(correoEliminarCuenta.value == '' || !expresionesPermitidadForm.correo.test(correoEliminarCuenta.value)){
+            errorDatoEliminarCuenta(correoEliminarCuenta, iconosErrorEliminarCuenta[1], textosErrorEliminarCuenta[1])
+            formularioValido = false
+        }else {
+            const verificacionCorreo = await correoConRegistro(correoEliminarCuenta.value);
+            if(!verificacionCorreo){
+            errorDatoEliminarCuenta(correoEliminarCuenta, iconosErrorEliminarCuenta[1], textosErrorEliminarCuenta[1])
+            formularioValido = false
+        }}
+
+        if(formularioValido){
+            const correo = correoEliminarCuenta.value.trim()
+
+            try{
+                const response = await fetch('http://localhost:3001/api/auth/verificacion-email', {
+                    method: 'POST',
+                    headers:{
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({correo})
+                })
+                if(!response.ok){
+                    const errorData = await response.json();
+                    console.log('Error en el servidor: ', errorData);
+                    return;
+                }
+                const data = await response.json();
+                claveParaConfirmacionEliminarCuenta = data.claveTemporalUnica;
+                console.log('clave temporal para eliminar cuenta: ', data.claveTemporalUnica);
+
+                muestraDeClave(claveParaConfirmacionEliminarCuenta)
+            }catch(error){
+                console.log('Error en red o servidor: ', error)
+            }
+        }
+    })
+
+    function muestraDeClave(clave){
+        claveParaConfirmacionEliminarCuenta = clave;
+    }
+
+    const formularioVerifiacionClaveEliminarCuenta = document.getElementById('confirmacion-clave-eliminar-cuenta');
+    formularioVerifiacionClaveEliminarCuenta.addEventListener('submit', async (e)=>{
+        e.preventDefault()
+
+        const iconosErrorEliminarCuenta = document.querySelectorAll('.iconoErrorEliminarCuenta');
+        const textosErrorEliminarCuenta = document.querySelectorAll('.textErrorEliminarCuenta')
+
+        let formularioValido = true;
+
+        const inputConfirmacionClaveEliminarCuenta = document.getElementById('clave-eliminar-cuenta');
+
+        if(inputConfirmacionClaveEliminarCuenta.value.trim() == '' || inputConfirmacionClaveEliminarCuenta.value == 0){
+            errorDatoEliminarCuenta(inputConfirmacionClaveEliminarCuenta, iconosErrorEliminarCuenta[2], textosErrorEliminarCuenta[2])
+            formularioValido = false
+            return
+        }
+        if(parseInt(inputConfirmacionClaveEliminarCuenta.value) != claveParaConfirmacionEliminarCuenta ){
+            errorDatoEliminarCuenta(inputConfirmacionClaveEliminarCuenta, iconosErrorEliminarCuenta[2], textosErrorEliminarCuenta[2])
+            formularioValido = false
+            return
+        }
+        if(formularioValido){
+            console.log('AL FIN')
+        }
+    })
+
+    function errorDatoEliminarCuenta (input, icono, texto){
+        input.classList.add('errorEnDatoFormulario');
+        icono.style.opacity = 1;
+        texto.style.opacity = 1;
+            setTimeout(()=>{
+                input.classList.remove('errorEnDatoFormulario');
+                icono.style.opacity = 0;
+                texto.style.opacity = 0;
+            }, 2000)
+    }
+
+    
 })
