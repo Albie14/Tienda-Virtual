@@ -298,13 +298,14 @@ window.addEventListener('DOMContentLoaded', ()=>{
                     return
                 }else{
                     const msjCuentaEliminada = document.getElementById('msjCuentaEliminada');
+                    alert('usuario Eliminado, debe volver a registrarse')
                     msjCuentaEliminada.style.opacity = 1;
                         setTimeout(()=>{
                             msjCuentaEliminada.style.opacity = 0;
                             formularioVerifiacionClaveEliminarCuenta.reset();
                             formularioVerificarCorreoEliminarCuenta.reset();
                             window.location.href = "/html/tiendaIndex.html";
-                        }, 3000); 
+                        }, 2000); 
                 }
             }catch{
                 console.error('Error de red o fetch:', err);
